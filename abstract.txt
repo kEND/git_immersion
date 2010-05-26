@@ -1,0 +1,20 @@
+Git Immersion
+-------------
+
+Short Description
+-----------------
+
+Git is a wonderful distributed source control tool with a reputation for being hard to learn. This workshop will sidestep the hard to learn reputation by explaining git in a an easy to learn, bottom-up approach; and then reinforcing that lesson by immersing the attendee into a number of practical hands-on applications of git.  This workshop is appropriate for a complete newcomer to git, or for those with some experience who would like a deeper understanding.
+
+Long Description
+----------------
+
+Few tools have changed the way I work as much as the git source control system.  Its distributed nature and lightweight branching and merging have made it possible for me to massage my code base in ways I couldn't have even imagined before using git.
+
+However, git has a reputation for being hard to learn.  Because of its rather different approach to source control issues, many of the techniques we have learned in other source control systems do not translate cleanly when using git.
+
+In this workshop we take two approaches to dealing with the whole "fear of git" issue.  First, we explain git from first principles by using an easy to understand, step by step model that leaves nothing to fear.  Second, we actually use git in more or less real situations, and become familiar with the tool by using it.
+
+So, whether you are a complete newcomer to git, or have been using it a while but would like a deeper understanding, this workshop is for you.
+
+Attendees of this workshop should bring a wifi-enabled laptop with git installed and ready to go.
