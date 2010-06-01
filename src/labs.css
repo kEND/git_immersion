@@ -1,0 +1,19 @@
+.filename {
+    font-weight: bold;    
+    margin-left: 2em;
+    margin-bottom: 0em;
+}
+.file {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 0em;
+    padding: 0.5em 1em;
+    border: 1px solid black;
+    width: 90%;
+}
+.instructions {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 0em;
+    padding: 0.5em 1em;
+}

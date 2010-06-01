@@ -1,0 +1,41 @@
+---------------------------------------------------------------------- 
+h1. Lab N: Setup
+
+h2. Run the following commands
+
+pre(instructions). git config --global user.name "Your Name"
+git config -- user.email "your_email@whatever.com"
+ 
+Also, for Unix/Mac users:
+
+pre(instructions). git config --global core.autocrlf input
+git config --global core.safecrlf true
+
+And for Windows users:
+
+pre(instructions). git config --global core.autocrlf true
+git config --global core.safecrlf true
+
+---------------------------------------------------------------------- 
+h1. Lab N: Create a Project
+
+h2. In an empty directory create the following file:
+
+p(filename). File: hello.rb
+
+pre(file). puts "Hello, World"
+
+h2. Run
+
+pre(instructions). git init
+git add hello.rb
+git commit -m 'First Commit'
+
+---------------------------------------------------------------------- 
+h1. Lab N: Recording Changes
+
+---------------------------------------------------------------------- 
+h1. Lab N: Getting Old Versions
+
+---------------------------------------------------------------------- 
+h1. Lab N: More Stuff
