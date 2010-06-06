@@ -33,12 +33,12 @@ module Labs
     labs = []
     io.each do |line|
       next if line =~ /^\s*-+\s*$/
-      if line =~ /^h1. Lab N:\s*(.+)$/
+      if line =~ /^h1.\s+(.+)$/
         lab_number += 1
         lab = Lab.new($1, lab_number)
         lab.prev = labs.last
         labs.last.next = lab if labs.last
-        lab.lines << line.sub(/N/, lab_number.to_s)
+        lab.lines << line.sub(/h1\./, "h1. Lab #{lab_number}: ")
         labs << lab
       else
         labs[lab_number] << line unless lab_number < 0

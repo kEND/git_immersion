@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------- 
-h1. Lab N: Setup
+h1. Setup
 
 h2. Run the following commands
 
@@ -17,7 +17,7 @@ pre(instructions). git config --global core.autocrlf true
 git config --global core.safecrlf true
 
 ---------------------------------------------------------------------- 
-h1. Lab N: Create a Project
+h1. Create a Project
 
 h2. In an empty directory create the following file:
 
@@ -32,10 +32,10 @@ git add hello.rb
 git commit -m 'First Commit'
 
 ---------------------------------------------------------------------- 
-h1. Lab N: Recording Changes
+h1. Recording Changes
 
 ---------------------------------------------------------------------- 
-h1. Lab N: Getting Old Versions
+h1. Getting Old Versions
 
 ---------------------------------------------------------------------- 
-h1. Lab N: More Stuff
+h1. More Stuff
