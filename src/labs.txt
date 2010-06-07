@@ -74,6 +74,8 @@ p. So commit now and check the status.
 Execute:
 git commit
 
+p. Using your editor, enter the commit comment "Using ARGV"
+
 p. Finally check the status again.  It should say "nothing to commit
 (working directory clean)".
 
@@ -214,7 +216,7 @@ Execute:
 git checkout master
 cat hello.rb
 
-'master' is the name of the default branch.  By checking out a branch
+p. 'master' is the name of the default branch.  By checking out a branch
 by name, you go to the lastest version of that branch.
 
 ----------------------------------------------------------------------
@@ -251,16 +253,22 @@ Execute:
 git checkout v1
 git checkout v1-beta
 
-p. Make sure you are in v1 before proceeding to the next lab.
+p. You can see what tags are available using the 'git tag' command.
 
 Execute:
-git checkout v1
+git tag
+
+p. Make sure you are at the head of the master branch before
+proceeding to the next lab.
+
+Execute:
+git checkout master
 
 ----------------------------------------------------------------------
-h1. Reverting Local Changes
+h1. Reverting Local Changes (before committing)
 
-Sometimes you have modified a file in your local working directory and
-you wish to just revert to what has already been commited.  The
+p. Sometimes you have modified a file in your local working directory
+and you wish to just revert to what has already been commited.  The
 checkout command will handle that.
 
 h2. Change hello.rb
@@ -382,32 +390,15 @@ source control until the point you are ready to start committing code.
 What would happen if we used the operating system command to move the
 file instead of the git command?
 
-p. Let's find out.
+p. It turns out the following set of commands is identical to what we
+just did.  Its a bit more work, but the result is the same.
 
-h2. Undoing the move
+p(command). We could have done:
 
-Let's undo what we just did and try it the other way.
-
-Execute:
-git reset head hello.rb
-git checkout -- hello.rb
-rm -r lib
-
-h2. Once again with system commands
-
-Execute:
-mkdir lib
+pre(instructions). mkdir lib
 mv hello.rb lib
-
-p. Now we tell git what we did.
-
 git add lib/hello.rb
 git rm hello.rb
-git status
-
-p. Even though we moved the file with system commands, and did an
-individual add and remove, git still figures out that the file has
-been renamed.
 
 h2. Commit the new directory
 
@@ -601,7 +592,142 @@ original hello.rb file from the very first commit by manually
 following the SHA1 hash references starting in the latest commit.
 
 ----------------------------------------------------------------------
-h1. Branching
+h1. Prep for Branching
+
+p. We are ready to do some work with branches.  You can continue to
+work in your current repository.  Or if you wish, to can start in a
+fresh repository that has all the changes up to this point.
+
+h2. Starting with a Fresh Reposistory
+
+p. Go to your work directory and type:
+
+Execute:
+git clone ../repos/hello_prebranch hello2
+cd hello2
+
+p. You are now ready to continue with the branching exercise in the
+hello2 directory.
+
+----------------------------------------------------------------------
+h1. Creating a Branch
+
+p. It's time to do a major rewrite of the hello world functionality.
+Since this might take awhile, you want to put these changes into a
+separate branch to isolate them from changes in master.
+
+h2. Create a Branch
+
+p. Let's call our new branch 'greet'.
+
+Execute:
+git checkout -b greet
+git status
+
+p. Notice that the git status command reports that you are on the
+'greet' branch.
+
+h2. Changes for Greet: Add a Greeter class.
+
+File: lib/greeter.rb
+class Greeter
+  def initialize(who)
+    @who = who
+  end
+  def greet
+    "Hello, #{@who}"
+  end
+end
+EOF
+
+Execute:
+git add .
+git commit -m 'added greeter class'
+
+h2. Changes for Greet: Modify the main program
+
+p. Update the hello.rb file to use greeter
+
+File: lib/hello.rb
+# Default is World
+name = ARGV.first || "World"
+
+greeter = Greeter.new(name)
+puts greeter.greet
+EOF
+
+Execute:
+git add .
+git commit -m 'hello uses Greeter'
+
+h2. Changes for Greet: Update the Rakefile
+
+p. Update the Rakefile to use an external ruby process
+
+File: Rakefile
+#!/usr/bin/ruby -wKU
+
+task :default => :run
+
+task :run do
+  ruby '-Ilib', 'lib/hello.rb'
+end
+EOF
+
+Execute:
+git add .
+git commit -m 'Updated Rakefile'
+
+----------------------------------------------------------------------
+h1. Navigating Branches
+
+p. You now have two branches in your project:
+
+Execute:
+git log --pretty=oneline --decorate --abbrev-commit 
+
+You should see something like:
+
+Sample:
+$ git log --pretty=oneline --decorate --abbrev-commit
+1f9a5d2 (HEAD, greet) updated Rakefile
+851184d hello uses Greeter
+5a8a719 added Greeter class
+213276d (origin/master, origin/HEAD, master) added a rakefile
+d6fc54a Moved hello.rb to lib
+dafefe0 (v1) added default for name
+f0948e0 (v1-beta) Using ARGV
+aab4381 First Commit
+$ 
+EOF
+
+h2. Switching Branches
+
+p. Just use the 'git checkout command to switch between branches. 
+
+Execute:
+git checkout master
+cat lib/hello.rb
+ 
+p. You are now on the master branch.  Switch back to the greet brach.
+
+Execute:
+git checkout greet
+cat lib/hello.rb
+
+----------------------------------------------------------------------
+h1. Changes in Master
+
+p. While you were changing the greet branch, someone else decided to
+update the master branch.  They added a README.
+
+File: README
+This is the Hello World example from the git tutorial.
+EOF
+
+Execute:
+git add README
+git commit -m 'Added README'
 
 ----------------------------------------------------------------------
 h1. Merging
