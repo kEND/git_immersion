@@ -28,20 +28,65 @@ module Labs
     end
   end
   
+  def copy_line(line)
+  end
+
   def generate_labs(io)
     lab_number = -1
     labs = []
+    mode = :direct
+    gathered_line = ''
     io.each do |line|
       next if line =~ /^\s*-+\s*$/
-      if line =~ /^h1.\s+(.+)$/
-        lab_number += 1
-        lab = Lab.new($1, lab_number)
-        lab.prev = labs.last
-        labs.last.next = lab if labs.last
-        lab.lines << line.sub(/h1\./, "h1. Lab #{lab_number}: ")
-        labs << lab
-      else
-        labs[lab_number] << line unless lab_number < 0
+      case mode
+      when :direct
+        if line =~ /^h1.\s+(.+)$/
+          lab_number += 1
+          lab = Lab.new($1, lab_number)
+          lab.prev = labs.last
+          labs.last.next = lab if labs.last
+          lab.lines << line.sub(/h1\./, "h1. Lab #{lab_number}: ")
+          labs << lab
+        elsif line =~ /^pre*\(.*\)\.\s*$/
+          mode = :gather1
+          gathered_line = line.strip
+        elsif line =~ /^p[(a-z){}]*\.\s+/
+          mode = :gather
+          gathered_line = line.strip
+        elsif line =~ /^Execute:$/
+          mode = :gather1
+          labs[lab_number] << "p(command). Execute:\n\n"
+          gathered_line = "pre(instructions)."
+        elsif line =~ /^File:\s+(\S+)$/
+          file_name = $1
+          labs[lab_number] << "p(filename). File: #{file_name}\n\n"
+          gathered_line = "<pre class=\"file\">"
+          mode = :file
+        elsif line =~ /^Sample:\s*$/
+          labs[lab_number] << "p(command). Sample:\n\n"
+          gathered_line = "<pre class=\"sample\">"
+          mode = :file
+        else
+          labs[lab_number] << line unless lab_number < 0
+        end
+      when :gather1
+        labs[lab_number] << gathered_line << " " << line
+        mode = :direct
+      when :gather
+        if line =~ /^\s*$/
+          labs[lab_number] << gathered_line << "\n\n"
+          mode = :direct
+        else
+          gathered_line << " " << line.strip
+        end
+      when :file
+        if line =~ /^EOF$/
+          labs[lab_number] << "</pre>\n"
+          mode = :direct
+        else
+          labs[lab_number] << "#{gathered_line}#{line}"
+          gathered_line = ''
+        end
       end
     end
     labs.each do |lines|

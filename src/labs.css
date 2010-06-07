@@ -1,7 +1,11 @@
+.note {
+    font-style: italic;    
+}
 .filename {
     font-weight: bold;    
-    margin-left: 2em;
+    margin-left: 1.5em;
     margin-bottom: 0em;
+    padding: 0.5em 0em;
 }
 .file {
     margin-left: 2em;
@@ -11,9 +15,26 @@
     border: 1px solid black;
     width: 90%;
 }
-.instructions {
+.sample {
+    font-weight: bold;    
     margin-left: 2em;
     margin-right: 2em;
     margin-top: 0em;
     padding: 0.5em 1em;
+    border: 3px solid grey;
+    background: black;
+    color: #0f0;
+    width: 90%;
+}
+.command {
+    font-weight: bold;    
+    margin-left: 1.5em;
+    margin-bottom: 0em;
+    padding: 0em 0em;
+}
+.instructions {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 0em;
+    padding: 0em 0em;
 }

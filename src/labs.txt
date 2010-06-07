@@ -3,17 +3,20 @@ h1. Setup
 
 h2. Run the following commands
 
-pre(instructions). git config --global user.name "Your Name"
+Execute:
+git config --global user.name "Your Name"
 git config -- user.email "your_email@whatever.com"
  
 Also, for Unix/Mac users:
 
-pre(instructions). git config --global core.autocrlf input
+Execute:
+git config --global core.autocrlf input
 git config --global core.safecrlf true
 
 And for Windows users:
 
-pre(instructions). git config --global core.autocrlf true
+Execute:
+git config --global core.autocrlf true
 git config --global core.safecrlf true
 
 ---------------------------------------------------------------------- 
@@ -21,21 +24,620 @@ h1. Create a Project
 
 h2. In an empty directory create the following file:
 
-p(filename). File: hello.rb
+File: hello.rb
+puts "Hello, World"
+EOF
 
-pre(file). puts "Hello, World"
+h2. Make the first commit
 
-h2. Run
-
-pre(instructions). git init
+Execute:
+git init
 git add hello.rb
 git commit -m 'First Commit'
 
 ---------------------------------------------------------------------- 
 h1. Recording Changes
 
+File: hello.rb
+puts "Hello, #{ARGV.first}!"
+EOF
+
+h2. Check the status
+
+p. See that get has detected that the file has changed, but it doesn't
+know what to do with it yet.
+
+Execute:
+git status
+
+p. (checking the status is a good habit to get into.)
+
+p. Now tell git to stage the changes.  Check the status
+
+Execute:
+git add hello.rb
+git status
+
+p. The changes are ready to be committed.  If you leave off the -m,
+Git will allow you to edit the commit message using your editor.  The
+editor is selected from (in order):
+
+* GIT_EDITOR environment variable
+* core.editor configuration setting
+* VISUAL environment variable
+* EDITOR environment variable
+
+p. Mine is set to "emacsclient".
+
+p. So commit now and check the status.
+
+Execute:
+git commit
+
+p. Finally check the status again.  It should say "nothing to commit
+(working directory clean)".
+
+Execute:
+git status
+
+----------------------------------------------------------------------
+h1. Changes, not Files
+
+p. Most source control systems work with files.  Git focuses on
+changes rather than files.  This lab will attempt to show the
+difference.
+
+h2. First Change: Allow a default name
+
+p. Change the file to be:
+
+File: hello.rb
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+h2. 
+
+Execute:
+git commit
+
+h2. Second change: Add a comment
+
+Change hello.rb to be:
+
+File: hello.rb
+# Default is "World"
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+h2. Check the current status
+
+Execute:
+git status
+
+p. Notice how hello.rb is listed twice in the status.  It has some
+changes (the default value for name) ready to be committed.
+
+p. It also has some changes (the added comment) that are unstaged.  If
+a commit were to happen right now, only the first change would be
+committed.
+
+p. Git tracks changes, not files.
+
+h2. Adding the additional changes
+
+p. Now add the second change to staging area, then run git status.
+
+Execute:
+git add .
+git status
+
+p(((((note). <b>Note:</b> We used the current directory ('.') as the
+file to add.  This is a really convenient shortcut for adding in all
+the changes to the files in the current directory and below.  Since it
+adds everything, its a good idea to run the status before doing an
+"add .".
+
+p. Both changes have been staged and are ready to be committed.
+
+Execute:
+git commit -m 'added default for name'
+
+----------------------------------------------------------------------
+h1. History
+
+p. Getting a listing of what changes have been made is the function of
+the 'git log' command.
+
+Execute:
+git log
+
+p. This dumps a listing of all the commits made to date. You can limit
+the number of entries in a number of different ways.  You can also
+change the format. Play around with the following:
+
+pre(instructions).
+git --max-count=2
+git log --since='5 minutes ago' 
+git log --until='5 minutes ago' 
+git log --author=<your name>
+git log --pretty=oneline
+
+p. See man git-log for all the details.
+
+h2. Getting Fancy
+
+p. Here's what I use to review the changes made in the last week.
+I'll add a --author=jim to it I only want to see changes I made.
+
+pre(instructions).
+git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago'
+
+h2. Other Tools
+
+p. Both <code>gitx</code> (for Macs) and <code>gitk</code> (any
+platform) are useful in exploring log history.
+
 ---------------------------------------------------------------------- 
 h1. Getting Old Versions
 
+p. Going back in history is very easy.  The checkout command will copy
+any snapshot from the repository to the
+
+h2. Get the hashes for previous versions
+
+Execute:
+git log --pretty=oneline
+
+p. Examine the log output and find the hash for the first commit.  Use
+that hash code (the first 8 characters is enough) in the command
+below.  Then check the contents of the hello.rb file.
+
+Execute:
+git checkout <hash>
+cat hello.rb
+
+p(((((note). *Note:* The commands given here are Unix commands and
+work on both Mac and Linux boxes.  Unfortunately, Windows users will
+have to translate to their native commands.  
+
+p. You will probably get some complaints about not being on a local
+branch.  That's ok for now.  Notice the contents of the hello.rb file
+are the original contents.
+
+h2. Return the latest version in the master branch
+
+Execute:
+git checkout master
+cat hello.rb
+
+'master' is the name of the default branch.  By checking out a branch
+by name, you go to the lastest version of that branch.
+
+----------------------------------------------------------------------
+h1. Tagging versions
+
+p. Let's call the current version of the hello program version 1 (v1).
+
+h2. Tagging version 1
+
+Execute:
+git tag v1
+
+p. Now you can refer to the current version of the program as v1.  
+
+h2. Tagging a previous version
+
+p. Let's tag the second version of our program as v1-beta.  First we need
+to checkout the previous version.  Rather than lookup up the hash, we
+will use the ^ notation to indicate "the parent of v1".
+
+Execute:
+git checkout v1^
+cat hello.rb
+
+p. See, this is the version _before_ we added the default value.
+Let's make this v1-beta.
+
+Execute:
+git tag v1-beta
+
+p. Now try going back and forth between the two tagged versions.
+
+Execute:
+git checkout v1
+git checkout v1-beta
+
+p. Make sure you are in v1 before proceeding to the next lab.
+
+Execute:
+git checkout v1
+
+----------------------------------------------------------------------
+h1. Reverting Local Changes
+
+Sometimes you have modified a file in your local working directory and
+you wish to just revert to what has already been commited.  The
+checkout command will handle that.
+
+h2. Change hello.rb
+
+Change hello.rb to have a bad comment.
+
+File: hello.rb
+# This is a bad comment.  We want to revert it.
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+h2. Run
+
+p. First, check the status.
+
+Execute:
+git status
+
+Now lets go back to the previous version of the file.
+
+Execute:
+git checkout hello.rb
+git status
+cat hello.rb
+
+p. We are now back to the checked-in version.
+
 ---------------------------------------------------------------------- 
-h1. More Stuff
+h1. Aliases
+
+p. Git status, git add, git commit, and git checkout are such common
+commands that it is useful to have abbreviations for them.
+
+h2. Common Aliases
+
+Add the following to the .gitconfig file in your $HOME directory.
+
+File: .gitconfig
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  type = cat-file -t
+  dump = cat-file -p
+EOF
+
+p. We've covered checkout, commit and status already.  Now, whenever you
+can type 'git co' whereever you used to have to type 'get checkout'.
+Likewise with 'git st' for 'git status' and 'git ci' for git commit'.
+
+p. Go ahead and give the new commands a try.
+
+p. By the way, I'll continue to type out the full command in these
+instructions, but feel free to use the aliases above.  Also, you
+should experiment with adding your own aliases as you go.
+
+h2. Commands to come...
+
+p. We've added a few aliases for command we haven't covered yet. The
+'git branch' command will be coming up soon.  And the 'git cat-file'
+command is useful for exploring git, which we will see in the next
+section.
+
+h2. Shell Aliases
+
+p. If your shell supports aliases or shortcuts, then you can add
+aliases at that level too.  Here are the ones I use:
+
+File: .profile
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout '
+alias gk='gitk --all&'
+alias gx='gitx --all'
+
+alias got='git '
+alias get='git '
+EOF
+
+p. The 'go' abbreviation for 'git checkout' is particularly nice.  It
+allows me to type.
+
+pre(instructions). go <branch>
+
+p. to checkout a particular branch.
+
+p. And yes, I do mistype 'git' as 'get' or 'got' enough to create
+aliases for them.
+ 
+----------------------------------------------------------------------
+h1. Moving Files
+ 
+h2. Move the hello.rb file into a lib directory.
+
+Execute:
+mkdir lib
+git mv hello.rb lib
+git status
+
+p. By using git to do the move, we inform git of 2 things 
+
+# That the file @hello.rb@ has been deleted.
+# The file @lib/hello.rb@ has been created.
+
+p. Both of these bits of information are immediately staged and ready
+to be commited.  The git status command reports that the file has been
+moved.
+
+h2. Another way of moving files
+
+p. One of the nice things about git is that you can forget about
+source control until the point you are ready to start committing code.
+What would happen if we used the operating system command to move the
+file instead of the git command?
+
+p. Let's find out.
+
+h2. Undoing the move
+
+Let's undo what we just did and try it the other way.
+
+Execute:
+git reset head hello.rb
+git checkout -- hello.rb
+rm -r lib
+
+h2. Once again with system commands
+
+Execute:
+mkdir lib
+mv hello.rb lib
+
+p. Now we tell git what we did.
+
+git add lib/hello.rb
+git rm hello.rb
+git status
+
+p. Even though we moved the file with system commands, and did an
+individual add and remove, git still figures out that the file has
+been renamed.
+
+h2. Commit the new directory
+
+Execute:
+git commit -m 'Moved hello.rb to lib'
+
+----------------------------------------------------------------------
+h1. More Structure
+
+h2. Now add a Rakefile
+
+File: Rakefile
+#!/usr/bin/ruby -wKU
+
+task :default => :run
+
+task :run do
+  require 'lib/hello/hello'
+end
+EOF
+
+p. Add and commit the change.
+
+Execute:
+git add .
+git commit -m 'Added a Rakefile.'
+
+p. You should be able to use Rake to run your hello program now.
+
+Execute:
+rake
+
+----------------------------------------------------------------------
+h1. Git Internals: The .git directory 
+
+h2. Object Store
+
+p. Time to do some exploring.  First, from the root of your project
+directory...
+
+Execute:
+ls .git
+
+p. This is the magic directory where all the git "stuff" is stored.
+Let's peek in the objects directory.
+ 
+Execute:
+ls .git/objects
+
+p. You should see a bunch of directories with 2 letter names.  The
+directory names are the first two letters of the sha1 hash of the
+object stored in git.
+
+p. Look in one of the two-letter directories.  You should see some
+files with 38 character names.  These are the files that contain the
+objects stored in git.  These files are compressed and encoded, so
+looking at their contents directly won't be very helpful, but we will
+take a closer look in a bit.
+
+h2. Config File
+
+Execute:
+cat .git/config
+
+p. This is project specific configuration file.  Config entries in
+here will override the config entries in the .gitconfig file in your
+home directory, at least for this project.
+
+h2. Branches and Tags
+
+Execute:
+ls .git/refs
+ls .git/refs/heads
+ls .git/refs/tags
+cat .git/refs/tags/v1
+
+p. You should recogize the files in the tags subdirectory.  Each file
+corresponds to a tag you created with the 'git tag' command earlier.
+It's contents is just the hash of the commit tied to the tag.
+
+p. The heads directory is similar, but is used for branches rather
+than tags.  We only have one branch at the moment, so all you will see
+is master in this directory.
+
+h2. The HEAD File
+
+Execute:
+cat .git/HEAD
+
+p. The HEAD file contains a reference to the current branch.  Should
+be a reference to master at this point.
+
+----------------------------------------------------------------------
+h1. Git Internals: Working directly with Git Objects
+
+p. Now let's use some tools to probe git objects directly.
+
+h2. Finding the Latest Commit
+
+Execute:
+git log --max-count=1 --pretty=oneline
+
+p. This should show the latest commit made in the repository.  The
+SHA1 hash on your system is probably different that what is on mine,
+but you should see something like this.
+
+Sample:
+$ git log --max-count=1 --pretty=oneline
+bf6f5e16491ca5ff08f7d876f0c661d5ed0762a4 added Rakefile.
+EOF
+
+h2. Dumping the Latest Commit
+
+Using the SHA1 hash from the above ...
+
+Execute:
+git cat-file -t <hash>
+git cat-file -p <hash>
+
+Here's my output ...
+
+Sample:
+$ git cat-file -t bf6f5e16
+commit
+$ git cat-file -p bf6f5e16
+tree baaf7030417cb0ae9dadd4678f8a029365c48a43
+parent 5f0f5186e6a88151771e287fcfb6c7d03688c753
+author Jim Weirich <jim.weirich@gmail.com> 1275865995 -0400
+committer Jim Weirich <jim.weirich@gmail.com> 1275865995 -0400
+
+added Rakefile.
+$
+EOF
+
+p(((((note). *NOTE:* If you defined the 'type' and 'dump' aliases from 
+the aliases lab, then you can type 'git type' and 'git dump' rather
+than the longer cat-file commands (which I never remember).
+
+p(((((note). *ANOTHER* *NOTE:* You only have to type the first few
+letters in a hash.  Git will figure out what you mean.
+
+p. This is the dump of the commit object that is at the head of the
+master branch.  It looks a lot like the commit object from the
+presentation earlier.
+
+h2. Finding the Tree
+
+p. We can dump the directory tree referenced int he commit.  This
+should be a description of the (top level) files in our project (for
+that commit).
+
+Example:
+git cat-file -p baaf70
+
+p. Here's what my tree looks like...
+
+Sample:
+$ git cat-file -p baaf70
+100644 blob 4b201b0c6a8512d3c1282ff10a5974c44e442567	Rakefile
+040000 tree 7cab26ba7c4fb7e668c4dafb081bccfdffdd018f	lib
+$ 
+EOF
+
+p. Yep, I see the Rakefile and the lib directory.  Let's dive down
+into the lib directory...
+
+Sample:
+$ git cat-file -p 7cab26b
+100644 blob eddc85fb225855a027c2e4e88b6a202bab350a14	hello.rb
+$
+EOF
+
+p. There's the @hello.rb@ file.  Let's dump that ...
+
+Sample:
+$ git cat-file -p eddc85
+# Default is "World"
+name = ARGV.first || "World"
+puts "Hello, #{name}!"
+$ 
+EOF
+
+p. There you have it.  We've dumped commit objects, tree objects and
+blob objects directly from the git repository.  That's all that is
+there, blobs, trees and commits.
+
+h2. Explore On You Own
+
+p. Explore the git repo manually on your own.  See if you can find the
+original hello.rb file from the very first commit by manually
+following the SHA1 hash references starting in the latest commit.
+
+----------------------------------------------------------------------
+h1. Branching
+
+----------------------------------------------------------------------
+h1. Merging
+
+----------------------------------------------------------------------
+h1. Resolving Conflicts
+
+----------------------------------------------------------------------
+h1. Local Branches
+
+----------------------------------------------------------------------
+h1. Syncing Branches
+
+
+h1. Cherry picking files
+
+h1. Cherry picking chuncks
+
+h1. Reverting Changes
+
+h1. Cross OS Line Endings
+
+h1. Remote Servers
+
+h1. Protocols
+
+h1. SSH Setup
+
+h1. Remote Branch Management
+
+h1. Pushing Changes
+
+h1. Finding Buggy Commits
+
+h1. Workflows
+
+h1. Non-command line tools (gitx, gitk, magit)
+
+h1. Working with GitHub
