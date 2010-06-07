@@ -20,6 +20,25 @@ git config --global core.autocrlf true
 git config --global core.safecrlf true
 
 ---------------------------------------------------------------------- 
+h1. More Setup
+
+h2. Get the Tutorial package.
+
+p. Git the tutorial package from either:
+
+* The memory sticks provided in the tutorial
+* The URL "http://onestepback.org/download/git_tutorial.zip":http://onestepback.org/download/git_tutorial.zip
+
+h2. Unzip the tuturial
+
+p. The tutorial package should have a main diretory "git_tutorial"
+with three sub-directories:
+
+* html -- These html files.  Point your browser to html/index.html
+* repos -- Prepackages repos for later use
+* work -- An empty working directory.  Create your repos in here.
+
+---------------------------------------------------------------------- 
 h1. Create a Project
 
 h2. In an empty directory create the following file:
@@ -162,7 +181,7 @@ the number of entries in a number of different ways.  You can also
 change the format. Play around with the following:
 
 pre(instructions).
-git --max-count=2
+git log --max-count=2
 git log --since='5 minutes ago' 
 git log --until='5 minutes ago' 
 git log --author=<your name>
@@ -187,7 +206,7 @@ platform) are useful in exploring log history.
 h1. Getting Old Versions
 
 p. Going back in history is very easy.  The checkout command will copy
-any snapshot from the repository to the
+any snapshot from the repository to the working directory.
 
 h2. Get the hashes for previous versions
 
@@ -314,6 +333,7 @@ File: .gitconfig
   ci = commit
   st = status
   br = branch
+  hist = log --pretty=oneline --abbrev-commit --graph --decorate
   type = cat-file -t
   dump = cat-file -p
 EOF
@@ -416,7 +436,7 @@ File: Rakefile
 task :default => :run
 
 task :run do
-  require 'lib/hello/hello'
+  require 'lib/hello'
 end
 EOF
 
@@ -649,6 +669,8 @@ h2. Changes for Greet: Modify the main program
 p. Update the hello.rb file to use greeter
 
 File: lib/hello.rb
+require 'greeter'
+
 # Default is World
 name = ARGV.first || "World"
 
@@ -689,7 +711,7 @@ git log --pretty=oneline --decorate --abbrev-commit
 You should see something like:
 
 Sample:
-$ git log --pretty=oneline --decorate --abbrev-commit
+$ git log --pretty=oneline --decorate --abbrev-commit 
 1f9a5d2 (HEAD, greet) updated Rakefile
 851184d hello uses Greeter
 5a8a719 added Greeter class
@@ -732,38 +754,561 @@ git commit -m 'Added README'
 ----------------------------------------------------------------------
 h1. Merging
 
+p. Merging brings the changes in two branches together.  Let's go back
+to the greet branch and merge master onto greet.
+
+Execute:
+git checkout greet
+git merge master
+git log --pretty=oneline --decorate --abbrev-commit 
+
+p. By merging master into your greet branch periodically, you can pick
+up any changes to master and keep your changes in greet compatible
+with changes in the mainline.
+
+p. However, it does produce ugly commit graphs. Latter we will look at
+the option of rebasing rather than merging.
+
+p. But first, what if the changes in master conflict with the changes
+in greet?
+
+----------------------------------------------------------------------
+h1. Creating a Conflict
+
+p. Switch back to the master branch and make this change:
+
+Execute:
+git checkout master
+
+File: lib/hello.rb
+# Default is World
+
+puts "What's your name"
+my_name = gets.strip
+
+puts "Hello, #{my_name}!"
+EOF
+
+Execute:
+git add .
+git commit -m 'made interactive'
+
 ----------------------------------------------------------------------
 h1. Resolving Conflicts
 
-----------------------------------------------------------------------
-h1. Local Branches
+p. Now go back to greet and try to merge the new master.
+
+Execute:
+git checkout greet
+git merge master
+
+p. I get...
+
+Sample:
+$ git checkout greet
+Switched to branch 'greet'
+$ git merge master
+Auto-merging lib/hello.rb
+CONFLICT (content): Merge conflict in lib/hello.rb
+Automatic merge failed; fix conflicts and then commit the result.
+$ 
+EOF
+
+If you open lib/hello.rb, you will see:
+
+File: lib/hello.rb
+require 'greeter'
+
+# Default is World
+
+<<<<<<< HEAD
+greeter = Greeter.new(name)
+puts greeter.greet
+=======
+puts "What's your name"
+my_name = gets.strip
+
+puts "Hello, #{my_name}!"
+>>>>>>> master
+EOF
+
+h2. Fix the Conflict
+
+p. You need to manually resolve the conflict.  Modify @lib/hello.rb@
+to be the following.
+
+File: lib/hello.rb
+require 'greeter'
+
+# Default is World
+
+puts "What's your name"
+my_name = gets.strip
+
+greeter = Greeter.new(my_name)
+puts greeter.greet
+EOF
+
+h2. Commit the Conflict Resolution
+
+Execute:
+git add lib/hello.rb
+git commit -m 'Merged master fixed conflict.'
+
+h2. Advanced Merging
+
+p. git doesn't provide any graphical merge tools, but it will gladly
+work with any third party merge tool you wish to use.  See
+"http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red":http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red
+for a description of using the Perforce merge tool with git.
 
 ----------------------------------------------------------------------
-h1. Syncing Branches
+h1. Reseting a Branches
 
+p. Let's go back in time on the greet branch to the point _before_ we
+merged master onto it.  We can *reset* a branch to any commit we want.
+Essentially this is modifying the branch pointer to point to anywhere
+in the commit tree.
 
-h1. Cherry picking files
+p. In this case we want to back greet up to the point prior to the
+merge with master.  We need to find the last commit before the merge.
 
-h1. Cherry picking chuncks
+Execute:
+git log --pretty=oneline --abbrev-commit --graph --decorate
 
-h1. Reverting Changes
+I see something like this:
 
-h1. Cross OS Line Endings
+Sample:
+$ git log --pretty=oneline --abbrev-commit --graph --decorate
+*   266feda (HEAD, greet) Merged master fixed conflict.
+|\  
+| * 2bd4219 (master) made interactive
+* |   f60c7f6 Merge branch 'master' into greet
+|\ \  
+| |/  
+| * b6620b3 Added README
+* | 1f9a5d2 updated Rakefile
+* | 851184d hello uses Greeter
+* | 5a8a719 added Greeter class
+|/  
+* 213276d added a rakefile
+* d6fc54a Moved hello.rb to lib
+* dafefe0 (v1) added default for name
+* f0948e0 (v1-beta) Using ARGV
+* aab4381 First Commit
+$ 
+EOF
 
-h1. Remote Servers
+p. That's a bit hard to read, but looking at the data we see that the
+"updated Rakefile" commit was the last commit on the greet branch
+before merging.  Let's reset the greet branch to that commit.
 
-h1. Protocols
+Execute:
+git reset --hard <hash>
 
-h1. SSH Setup
+p. (I used 1f9a5d2 for the hash code, yours will probaby be
+different).
 
-h1. Remote Branch Management
+p(((((note). *NOTE:* Resetting local branches is generally not a
+problem.  Reseting publicly shared branches is a bad idea.  (Discuss
+why this is a bad idea).
 
-h1. Pushing Changes
+p. The @--hard@ parameter makes sure the working directory is up to
+date with the change in the branch.
 
-h1. Finding Buggy Commits
+h2. Check the branch.
 
-h1. Workflows
+p. Look at the log for the greet branch.  We no longer have the merge
+commits in its history.
 
-h1. Non-command line tools (gitx, gitk, magit)
+h2. Backup the master branch.
 
-h1. Working with GitHub
+Let's backup the master branch to the point before we added the
+conflicting.
+
+Execute:
+git checkout master
+git log --pretty=oneline --abbrev-commit --graph --decorate
+
+Sample:
+$ git log --pretty=oneline --abbrev-commit --graph --decorate
+* 2bd4219 (HEAD, master) made interactive
+* b6620b3 Added README
+* 213276d added a rakefile
+* d6fc54a Moved hello.rb to lib
+* dafefe0 (v1) added default for name
+* f0948e0 (v1-beta) Using ARGV
+* aab4381 First Commit
+$
+EOF
+
+p. Let's backup to the 'Added README' commit.
+
+Execute:
+git reset --hard <hash>
+
+p. (I used b6620b3 for the hash).
+
+Now master is backed up in time.
+
+----------------------------------------------------------------------
+h1. Rebasing
+
+p. Ok, we are back in time before the merge and we want to get the
+changes in master into our greet branch.
+
+Execute:
+git checkout greet
+git rebase master
+git log --pretty=oneline --abbrev-commit --graph --decorate
+
+p. I got this:
+
+Sample:
+$ go greet
+Switched to branch 'greet'
+$
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: added Greeter class
+Applying: hello uses Greeter
+Applying: updated Rakefile
+$
+$ git log --pretty=oneline --abbrev-commit --graph --decorate
+* de35373 (HEAD, greet) updated Rakefile
+* dcaa09c hello uses Greeter
+* 8ce5fdb added Greeter class
+* b6620b3 (master) Added README
+* 213276d added a rakefile
+* d6fc54a Moved hello.rb to lib
+* dafefe0 (v1) added default for name
+* f0948e0 (v1-beta) Using ARGV
+* aab4381 First Commit
+$ 
+EOF
+
+----------------------------------------------------------------------
+h1. Merging Back to Master
+
+p. Now its time to bring our greet changes into master.
+
+Execute:
+git checkout master
+git merge greet
+
+p. Here's what I saw:
+
+Sample:
+$ git checkout master
+Switched to branch 'master'
+$
+$ git merge greet
+Updating b6620b3..de35373
+Fast-forward
+ Rakefile       |    2 +-
+ lib/greeter.rb |    8 ++++++++
+ lib/hello.rb   |    5 ++++-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+ create mode 100644 lib/greeter.rb
+$
+$ git hist
+* de35373 (HEAD, master, greet) updated Rakefile
+* dcaa09c hello uses Greeter
+* 8ce5fdb added Greeter class
+* b6620b3 Added README
+* 213276d added a rakefile
+* d6fc54a Moved hello.rb to lib
+* dafefe0 (v1) added default for name
+* f0948e0 (v1-beta) Using ARGV
+* aab4381 First Commit
+$ 
+EOF
+
+----------------------------------------------------------------------
+h1. Cloning Repositories
+
+p. Go to the working directory and make a clone of your hello
+repository.
+
+Execute:
+cd ..
+pwd
+# (you should be in the 'work' directory now) 
+ls
+# (you should see the 'hello' repository) 
+git clone hello cloned_hello
+cd cloned_hello
+ls
+
+p. Here's what I saw
+
+Sample:
+$ cd ..
+$ pwd
+/Users/jim/Documents/Presentations/GitTutorial/dist/work
+$ ls
+hello
+$ git clone hello cloned_hello
+Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/cloned_hello/.git/
+$ ls
+cloned_hello	hello
+$ cd cloned_hello/
+$ ls
+README		Rakefile	lib
+$
+EOF
+
+----------------------------------------------------------------------
+h1. Remote Branches
+
+p. The cloned repository remembers where it came from.
+
+Execute:
+git branch -a
+
+p. I saw...
+
+Sample:
+$ git branch -a
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/greet
+  remotes/origin/master
+$ 
+EOF
+
+p. The branches starting with remotes/origin are branches from the
+original repo.  Notice that you don't have a branch called greet
+anymore, but it knows that the original repo had a greet branch.
+
+h2. Add a local branch that tracks a remote branch.
+
+Execute:
+git branch --track greet origin/greet
+git branch -a
+git log --pretty=oneline --abbrev-commit --graph --decorate -n1
+
+Sample:
+$ git branch --track greet origin/greet
+Branch greet set up to track remote branch greet from origin.
+$ git branch -a
+  greet
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/greet
+  remotes/origin/master
+$ git log --pretty=oneline --abbrev-commit --graph --decorate -n1
+* de35373 (HEAD, origin/master, origin/greet, origin/HEAD, master, greet) updated Rakefile
+$ 
+EOF
+
+p. We can now see the greet branch in the branch list and in the log.
+
+----------------------------------------------------------------------
+h1. Pulling changes
+
+Switch back to the original repository and add a line to the readme.
+
+Execute:
+cd ../hello
+# (You should be in the original hello repository)
+
+p. Change the README file
+
+File: README
+This is the Hello World example from the git tutorial.
+(Changed in the original)
+EOF
+
+p. Commit the change
+
+Execute:
+git add README
+git commit -m 'Updated README'
+
+p. Now switch back to the cloned directory
+
+Execute:
+cd ../cloned_hello
+# (You should be in the cloned hello repository)
+cat README
+
+p. We see the changes to README are not here yet.
+
+h2. Fetch the Changes
+
+Execute:
+git fetch origin
+cat README
+
+Sample:
+$ git fetch origin
+remote: Counting objects: 5, done.        
+remote: Compressing objects: 100% (3/3), done.        
+remote: Total 3 (delta 0), reused 0 (delta 0)        
+Unpacking objects: 100% (3/3), done.
+From /Users/jim/Documents/Presentations/GitTutorial/dist/work/hello
+   de35373..33e5af1  master     -> origin/master
+$ cat README
+This is the Hello World example from the git tutorial.
+$ 
+EOF
+
+p. The changes have been copied into the repository, but have not yet
+been moved into the working directory.  We get the changes by merging
+the changes in the remote branch into master.
+
+Execute:
+git merge origin/master
+
+h2. Pulling
+
+The fetch/merge commands can be done in one operation with pull.
+
+Execute:
+git pull origin
+
+----------------------------------------------------------------------
+h1. Bare Repositories
+
+Bare repositories (without working directories) are usually used for
+sharing).
+
+h2. Create a bare repository.
+
+Execute:
+cd ..
+# (You should be in the work directory)
+git clone --bare hello hello.git
+git ls hello.git
+
+Sample:
+$ git clone --bare hello hello.git
+Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/hello.git/
+$ ls 
+cloned_hello	hello		hello.git
+$ ls hello.git/
+HEAD		config		hooks		objects		refs
+branches	description	info		packed-refs
+EOF
+
+p. The convention is that repositories ending in '.git' are bare
+repositories.  We can see that there is no working directory in the
+hello.git repo.  Essentially it is nothing but the .git directory of a
+non-bare repo.
+
+----------------------------------------------------------------------
+h1. Adding a Remote Repository
+
+p. Let's add the hello.git repo to our original repo.
+
+Execute:
+cd hello
+# (You should be in the original repository)
+git remote add shared ../hello.git
+
+----------------------------------------------------------------------
+h1. Pushing a Change
+
+p. Edit the README and commit it
+
+File: README
+This is the Hello World example from the git tutorial.
+(Changed in the original and pushed to shared)
+EOF
+
+Execute:
+git checkout master
+git add README
+git commit -m 'added shared comment to readme'
+
+p. Now push the change to the shared repo.
+
+Execute:
+git push shared master
+
+Sample:
+$ git push shared master
+Counting objects: 5, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 363 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+To ../hello.git
+   33e5af1..b044021  master -> master
+$
+EOF
+
+p(((((note). *NOTE:* We had to explicitly name the branch master that
+we were pushing.  It is possible to set it up automatically, but I
+_never_ remember the commands to do that.  Check out the "Git Remote
+Branch" gem for easy management of remote branches.
+
+----------------------------------------------------------------------
+h1. Pulling Shared Changes
+
+p. Quick hop over to the clone repository and lets pull down the
+changes just pushed to the shared repo.
+
+Execute:
+cd ../cloned_hello
+# (You should be in the cloned repository)
+git remote add shared ../hello.git
+git branch --track shared master
+git pull shared master
+cat README
+
+----------------------------------------------------------------------
+h1. Hosting your Git Repositories
+
+p. There are many ways to share git repositories over the network.
+Here is a quick and dirty way.
+
+h2. Start up the git server
+
+Execute:
+# (From the work directory)
+git daemon --verbose --export-all --base-path=.
+
+p. Now, in a separate terminal window, go to your work directory
+
+Execute:
+# (From the work directory) 
+git clone git:localhost/hello.git network_hello
+cd network_hello
+ls
+
+p. You should see a copy of hello project.
+
+h2. Pushing to the Git Daemon
+
+p. If you want to push to the git daemon repository, add
+@--enable=receive-pack@ to the git daemon command.  Be careful because
+there is not authentication on this server, anyone could push to your
+repository.
+
+----------------------------------------------------------------------
+h1. Sharing Repos
+
+p. See if your neighbor is running the git daemon.  Exchange IP
+addresses and see if you can pull from each other's repositories.
+
+p(((((note). *NOTE:* The gitjour gem is really useful in sharing
+ad-hoc repositories.
+
+----------------------------------------------------------------------
+h1. Advanced / Future Topics
+
+p. Here are some topics you might want to research on your own:
+
+* Reverting Committed Changes
+* Cross OS Line Endings
+* Remote Servers
+* Protocols
+* SSH Setup
+* Remote Branch Management (git bisect)
+* Finding Buggy Commits
+* Workflows
+* Non-command line tools (gitx, gitk, magit)
+* Working with GitHub

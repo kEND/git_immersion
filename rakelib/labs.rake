@@ -1,7 +1,7 @@
 module Labs
   module_function
   
-  HTML_DIR = 'dist/html'
+  HTML_DIR = 'git_tutorial/html'
   
   class Lab
     attr_reader :name, :number, :lines
