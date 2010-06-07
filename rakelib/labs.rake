@@ -1,6 +1,8 @@
 module Labs
   module_function
   
+  HTML_DIR = 'dist/html'
+  
   class Lab
     attr_reader :name, :number, :lines
     attr_accessor :next, :prev
@@ -50,7 +52,7 @@ module Labs
         elsif line =~ /^pre*\(.*\)\.\s*$/
           mode = :gather1
           gathered_line = line.strip
-        elsif line =~ /^p[(a-z){}]*\.\s+/
+        elsif line =~ /^p(\([(a-z){}]*)?\.\s+/
           mode = :gather
           gathered_line = line.strip
         elsif line =~ /^Execute:$/
@@ -110,7 +112,7 @@ module Labs
   end
   
   def index(labs)
-    File.open("html/index.html", "w") { |f| 
+    File.open("#{HTML_DIR}/index.html", "w") { |f| 
       f.puts "<html>"
       f.puts "<head>"
       f.puts "<link href=\"labs.css\" media=\"screen,print\" rel=\"stylesheet\" type=\"text/css\" />"
@@ -129,7 +131,7 @@ module Labs
 
   def to_html(lab)
     lab_html = lab.to_html
-    File.open("html/#{lab.filename}", "w") { |f| 
+    File.open("#{HTML_DIR}/#{lab.filename}", "w") { |f| 
       f.puts "<html>"
       f.puts "<head>"
       f.puts "<link href=\"labs.css\" media=\"screen,print\" rel=\"stylesheet\" type=\"text/css\" />"
@@ -150,8 +152,8 @@ end
 require 'rubygems'
 require 'redcloth'
 
-directory "html"
-task :labs => ["html", "src/labs.txt", "rakelib/labs.rake"] do |t|
-  cp "src/labs.css", "html/labs.css"
+directory Labs::HTML_DIR
+task :labs => [Labs::HTML_DIR, "src/labs.txt", "rakelib/labs.rake"] do |t|
+  cp "src/labs.css", "#{Labs::HTML_DIR}/labs.css"
   lab_source = File.open("src/labs.txt") { |f| Labs.generate_labs(f) }
 end
