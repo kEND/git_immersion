@@ -730,13 +730,13 @@ p. Just use the 'git checkout command to switch between branches.
 Execute:
 git checkout master
 cat lib/hello.rb
- 
-p. You are now on the master branch.  Switch back to the greet brach.
+
+p. You are now on the master branch.  Switch back to the greet branch.
 
 Execute:
 git checkout greet
 cat lib/hello.rb
-
+ 
 ----------------------------------------------------------------------
 h1. Changes in Master
 
@@ -748,6 +748,7 @@ This is the Hello World example from the git tutorial.
 EOF
 
 Execute:
+git checkout master
 git add README
 git commit -m 'Added README'
 
