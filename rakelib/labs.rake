@@ -30,24 +30,27 @@ module Labs
     end
   end
   
-  def copy_line(line)
+  def make_sample_name(lab_number, word)
+    SAMPLES_DIR + ("/%03d_%s.txt" % [lab_number, word])
   end
-
+  
   def generate_labs(io)
-    lab_number = -1
+    lab_index = -1
     labs = []
     mode = :direct
     gathered_line = ''
     io.each do |line|
-      next if line =~ /^\s*-+\s*$/
+      next if line =~ /^\s*-+\s*$/ # omit dividers
+      next if line =~ /^[+][a-z]/  # omit hidden commands 
+      line.sub!(/^[-!]/,'')        # remove force and execute ignore chars
       case mode
       when :direct
         if line =~ /^h1.\s+(.+)$/
-          lab_number += 1
-          lab = Lab.new($1, lab_number)
+          lab_index += 1
+          lab = Lab.new($1, lab_index+1)
           lab.prev = labs.last
           labs.last.next = lab if labs.last
-          lab.lines << line.sub(/h1\./, "h1. Lab #{lab_number}: ")
+          lab.lines << line.sub(/h1\./, "h1. Lab #{lab_index+1}: ")
           labs << lab
         elsif line =~ /^pre*\(.*\)\.\s*$/
           mode = :gather1
@@ -55,40 +58,51 @@ module Labs
         elsif line =~ /^p(\([(a-z){}]*)?\.\s+/
           mode = :gather
           gathered_line = line.strip
-        elsif line =~ /^Execute:$/
+        elsif line =~ /^Execute:$/i
           mode = :gather1
-          labs[lab_number] << "p(command). Execute:\n\n"
+          labs[lab_index] << "p(command). Execute:\n\n"
           gathered_line = "pre(instructions)."
-        elsif line =~ /^File:\s+(\S+)$/
+        elsif line =~ /^File:\s+(\S+)$/i
           file_name = $1
-          labs[lab_number] << "p(filename). File: #{file_name}\n\n"
+          labs[lab_index] << "p(filename). File: #{file_name}\n\n"
           gathered_line = "<pre class=\"file\">"
           mode = :file
         elsif line =~ /^Sample:\s*$/
-          labs[lab_number] << "p(command). Sample:\n\n"
+          labs[lab_index] << "p(command). Sample:\n\n"
           gathered_line = "<pre class=\"sample\">"
           mode = :file
+        elsif line =~ /^Set: +\w+=.*$/
+          # Skip set lines
+        elsif line =~ /^=\w+/
+          # Skip include lines
         else
-          labs[lab_number] << line unless lab_number < 0
+          labs[lab_index] << line unless lab_index < 0
         end
       when :gather1
-        labs[lab_number] << gathered_line << " " << line
+        labs[lab_index] << gathered_line << " " << line
         mode = :direct
       when :gather
         if line =~ /^\s*$/
-          labs[lab_number] << gathered_line << "\n\n"
+          labs[lab_index] << gathered_line << "\n\n"
           mode = :direct
         else
           gathered_line << " " << line.strip
         end
       when :file
         if line =~ /^EOF$/
-          labs[lab_number] << "</pre>\n"
+          labs[lab_index] << "</pre>\n"
           mode = :direct
+        elsif line =~ /^=(\w+)/
+          sample_name = make_sample_name(lab_index+1, $1)
+          open(sample_name) do |ins|
+            ins.each do |sample_line|
+              labs[lab_index] << "#{gathered_line}#{sample_line}"
+            end
+          end
         else
-          labs[lab_number] << "#{gathered_line}#{line}"
-          gathered_line = ''
+          labs[lab_index] << "#{gathered_line}#{line}"
         end
+        gathered_line = ''
       end
     end
     labs.each do |lines|
@@ -120,8 +134,8 @@ module Labs
       f.puts "<body>"
       f.puts "<h1>Git Immersion Labs</h1>"
       f.puts "<ul>"
-      labs.each_with_index do |lab, index|
-        f.puts "<li><a href=\"#{lab.filename}\">Lab #{index}</a>: #{lab.name}</li>"
+      labs.each do |lab|
+        f.puts "<li><a href=\"#{lab.filename}\">Lab #{lab.number}</a>: #{lab.name}</li>"
       end
       f.puts "</ul>"
       f.puts "</body>"
@@ -151,9 +165,19 @@ end
 
 require 'rubygems'
 require 'redcloth'
+require 'rake/clean'
+
+CLOBBER.include(Labs::HTML_DIR)
 
 directory Labs::HTML_DIR
+
+desc "Create the Lab HTML"
 task :labs => [Labs::HTML_DIR, "src/labs.txt", "rakelib/labs.rake"] do |t|
   cp "src/labs.css", "#{Labs::HTML_DIR}/labs.css"
-  lab_source = File.open("src/labs.txt") { |f| Labs.generate_labs(f) }
+  File.open("src/labs.txt") { |f| Labs.generate_labs(f) }
+end
+
+desc "View the Labs"
+task :view do
+  sh "open #{Labs::HTML_DIR}/index.html"
 end

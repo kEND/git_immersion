@@ -1,35 +1,54 @@
 ---------------------------------------------------------------------- 
 h1. Setup
 
-h2. Run the following commands
+h2. Goals
 
-Execute:
+* To setup git so that it is ready for work.
+
+h2. Steps
+
+h3. Setup Name and Email
+
+p. If you have never used git before, you need to do some setup first.
+Run the following commands so that git knows your name and email.  If
+you have git already setup, you can skip down to the line ending
+section.
+
+execute:
 git config --global user.name "Your Name"
 git config -- user.email "your_email@whatever.com"
  
+h3. Setup Line Ending Preferences
+
 Also, for Unix/Mac users:
 
-Execute:
+execute:
 git config --global core.autocrlf input
 git config --global core.safecrlf true
 
 And for Windows users:
 
-Execute:
+execute:
 git config --global core.autocrlf true
 git config --global core.safecrlf true
 
 ---------------------------------------------------------------------- 
 h1. More Setup
 
-h2. Get the Tutorial package.
+h2. Goals
+
+* Get the tutorial materials setup and ready to run.
+
+h2. Steps
+
+h3. Get the Tutorial package.
 
 p. Git the tutorial package from either:
 
 * The memory sticks provided in the tutorial
 * The URL "http://onestepback.org/download/git_tutorial.zip":http://onestepback.org/download/git_tutorial.zip
 
-h2. Unzip the tuturial
+h3. Unzip the tuturial
 
 p. The tutorial package should have a main diretory "git_tutorial"
 with three sub-directories:
@@ -41,18 +60,32 @@ with three sub-directories:
 ---------------------------------------------------------------------- 
 h1. Create a Project
 
-h2. In an empty directory create the following file:
+h3. In an empty directory create the following file:
 
 File: hello.rb
 puts "Hello, World"
 EOF
 
-h2. Make the first commit
+h3. Make the first commit
 
 Execute:
 git init
+=init
 git add hello.rb
+=add
 git commit -m 'First Commit'
+=commit
+
+p. You should see ...
+
+Sample:
+$ git init
+=init
+$ git add hello.rb
+=add
+$ git commit -m 'First Commit'
+=commit
+EOF
 
 ---------------------------------------------------------------------- 
 h1. Recording Changes
@@ -61,13 +94,13 @@ File: hello.rb
 puts "Hello, #{ARGV.first}!"
 EOF
 
-h2. Check the status
+h3. Check the status
 
 p. See that get has detected that the file has changed, but it doesn't
 know what to do with it yet.
 
 Execute:
-git status
+!git status
 
 p. (checking the status is a good habit to get into.)
 
@@ -91,7 +124,8 @@ p. Mine is set to "emacsclient".
 p. So commit now and check the status.
 
 Execute:
-git commit
+-git commit
++git commit -m 'Using ARGV'
 
 p. Using your editor, enter the commit comment "Using ARGV"
 
@@ -99,7 +133,7 @@ p. Finally check the status again.  It should say "nothing to commit
 (working directory clean)".
 
 Execute:
-git status
+!git status
 
 ----------------------------------------------------------------------
 h1. Changes, not Files
@@ -108,7 +142,7 @@ p. Most source control systems work with files.  Git focuses on
 changes rather than files.  This lab will attempt to show the
 difference.
 
-h2. First Change: Allow a default name
+h3. First Change: Allow a default name
 
 p. Change the file to be:
 
@@ -118,12 +152,12 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. 
+h3. Add this Change
 
 Execute:
-git commit
+git add hello.rb
 
-h2. Second change: Add a comment
+h3. Second change: Add a comment
 
 Change hello.rb to be:
 
@@ -134,10 +168,10 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Check the current status
+h3. Check the current status
 
 Execute:
-git status
+!git status
 
 p. Notice how hello.rb is listed twice in the status.  It has some
 changes (the default value for name) ready to be committed.
@@ -148,13 +182,13 @@ committed.
 
 p. Git tracks changes, not files.
 
-h2. Adding the additional changes
+h3. Adding the additional changes
 
 p. Now add the second change to staging area, then run git status.
 
 Execute:
 git add .
-git status
+!git status
 
 p(((((note). <b>Note:</b> We used the current directory ('.') as the
 file to add.  This is a really convenient shortcut for adding in all
@@ -189,7 +223,7 @@ git log --pretty=oneline
 
 p. See man git-log for all the details.
 
-h2. Getting Fancy
+h3. Getting Fancy
 
 p. Here's what I use to review the changes made in the last week.
 I'll add a --author=jim to it I only want to see changes I made.
@@ -197,7 +231,7 @@ I'll add a --author=jim to it I only want to see changes I made.
 pre(instructions).
 git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago'
 
-h2. Other Tools
+h3. Other Tools
 
 p. Both <code>gitx</code> (for Macs) and <code>gitk</code> (any
 platform) are useful in exploring log history.
@@ -208,7 +242,7 @@ h1. Getting Old Versions
 p. Going back in history is very easy.  The checkout command will copy
 any snapshot from the repository to the working directory.
 
-h2. Get the hashes for previous versions
+h3. Get the hashes for previous versions
 
 Execute:
 git log --pretty=oneline
@@ -217,6 +251,7 @@ p. Examine the log output and find the hash for the first commit.  Use
 that hash code (the first 8 characters is enough) in the command
 below.  Then check the contents of the hello.rb file.
 
+Set: hash=hash_for("First Commit")
 Execute:
 git checkout <hash>
 cat hello.rb
@@ -229,7 +264,7 @@ p. You will probably get some complaints about not being on a local
 branch.  That's ok for now.  Notice the contents of the hello.rb file
 are the original contents.
 
-h2. Return the latest version in the master branch
+h3. Return the latest version in the master branch
 
 Execute:
 git checkout master
@@ -243,14 +278,14 @@ h1. Tagging versions
 
 p. Let's call the current version of the hello program version 1 (v1).
 
-h2. Tagging version 1
+h3. Tagging version 1
 
 Execute:
 git tag v1
 
 p. Now you can refer to the current version of the program as v1.  
 
-h2. Tagging a previous version
+h3. Tagging a previous version
 
 p. Let's tag the second version of our program as v1-beta.  First we need
 to checkout the previous version.  Rather than lookup up the hash, we
@@ -290,7 +325,7 @@ p. Sometimes you have modified a file in your local working directory
 and you wish to just revert to what has already been commited.  The
 checkout command will handle that.
 
-h2. Change hello.rb
+h3. Change hello.rb
 
 Change hello.rb to have a bad comment.
 
@@ -301,18 +336,18 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Run
+h3. Run
 
 p. First, check the status.
 
 Execute:
-git status
+!git status
 
 Now lets go back to the previous version of the file.
 
 Execute:
 git checkout hello.rb
-git status
+!git status
 cat hello.rb
 
 p. We are now back to the checked-in version.
@@ -323,11 +358,11 @@ h1. Aliases
 p. Git status, git add, git commit, and git checkout are such common
 commands that it is useful to have abbreviations for them.
 
-h2. Common Aliases
+h3. Common Aliases
 
 Add the following to the .gitconfig file in your $HOME directory.
 
-File: .gitconfig
+file: .gitconfig
 [alias]
   co = checkout
   ci = commit
@@ -348,19 +383,19 @@ p. By the way, I'll continue to type out the full command in these
 instructions, but feel free to use the aliases above.  Also, you
 should experiment with adding your own aliases as you go.
 
-h2. Commands to come...
+h3. Commands to come...
 
 p. We've added a few aliases for command we haven't covered yet. The
 'git branch' command will be coming up soon.  And the 'git cat-file'
 command is useful for exploring git, which we will see in the next
 section.
 
-h2. Shell Aliases
+h3. Shell Aliases
 
 p. If your shell supports aliases or shortcuts, then you can add
 aliases at that level too.  Here are the ones I use:
 
-File: .profile
+file: .profile
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
@@ -387,12 +422,12 @@ aliases for them.
 ----------------------------------------------------------------------
 h1. Moving Files
  
-h2. Move the hello.rb file into a lib directory.
+h3. Move the hello.rb file into a lib directory.
 
 Execute:
 mkdir lib
 git mv hello.rb lib
-git status
+!git status
 
 p. By using git to do the move, we inform git of 2 things 
 
@@ -403,7 +438,7 @@ p. Both of these bits of information are immediately staged and ready
 to be commited.  The git status command reports that the file has been
 moved.
 
-h2. Another way of moving files
+h3. Another way of moving files
 
 p. One of the nice things about git is that you can forget about
 source control until the point you are ready to start committing code.
@@ -420,7 +455,7 @@ mv hello.rb lib
 git add lib/hello.rb
 git rm hello.rb
 
-h2. Commit the new directory
+h3. Commit the new directory
 
 Execute:
 git commit -m 'Moved hello.rb to lib'
@@ -428,7 +463,7 @@ git commit -m 'Moved hello.rb to lib'
 ----------------------------------------------------------------------
 h1. More Structure
 
-h2. Now add a Rakefile
+h3. Now add a Rakefile
 
 File: Rakefile
 #!/usr/bin/ruby -wKU
@@ -454,7 +489,7 @@ rake
 ----------------------------------------------------------------------
 h1. Git Internals: The .git directory 
 
-h2. Object Store
+h3. Object Store
 
 p. Time to do some exploring.  First, from the root of your project
 directory...
@@ -478,7 +513,7 @@ objects stored in git.  These files are compressed and encoded, so
 looking at their contents directly won't be very helpful, but we will
 take a closer look in a bit.
 
-h2. Config File
+h3. Config File
 
 Execute:
 cat .git/config
@@ -487,7 +522,7 @@ p. This is project specific configuration file.  Config entries in
 here will override the config entries in the .gitconfig file in your
 home directory, at least for this project.
 
-h2. Branches and Tags
+h3. Branches and Tags
 
 Execute:
 ls .git/refs
@@ -503,7 +538,7 @@ p. The heads directory is similar, but is used for branches rather
 than tags.  We only have one branch at the moment, so all you will see
 is master in this directory.
 
-h2. The HEAD File
+h3. The HEAD File
 
 Execute:
 cat .git/HEAD
@@ -516,7 +551,7 @@ h1. Git Internals: Working directly with Git Objects
 
 p. Now let's use some tools to probe git objects directly.
 
-h2. Finding the Latest Commit
+h3. Finding the Latest Commit
 
 Execute:
 git log --max-count=1 --pretty=oneline
@@ -530,10 +565,11 @@ $ git log --max-count=1 --pretty=oneline
 bf6f5e16491ca5ff08f7d876f0c661d5ed0762a4 added Rakefile.
 EOF
 
-h2. Dumping the Latest Commit
+h3. Dumping the Latest Commit
 
 Using the SHA1 hash from the above ...
 
+Set: hash=hash_for("Added a Rakefile")
 Execute:
 git cat-file -t <hash>
 git cat-file -p <hash>
@@ -564,7 +600,7 @@ p. This is the dump of the commit object that is at the head of the
 master branch.  It looks a lot like the commit object from the
 presentation earlier.
 
-h2. Finding the Tree
+h3. Finding the Tree
 
 p. We can dump the directory tree referenced int he commit.  This
 should be a description of the (top level) files in our project (for
@@ -605,29 +641,11 @@ p. There you have it.  We've dumped commit objects, tree objects and
 blob objects directly from the git repository.  That's all that is
 there, blobs, trees and commits.
 
-h2. Explore On You Own
+h3. Explore On You Own
 
 p. Explore the git repo manually on your own.  See if you can find the
 original hello.rb file from the very first commit by manually
 following the SHA1 hash references starting in the latest commit.
-
-----------------------------------------------------------------------
-h1. Prep for Branching
-
-p. We are ready to do some work with branches.  You can continue to
-work in your current repository.  Or if you wish, to can start in a
-fresh repository that has all the changes up to this point.
-
-h2. Starting with a Fresh Reposistory
-
-p. Go to your work directory and type:
-
-Execute:
-git clone ../repos/hello_prebranch hello2
-cd hello2
-
-p. You are now ready to continue with the branching exercise in the
-hello2 directory.
 
 ----------------------------------------------------------------------
 h1. Creating a Branch
@@ -636,18 +654,18 @@ p. It's time to do a major rewrite of the hello world functionality.
 Since this might take awhile, you want to put these changes into a
 separate branch to isolate them from changes in master.
 
-h2. Create a Branch
+h3. Create a Branch
 
 p. Let's call our new branch 'greet'.
 
 Execute:
 git checkout -b greet
-git status
+!git status
 
 p. Notice that the git status command reports that you are on the
 'greet' branch.
 
-h2. Changes for Greet: Add a Greeter class.
+h3. Changes for Greet: Add a Greeter class.
 
 File: lib/greeter.rb
 class Greeter
@@ -664,7 +682,7 @@ Execute:
 git add .
 git commit -m 'added greeter class'
 
-h2. Changes for Greet: Modify the main program
+h3. Changes for Greet: Modify the main program
 
 p. Update the hello.rb file to use greeter
 
@@ -682,7 +700,7 @@ Execute:
 git add .
 git commit -m 'hello uses Greeter'
 
-h2. Changes for Greet: Update the Rakefile
+h3. Changes for Greet: Update the Rakefile
 
 p. Update the Rakefile to use an external ruby process
 
@@ -723,7 +741,7 @@ aab4381 First Commit
 $ 
 EOF
 
-h2. Switching Branches
+h3. Switching Branches
 
 p. Just use the 'git checkout command to switch between branches. 
 
@@ -740,12 +758,22 @@ cat lib/hello.rb
 ----------------------------------------------------------------------
 h1. Changes in Master
 
+h2. Goals
+
+* Learing how to deal with multiple branches with different (and possibly conflicting) changes.
+
+h2. Steps
+
 p. While you were changing the greet branch, someone else decided to
 update the master branch.  They added a README.
+
+h3. Update the README file with changes.
 
 File: README
 This is the Hello World example from the git tutorial.
 EOF
+
+h3. Commit the README changes to master.
 
 Execute:
 git checkout master
@@ -753,7 +781,56 @@ git add README
 git commit -m 'Added README'
 
 ----------------------------------------------------------------------
+h1. Viewing Diverging Branches
+
+h2. Goals
+
+* Learn how to view diverging branches in a repository.
+
+h2. Steps
+
+h3. View the Current Branches
+
+p. We now have two diverging branches in the repository.  Use the
+following log command to view the branches and how they diverge.
+
+Execute:
+git log --pretty=oneline --abbrev-commit --graph --decorate --all
+
+p. I get something like this:
+
+Sample:
+$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
+* a1416cc (greet) Updated Rakefile
+* fe1a57b hello uses Greeter
+* 40855dc added greeter class
+| * ac88530 (HEAD, master) Added README
+|/  
+* 4057fe3 Added a Rakefile.
+* 477c3d0 Moved hello.rb to lib
+* 66875dc (v1) added default for name
+* 01855a9 (v1-beta) Using ARGV
+* e8aaea7 First Commit
+EOF
+
+p. Adding the --graph option to git log causes it to draw the commit
+tree using simple ASCII characters.  We can see both branches (greet
+and master), and that the master branch is the current HEAD.  The
+common ancestor to both branches is the "Added a Rakefile" branch.
+
+p. The @--all@ flag makes sure that we see all the branches.  The
+default is to show only the current branch.
+
+----------------------------------------------------------------------
 h1. Merging
+
+h2. Goals
+
+* Learning who to merge two diverging branches to bring the changes back into a single branch.
+
+h2. Steps
+
+h3. Merge the branches
 
 p. Merging brings the changes in two branches together.  Let's go back
 to the greet branch and merge master onto greet.
@@ -761,7 +838,7 @@ to the greet branch and merge master onto greet.
 Execute:
 git checkout greet
 git merge master
-git log --pretty=oneline --decorate --abbrev-commit 
+git log --pretty=oneline --decorate --abbrev-commit --graph --all
 
 p. By merging master into your greet branch periodically, you can pick
 up any changes to master and keep your changes in greet compatible
@@ -770,11 +847,21 @@ with changes in the mainline.
 p. However, it does produce ugly commit graphs. Latter we will look at
 the option of rebasing rather than merging.
 
+h3. Up Next
+
 p. But first, what if the changes in master conflict with the changes
 in greet?
 
 ----------------------------------------------------------------------
 h1. Creating a Conflict
+
+h2. Goals
+
+* Create a conflicting change in the master branch.
+
+h2. Steps
+
+h3. Switch back to master and create a conflict
 
 p. Switch back to the master branch and make this change:
 
@@ -794,14 +881,57 @@ Execute:
 git add .
 git commit -m 'made interactive'
 
+h3. View the Branches
+
+Execute:
+git log --pretty=oneline --decorate --abbrev-commit --graph --all
+
+p. I get the following:
+
+Sample:
+$ git log --pretty=oneline --decorate --abbrev-commit --graph --all
+*   b29584f (greet) Merge branch 'master' into greet
+|\  
+* | a5e7798 Updated Rakefile
+* | ec2a51e hello uses Greeter
+* | a672f68 added greeter class
+| | * 6b2a404 (HEAD, master) made interactive
+| |/  
+| * 5ce262a Added README
+|/  
+* 93e40bd Added a Rakefile.
+* 34b8342 Moved hello.rb to lib
+* 0705d29 (v1) added default for name
+* 91c92a1 (v1-beta) Using ARGV
+* 0d9ae0b First Commit
+end
+EOF
+
+p. Master at commit "Added README" has been merged to the greet
+branch, but there is now an additional commit on master that has not
+been merged back to greet.
+
+h3. Up Next
+
+p. The latest change in master conflicts with some existing changes in
+greet.  Next we will resolve those changes.
+
 ----------------------------------------------------------------------
 h1. Resolving Conflicts
 
-p. Now go back to greet and try to merge the new master.
+h2. Goals
+
+* Learn how to handle conflicts during a merge
+
+h2. Steps
+
+h3. Merge master to greet
+
+p. Now go back to the greet branch and try to merge the new master.
 
 Execute:
 git checkout greet
-git merge master
+!git merge master
 
 p. I get...
 
@@ -812,20 +942,22 @@ $ git merge master
 Auto-merging lib/hello.rb
 CONFLICT (content): Merge conflict in lib/hello.rb
 Automatic merge failed; fix conflicts and then commit the result.
-$ 
 EOF
 
 If you open lib/hello.rb, you will see:
 
-File: lib/hello.rb
+file: lib/hello.rb
+<<<<<<< HEAD
 require 'greeter'
 
 # Default is World
+name = ARGV.first || "World"
 
-<<<<<<< HEAD
 greeter = Greeter.new(name)
 puts greeter.greet
 =======
+# Default is World
+
 puts "What's your name"
 my_name = gets.strip
 
@@ -833,7 +965,10 @@ puts "Hello, #{my_name}!"
 >>>>>>> master
 EOF
 
-h2. Fix the Conflict
+p. The first section is the version on the head of the current branch
+(greet).  The second section is the version on the master branch.
+
+h3. Fix the Conflict
 
 p. You need to manually resolve the conflict.  Modify @lib/hello.rb@
 to be the following.
@@ -850,13 +985,13 @@ greeter = Greeter.new(my_name)
 puts greeter.greet
 EOF
 
-h2. Commit the Conflict Resolution
+h3. Commit the Conflict Resolution
 
 Execute:
 git add lib/hello.rb
 git commit -m 'Merged master fixed conflict.'
 
-h2. Advanced Merging
+h3. Advanced Merging
 
 p. git doesn't provide any graphical merge tools, but it will gladly
 work with any third party merge tool you wish to use.  See
@@ -864,7 +999,41 @@ work with any third party merge tool you wish to use.  See
 for a description of using the Perforce merge tool with git.
 
 ----------------------------------------------------------------------
-h1. Reseting a Branches
+h1. Rebasing VS Merging
+
+h2. Goals
+
+* Learn the differences between rebasing and merging.
+
+h2. Discussion
+
+p. Let's explore the differences between merging and rebasing.  In
+order to do so, we need to rewind the repository back in time before
+the first merge, and then redo the same steps, but using rebasing
+rather than merging.
+
+h3. But First, An Aside on the Reset command
+
+p. The reset command can be used to force any branch reference to
+point to any commit.  We will use this ability to make master and
+greet point to an earlier commit in their history, essentially
+rewinding them back in time.
+
+p. Note that the reset command does not change the commit tree in the
+repository.  All we are doing is pointing the branch to a different
+commit.  The old commit objects are still in the repository, but
+unreferenced.  Eventually they will be garbaged collected.
+
+----------------------------------------------------------------------
+h1. Reseting the Greet Branch
+
+h2. Goals
+
+* Reset the greet branch to the point before the first merge.
+
+h2. Steps
+
+h3. Reset the greet branch
 
 p. Let's go back in time on the greet branch to the point _before_ we
 merged master onto it.  We can *reset* a branch to any commit we want.
@@ -901,14 +1070,15 @@ $
 EOF
 
 p. That's a bit hard to read, but looking at the data we see that the
-"updated Rakefile" commit was the last commit on the greet branch
+"Updated Rakefile" commit was the last commit on the greet branch
 before merging.  Let's reset the greet branch to that commit.
 
+Set: hash=hash_for("Updated Rakefile")
 Execute:
 git reset --hard <hash>
 
-p. (I used 1f9a5d2 for the hash code, yours will probaby be
-different).
+p. Make sure you substitute the proper hash value for "&lt;hash&gt;".
+Yours will most certainly be different from the ones listed here.
 
 p(((((note). *NOTE:* Resetting local branches is generally not a
 problem.  Reseting publicly shared branches is a bad idea.  (Discuss
@@ -917,15 +1087,42 @@ why this is a bad idea).
 p. The @--hard@ parameter makes sure the working directory is up to
 date with the change in the branch.
 
-h2. Check the branch.
+h3. Check the branch.
 
 p. Look at the log for the greet branch.  We no longer have the merge
 commits in its history.
 
-h2. Backup the master branch.
+Execute:
+git log --pretty=oneline --abbrev-commit --graph --decorate --all
+
+p. I see something like...
+
+Sample:
+git log --pretty=oneline --abbrev-commit --graph --decorate --all
+* b6e8dd9 (HEAD, greet) Updated Rakefile
+* cbd0d9e hello uses Greeter
+* eea809d added greeter class
+| * 843a23d (master) made interactive
+| * 12e9e89 Added README
+|/  
+* dc8a533 Added a Rakefile.
+* 7fab506 Moved hello.rb to lib
+* 14f13d4 (v1) added default for name
+* 531dd55 (v1-beta) Using ARGV
+* 484866c First Commit
+EOF
+
+----------------------------------------------------------------------
+h1. Reseting the Master Branch
+
+h2. Goals
+
+* Reset the master branch to the point before the conflicting commit.
+
+h3. Reset the master branch
 
 Let's backup the master branch to the point before we added the
-conflicting.
+conflicting commit.
 
 Execute:
 git checkout master
@@ -940,20 +1137,42 @@ $ git log --pretty=oneline --abbrev-commit --graph --decorate
 * dafefe0 (v1) added default for name
 * f0948e0 (v1-beta) Using ARGV
 * aab4381 First Commit
-$
 EOF
 
 p. Let's backup to the 'Added README' commit.
 
+Set: hash=hash_for("Added README")
 Execute:
 git reset --hard <hash>
+git log --pretty=oneline --abbrev-commit --graph --decorate --all
 
-p. (I used b6620b3 for the hash).
+p. Review the log.  It should look like the repository has been wound
+back in time to the point before we merged anything.
 
-Now master is backed up in time.
+p. I see ...
+
+Sample:
+$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
+* 219e23c (greet) Updated Rakefile
+* 41444b5 hello uses Greeter
+* 98b4456 added greeter class
+| * 6912532 (HEAD, master) Added README
+|/  
+* 606942b Added a Rakefile.
+* a724ded Moved hello.rb to lib
+* 7dcacae (v1) added default for name
+* 8aec63b (v1-beta) Using ARGV
+* 60e17f8 First Commit
+EOF
 
 ----------------------------------------------------------------------
 h1. Rebasing
+
+h2. Goals
+
+* Use the rebase command rather than the merge command.
+
+h2. Steps
 
 p. Ok, we are back in time before the merge and we want to get the
 changes in master into our greet branch.
@@ -976,22 +1195,46 @@ Applying: hello uses Greeter
 Applying: updated Rakefile
 $
 $ git log --pretty=oneline --abbrev-commit --graph --decorate
-* de35373 (HEAD, greet) updated Rakefile
-* dcaa09c hello uses Greeter
-* 8ce5fdb added Greeter class
-* b6620b3 (master) Added README
-* 213276d added a rakefile
-* d6fc54a Moved hello.rb to lib
-* dafefe0 (v1) added default for name
-* f0948e0 (v1-beta) Using ARGV
-* aab4381 First Commit
-$ 
+* 2959c66 (HEAD, greet) Updated Rakefile
+* 692cd13 hello uses Greeter
+* 19b340a added greeter class
+* f33db46 (master) Added README
+* 166ee19 Added a Rakefile.
+* 22176de Moved hello.rb to lib
+* f9ee428 (v1) added default for name
+* e0d38e1 (v1-beta) Using ARGV
+* 60beb94 First Commit
 EOF
+
+h3. Merge VS Rebase
+
+p. The final result of the rebase is very similar to the merge.  The
+greet branch now contains all of its changes, as well as all the
+changes from the master branch.  However, the commit tree is quite
+different.  The commit tree for the greet branch has been rewritten so
+that the master branch is a part of the commit history.  This leaves
+the chain of commits linear and much easier to read.
+
+h3. When to Rebase, When to Merge?
+
+p. Don't use rebase ...
+
+# If the branch is public and shared with others.  Writing publicly shared branches will tend to screw up other members of the team.
+# When the _exact_ history of the commit branch is important (since rebase rewrites the commit history).
+
+p. Given the above guidelines, I tend to use rebase for short-lived,
+local branches and merge for branches in the public repository.
 
 ----------------------------------------------------------------------
 h1. Merging Back to Master
 
-p. Now its time to bring our greet changes into master.
+h2. Goals
+
+* We've kept our greet branch up to date with master (via rebase), now lets merge the greet changes back into the master branch.
+
+h2. Steps
+
+h3 Merge greet into master
 
 Execute:
 git checkout master
@@ -1011,22 +1254,45 @@ Fast-forward
  lib/hello.rb   |    5 ++++-
  3 files changed, 13 insertions(+), 2 deletions(-)
  create mode 100644 lib/greeter.rb
-$
-$ git hist
-* de35373 (HEAD, master, greet) updated Rakefile
-* dcaa09c hello uses Greeter
-* 8ce5fdb added Greeter class
-* b6620b3 Added README
-* 213276d added a rakefile
-* d6fc54a Moved hello.rb to lib
-* dafefe0 (v1) added default for name
-* f0948e0 (v1-beta) Using ARGV
-* aab4381 First Commit
-$ 
 EOF
+ 
+p. Because the head of master is a direct ancestor of the head of the
+greet branch, git is able to do a fast forward merge.  When
+fast-forwarding, the branch pointer is simply moved forward to point
+to same commit as the greeter branch.
+
+p. There will never be conflicts in a fast forward merge.
+
+h3. Review the logs
+
+Execute:
+git log --pretty=oneline --abbrev-commit --graph --decorate
+
+Sample:
+$ git log --pretty=oneline --abbrev-commit --graph --decorate
+* fd8c01b (HEAD, master, greet) Updated Rakefile
+* 59c99fd hello uses Greeter
+* 7d8c072 added greeter class
+* 8050d82 Added README
+* 4f07f29 Added a Rakefile.
+* 2ff84c5 Moved hello.rb to lib
+* e06c9ff (v1) added default for name
+* d92e8fe (v1-beta) Using ARGV
+* f34f545 First Commit
+EOF
+
+p. The greet and master branches are now identical.
 
 ----------------------------------------------------------------------
 h1. Cloning Repositories
+
+h2. Goals
+
+* Learn how to make copies of repositories.
+
+h2. Steps
+
+h3. Create a clone of the hello repository
 
 p. Go to the working directory and make a clone of your hello
 repository.
@@ -1036,13 +1302,13 @@ cd ..
 pwd
 # (you should be in the 'work' directory now) 
 ls
-# (you should see the 'hello' repository) 
+# (you should see the 'hello' repository)  
 git clone hello cloned_hello
-cd cloned_hello
 ls
+# (you should now see the 'cloned_hello' repository as well) 
 
-p. Here's what I saw
-
+p. Here's what I saw ...
+ 
 Sample:
 $ cd ..
 $ pwd
@@ -1053,36 +1319,333 @@ $ git clone hello cloned_hello
 Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/cloned_hello/.git/
 $ ls
 cloned_hello	hello
-$ cd cloned_hello/
-$ ls
-README		Rakefile	lib
-$
 EOF
+
+----------------------------------------------------------------------
+h1. Review the Cloned Repository
+
+h2. Goals
+
+* Learn about branches on remote repositories.
+
+h3. Look at the cloned repository
+
+p. Let's take a look at the cloned repository.
+
+Execute:
+cd cloned_hello
+git log --pretty=oneline --abbrev-commit --graph --decorate --all
+
+p. Here's what I saw ...
+ 
+Sample:
+$ cd cloned_hello/
+$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
+* 53bb25c (HEAD, origin/master, origin/greet, origin/HEAD, master) Updated Rakefile
+* 31f6fc0 hello uses Greeter
+* 080697b added greeter class
+* adde071 Added README
+* d19231f Added a Rakefile.
+* dfcfb9a Moved hello.rb to lib
+* 10ddda2 (v1) added default for name
+* 2f189a9 (v1-beta) Using ARGV
+* 0e63dc3 First Commit
+EOF
+
+h3. Remote branches
+
+p. This is almost the same as the original hello repository.  However,
+not the list of branches on the "Updated Rakefile" line.  You have a
+*master* branch, but you also have number of strangely named branches
+(*origin/master*, *origin/greet* and *origin/HEAD*).  We'll talk about
+them in a bit.
+
+----------------------------------------------------------------------
+h1. What is Origin?
+
+h2. Goals
+
+* Learn about naming remote repositories.
+
+h2. Steps
+
+Execute:
+git remote
+
+Sample:
+$ git remote
+origin
+EOF
+
+p. We see that the cloned repository knows about a remote repository
+named origin.  Let's see if we can get more information about origin:
+
+Execute:
+git remote show origin 
+
+p. This should look like
+
+Sample:
+$ git remote show origin
+* remote origin
+  Fetch URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
+  Push  URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
+  HEAD branch (remote HEAD is ambiguous, may be one of the following):
+    greet
+    master
+  Remote branches:
+    greet  tracked
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+EOF
+
+p. Now we see that the remote repository origin is simply the original
+*hello* repository.  There is nothing particularly special about the
+name "origin", however the convention is to use the name 'origin' for
+the primary centralized repository (if there is one).
 
 ----------------------------------------------------------------------
 h1. Remote Branches
 
-p. The cloned repository remembers where it came from.
+h2. Goals
+
+* Learn about local VS remote branches
+
+h2. Steps
+
+p. Let's look at the branches available in our cloned repository.
+
+Execute:
+git branch
+
+p. You should get ...
+
+Sample:
+$ git branch
+* master
+EOF
+
+p. That's it, only the master branch is listed.  Where is the greet
+branch?  The *git* *branch* command only lists the local branches by
+default.
+
+h3. List Remote Branches
+
+p. Try this to see all the branches:
 
 Execute:
 git branch -a
 
-p. I saw...
+p. You should get ...
 
 Sample:
-$ git branch -a
+$ git branch
 * master
   remotes/origin/HEAD -> origin/master
   remotes/origin/greet
   remotes/origin/master
-$ 
 EOF
+
+p. Git has all the commits from the original reposistory, but branches
+in the remote repository are not treated as local branches here.  If
+we want our own *greet* branch, we need to create it ourselves. We
+will see how to do that in a minute.
+
+----------------------------------------------------------------------
+h1. Change the Original Repository
+
+h2. Goals
+
+* Make some changes to the original repository so we can try to pull the changes
+
+h2. Steps
+
+h3. Make a change in the original *hello* repository
+
+Execute:
+cd ../hello
++pwd
+# (You should be in the original hello repository now)
+
+p. Make the following changes to README:
+
+File: README
+This is the Hello World example from the git tutorial.
+(changed in original)
+EOF
+
+p. Now add and commit this change
+
+Execute:
+git add README
+git commit -m 'Changed REAME in original repo'
+
+h3. Up Next
+
+p. The original repository now has later changes that are not in the
+cloned version.  Next we will pull those changes across to the cloned
+repository.
+
+----------------------------------------------------------------------
+h1. Fetching Changes
+
+h2. Goals
+
+* Learn how to pull changes from a remote repository.
+
+h2. Steps
+
+Execute:
+cd ../cloned_hello
++pwd
+git fetch
+
+p. You should see ...
+
+Sample:
+$ git fetch
+remote: Counting objects: 5, done.        
+remote: Compressing objects: 100% (3/3), done.        
+remote: Total 3 (delta 0), reused 0 (delta 0)        
+Unpacking objects: 100% (3/3), done.
+From /Users/jim/Documents/Presentations/git_immersion/auto/hello
+   1a7c8c1..82d92b3  master     -> origin/master
+EOF
+
+p. At this point the repository has all the commits from the original
+repository.  However, they have not been merged into the local master
+branch.
+
+h3. Check the README
+
+Execute:
+cat README
+
+Sample:
+$ cat README
+This is the Hello World example from the git tutorial.
+EOF
+
+p. See, no changes.
+
+----------------------------------------------------------------------
+h1. Merging Pulled Changes
+
+h2. Goals
+
+* Learn to get the pulled changes into the current branch and working directory.
+
+h2. Steps
+
+h3. Merge the fetched changes into local master
+
+Execute:
+git merge origin/master
+
+Sample:
+$ git merge origin/master
+Updating 1a7c8c1..82d92b3
+Fast-forward
+ README |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+EOF
+
+h3. Check the README again
+
+p. We should see the changes now.
+
+Execute:
+cat README
+
+Sample:
+$ cat README
+This is the Hello World example from the git tutorial.
+(changed in original)
+EOF
+
+p. There's the changes.
+
+
+----------------------------------------------------------------------
+h1. Pulling Changes
+
+h2. Goals
+
+* Learn that 'git pull' is equivalent to a 'git fetch' followed by a merge.
+
+h2. Discussion
+
+p. We're not going to go through the process of creating another
+change and pulling it again, but we do want you to know that doing:
+
+pre(instructions). git pull
+
+is indeed equivalent to the two step
+
+pre(instructions). git fetch
+git merge origin/master
+
+----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+h1. Local Branches
+
+TBD
+
+----------------------------------------------------------------------
+h1. Added a Tracking Branch
+
+ (NOTE: Consider moving this section after the bare repository)
+
+h2. Goals
+
+* Learn how to add a local branch that tracks a remote branch.
+
+h2. Steps
 
 p. The branches starting with remotes/origin are branches from the
 original repo.  Notice that you don't have a branch called greet
 anymore, but it knows that the original repo had a greet branch.
 
-h2. Add a local branch that tracks a remote branch.
+h3. Add a local branch that tracks a remote branch.
 
 Execute:
 git branch --track greet origin/greet
@@ -1112,6 +1675,7 @@ Switch back to the original repository and add a line to the readme.
 
 Execute:
 cd ../hello
++pwd
 # (You should be in the original hello repository)
 
 p. Change the README file
@@ -1131,12 +1695,13 @@ p. Now switch back to the cloned directory
 
 Execute:
 cd ../cloned_hello
++pwd
 # (You should be in the cloned hello repository)
-cat README
+ls
 
 p. We see the changes to README are not here yet.
 
-h2. Fetch the Changes
+h3. Fetch the Changes
 
 Execute:
 git fetch origin
@@ -1162,7 +1727,7 @@ the changes in the remote branch into master.
 Execute:
 git merge origin/master
 
-h2. Pulling
+h3. Pulling
 
 The fetch/merge commands can be done in one operation with pull.
 
@@ -1175,10 +1740,11 @@ h1. Bare Repositories
 Bare repositories (without working directories) are usually used for
 sharing).
 
-h2. Create a bare repository.
+h3. Create a bare repository.
 
 Execute:
 cd ..
++pwd
 # (You should be in the work directory)
 git clone --bare hello hello.git
 git ls hello.git
@@ -1205,6 +1771,7 @@ p. Let's add the hello.git repo to our original repo.
 
 Execute:
 cd hello
++pwd
 # (You should be in the original repository)
 git remote add shared ../hello.git
 
@@ -1254,6 +1821,7 @@ changes just pushed to the shared repo.
 
 Execute:
 cd ../cloned_hello
++pwd
 # (You should be in the cloned repository)
 git remote add shared ../hello.git
 git branch --track shared master
@@ -1266,7 +1834,7 @@ h1. Hosting your Git Repositories
 p. There are many ways to share git repositories over the network.
 Here is a quick and dirty way.
 
-h2. Start up the git server
+h3. Start up the git server
 
 Execute:
 # (From the work directory)
@@ -1282,7 +1850,7 @@ ls
 
 p. You should see a copy of hello project.
 
-h2. Pushing to the Git Daemon
+h3. Pushing to the Git Daemon
 
 p. If you want to push to the git daemon repository, add
 @--enable=receive-pack@ to the git daemon command.  Be careful because

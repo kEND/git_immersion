@@ -1,7 +1,13 @@
-task :default => :labs
+#!/usr/bin/ruby -wKU
 
-task :delete_html do
-  rm_r "git_tutorial/html"
+require 'rake/clean'
+
+SAMPLES_DIR = Dir.pwd + "/samples"
+
+task :clean_samples do
+  rm_r SAMPLES_DIR rescue nil
 end
 
-task :rebuild => [:delete_html, :labs]
+task :default => :labs
+
+task :rebuild => [:clobber, :labs]
