@@ -1,0 +1,11 @@
+#!/bin/sh
+
+DIR=$PWD
+while [ ! -r keynote ]; do
+    cd ..
+done
+
+rake run[$1]
+
+echo RETURNING TO $DIR
+cd $DIR
