@@ -246,6 +246,14 @@ h3. Get the hashes for previous versions
 
 Execute:
 git log --pretty=oneline
+=log
+
+p. You should see something like:
+
+Sample:
+$ git log --pretty=oneline
+=log
+EOF
 
 p. Examine the log output and find the hash for the first commit.  Use
 that hash code (the first 8 characters is enough) in the command
@@ -254,11 +262,27 @@ below.  Then check the contents of the hello.rb file.
 Set: hash=hash_for("First Commit")
 Execute:
 git checkout <hash>
+=checkout
 cat hello.rb
+=cat
 
-p(((((note). *Note:* The commands given here are Unix commands and
+p(((((note). *Note:* The commands given here are Unix commands and 
 work on both Mac and Linux boxes.  Unfortunately, Windows users will
 have to translate to their native commands.  
+
+p(((((note). *Note:* Many commands depend on the hash values in the
+repository.  Since your hash values will vary from mine, whenever you
+see something like &lt;hash&gt; or &lt;treehash&gt; in the command,
+substitute in the proper hash value for your repository.
+
+p. You should see ...
+
+Sample:
+$ git checkout <hash>
+=checkout
+$ cat hello.rb
+=cat
+EOF
 
 p. You will probably get some complaints about not being on a local
 branch.  That's ok for now.  Notice the contents of the hello.rb file
@@ -555,6 +579,7 @@ h3. Finding the Latest Commit
 
 Execute:
 git log --max-count=1 --pretty=oneline
+=log
 
 p. This should show the latest commit made in the repository.  The
 SHA1 hash on your system is probably different that what is on mine,
@@ -562,7 +587,7 @@ but you should see something like this.
 
 Sample:
 $ git log --max-count=1 --pretty=oneline
-bf6f5e16491ca5ff08f7d876f0c661d5ed0762a4 added Rakefile.
+=log
 EOF
 
 h3. Dumping the Latest Commit
@@ -573,20 +598,15 @@ Set: hash=hash_for("Added a Rakefile")
 Execute:
 git cat-file -t <hash>
 git cat-file -p <hash>
+=dump
 
 Here's my output ...
 
 Sample:
-$ git cat-file -t bf6f5e16
+$ git cat-file -t <hash>
 commit
-$ git cat-file -p bf6f5e16
-tree baaf7030417cb0ae9dadd4678f8a029365c48a43
-parent 5f0f5186e6a88151771e287fcfb6c7d03688c753
-author Jim Weirich <jim.weirich@gmail.com> 1275865995 -0400
-committer Jim Weirich <jim.weirich@gmail.com> 1275865995 -0400
-
-added Rakefile.
-$
+$ git cat-file -p <hash>
+=dump
 EOF
 
 p(((((note). *NOTE:* If you defined the 'type' and 'dump' aliases from 
@@ -606,35 +626,41 @@ p. We can dump the directory tree referenced int he commit.  This
 should be a description of the (top level) files in our project (for
 that commit).
 
-Example:
-git cat-file -p baaf70
+Set: treehash=hash_in(var['hash'], 'tree')
+Execute:
+git cat-file -p <treehash>
+=treedump
 
 p. Here's what my tree looks like...
 
 Sample:
-$ git cat-file -p baaf70
-100644 blob 4b201b0c6a8512d3c1282ff10a5974c44e442567	Rakefile
-040000 tree 7cab26ba7c4fb7e668c4dafb081bccfdffdd018f	lib
-$ 
+$ git cat-file -p <treehash>
+=treedump
 EOF
 
 p. Yep, I see the Rakefile and the lib directory.  Let's dive down
 into the lib directory...
 
+Set: libhash=hash_in(var['treehash'], 'lib') 
+Execute:
+git cat-file -p <libhash>
+=libdump
+
 Sample:
-$ git cat-file -p 7cab26b
-100644 blob eddc85fb225855a027c2e4e88b6a202bab350a14	hello.rb
-$
+$ git cat-file -p <libhash>
+=libdump
 EOF
 
 p. There's the @hello.rb@ file.  Let's dump that ...
 
+Set: rbhash=hash_in(var['libhash'], 'hello')
+Execute:
+git cat-file -p <rbhash>
+=rbdump
+
 Sample:
-$ git cat-file -p eddc85
-# Default is "World"
-name = ARGV.first || "World"
-puts "Hello, #{name}!"
-$ 
+$ git cat-file -p <rbhash>
+=rbdump
 EOF
 
 p. There you have it.  We've dumped commit objects, tree objects and

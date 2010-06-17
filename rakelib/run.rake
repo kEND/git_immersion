@@ -24,6 +24,14 @@ module RunLabs
     hash
   end
   
+  def hash_in(hash, pattern)
+    lines = `git cat-file -p #{hash}`.split(/\n/)
+    line = lines.grep(/#{pattern}/).first || ""
+    md = /[0-9a-zA-Z]{40}/.match(line)
+    fail "No hash found for /#{pattern}/ while dumping '#{hash}'" if md.nil?
+    md[0]
+  end
+  
   def run_labs(source, last_lab)
     last_lab = last_lab.to_i if last_lab
     var = {}
