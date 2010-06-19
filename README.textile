@@ -1,0 +1,3 @@
+h1. Git Immersion Labs
+
+p. These are the labs for the Git Immersion training.
