@@ -60,17 +60,46 @@ with three sub-directories:
 ---------------------------------------------------------------------- 
 h1. Create a Project
 
-h3. In an empty directory create the following file:
+h2. Goals
+
+* Learn how to create a git repository from scratch.
+
+h2. Steps
+
+h3. Create a "Hello, World" program
+
+p. Starting in the empty working directory, create an empty directory
+named "hello", then create a file named @hello.rb@ with the contents
+below.
+
+Execute:
+mkdir hello
+cd hello
 
 File: hello.rb
 puts "Hello, World"
 EOF
 
-h3. Make the first commit
+h3. Create the Repository
+
+p. You now have a directory with a single file.  To create a git
+repository from that directory, run the git init command.
 
 Execute:
 git init
 =init
+
+p. You should see something like this (the directory will be different, of course).
+
+Sample:
+=init
+EOF
+
+h3. Add the program to the repository
+
+Now let's add the "Hello, World" program to the repository.
+
+Execute:
 git add hello.rb
 =add
 git commit -m 'First Commit'
@@ -79,16 +108,54 @@ git commit -m 'First Commit'
 p. You should see ...
 
 Sample:
-$ git init
-=init
-$ git add hello.rb
 =add
-$ git commit -m 'First Commit'
 =commit
 EOF
 
 ---------------------------------------------------------------------- 
-h1. Recording Changes
+h1. Checking Status
+
+h2. Goals
+
+* Learn how to check the status of the repository
+
+h2. Steps
+
+h3. Check the status of the repository 
+
+p. Use the @git status@ command to check the current status of the
+repository.
+
+Execute:
+git status
+=status
+
+p. You should see
+
+Sample:
+=status
+EOF
+
+p. The status command reports that there is nothing to commit.  This
+means that the repository has all the current state of the working
+directory.  There are no outstanding changes to record.
+
+p. We will use the @git status@ command to continue to monitor the
+state between the repository and the working directory.
+
+---------------------------------------------------------------------- 
+h1. Making Changes
+
+h2. Goals
+
+* Learn how to monitor the state of the working directory
+
+h2. Steps
+
+h3. Change the "Hello, World" program.
+
+p. It's time to change our hello program to take an argument from the
+command line.  Change the file to be:
 
 File: hello.rb
 puts "Hello, #{ARGV.first}!"
@@ -96,23 +163,115 @@ EOF
 
 h3. Check the status
 
-p. See that get has detected that the file has changed, but it doesn't
-know what to do with it yet.
+p. Now check the status of the working directory.  
 
 Execute:
 !git status
+=status
 
-p. (checking the status is a good habit to get into.)
+p. You should see ...
+
+Sample:
+=status
+EOF
+
+p. The first thing to notice is that git knows that the @hello.rb@
+file has been modified, but git has not yet been notified of these
+changes.
+
+p. Also notice that the status message gives you hints about what you
+need to do next.  If you want to add these changes to the repository,
+then use the @git add@ command.  Otherwise the @git checkout@ command
+can be used to discard the changes.
+
+h3. Up Next
+
+p. Let's stage the change.
+
+----------------------------------------------------------------------
+h1. Staging Changes
+
+h2. Goals
+
+* Learn how to stage changes for later commits
+
+h2. Steps
+
+h3. Add Changes
 
 p. Now tell git to stage the changes.  Check the status
 
 Execute:
 git add hello.rb
+=add
 git status
+=status
 
-p. The changes are ready to be committed.  If you leave off the -m,
-Git will allow you to edit the commit message using your editor.  The
-editor is selected from (in order):
+p. You should see ...
+
+Sample:
+=add
+=status
+EOF
+
+p. The change to the @hello.rb@ file has been staged.  This means that
+git now knows about the change, but the changes hasn't been
+_permanently recorded in the repository yet.  The next commit
+operation will included the staged changes.
+
+p. If you decide you _don't_ want to commit that change after all, the
+status command reminds you that the @git reset@ command can be used to
+unstage that change.
+
+----------------------------------------------------------------------
+h1. Staging and Committing
+
+p. A separate staging step in git is in line with the philosophy of
+getting out of the way until you need to deal with source control.
+You can continue to make changes to your working directory, and then
+at the point you want to interact with source control, git allows to
+to record your changes in small commits that record exactly what you
+did.
+
+p. For example, suppose you editted three files (@a.rb@, @b.rb@, and
+@c.rb@).  Now you want to commit all the changes, but you want the
+changes in @a.rb@ and @b.rb@ to be a single commit, while the changes
+to @c.rb@ are not logically related to the first two files and should
+be a separate commit.
+
+p. You could do the following:
+
+pre(instructions). 
+git add a.rb
+git add b.rb
+git commit -m 'Changes for a and b'
+
+pre(instructions). 
+git add c.rb
+git commit -m 'Unrelated change to c'
+
+p. By separating staging and committing, you have the ability to
+easily fine tune what goes into each commit
+
+----------------------------------------------------------------------
+h1. Commiting Changes
+
+h2. Goals
+
+* Learn how to commit changes to the repository
+
+h2. Steps
+
+h3. Commit the change
+
+p. Ok, enough about staging.  Let's commit what we have staged to the
+repository.
+
+p. The the 
+
+p. The change to @hello.rb@ is ready to be committed.  If you leave
+off the -m, Git will allow you to edit the commit message using your
+editor.  The editor is selected from (in order):
 
 * GIT_EDITOR environment variable
 * core.editor configuration setting
@@ -205,7 +364,7 @@ git commit -m 'added default for name'
 h1. History
 
 p. Getting a listing of what changes have been made is the function of
-the 'git log' command.
+the @git log@ command.
 
 Execute:
 git log
@@ -251,7 +410,6 @@ git log --pretty=oneline
 p. You should see something like:
 
 Sample:
-$ git log --pretty=oneline
 =log
 EOF
 
@@ -278,9 +436,7 @@ substitute in the proper hash value for your repository.
 p. You should see ...
 
 Sample:
-$ git checkout <hash>
 =checkout
-$ cat hello.rb
 =cat
 EOF
 
@@ -331,7 +487,7 @@ Execute:
 git checkout v1
 git checkout v1-beta
 
-p. You can see what tags are available using the 'git tag' command.
+p. You can see what tags are available using the @git tag@ command.
 
 Execute:
 git tag
@@ -392,14 +548,15 @@ file: .gitconfig
   ci = commit
   st = status
   br = branch
-  hist = log --pretty=oneline --abbrev-commit --graph --decorate
+  hist = log --pretty=format:\"%h %d - %ad %s (%an)\" --abbrev-commit --graph --decorate --date=short
   type = cat-file -t
   dump = cat-file -p
 EOF
 
-p. We've covered checkout, commit and status already.  Now, whenever you
-can type 'git co' whereever you used to have to type 'get checkout'.
-Likewise with 'git st' for 'git status' and 'git ci' for git commit'.
+p. We've covered checkout, commit and status already.  Now, whenever
+you can type @git co@ whereever you used to have to type @git
+checkout@.  Likewise with @git st@ for @git status@ and @git ci@ for
+@git commit@.
 
 p. Go ahead and give the new commands a try.
 
@@ -410,7 +567,7 @@ should experiment with adding your own aliases as you go.
 h3. Commands to come...
 
 p. We've added a few aliases for command we haven't covered yet. The
-'git branch' command will be coming up soon.  And the 'git cat-file'
+@git branch@ command will be coming up soon.  And the @git cat-file@
 command is useful for exploring git, which we will see in the next
 section.
 
@@ -433,14 +590,14 @@ alias got='git '
 alias get='git '
 EOF
 
-p. The 'go' abbreviation for 'git checkout' is particularly nice.  It
+p. The @go@ abbreviation for @git checkout@ is particularly nice.  It
 allows me to type.
 
 pre(instructions). go <branch>
 
 p. to checkout a particular branch.
 
-p. And yes, I do mistype 'git' as 'get' or 'got' enough to create
+p. And yes, I do mistype @git@ as @get@ or @got@ enough to create
 aliases for them.
  
 ----------------------------------------------------------------------
@@ -555,7 +712,7 @@ ls .git/refs/tags
 cat .git/refs/tags/v1
 
 p. You should recogize the files in the tags subdirectory.  Each file
-corresponds to a tag you created with the 'git tag' command earlier.
+corresponds to a tag you created with the @git tag@ command earlier.
 It's contents is just the hash of the commit tied to the tag.
 
 p. The heads directory is similar, but is used for branches rather
@@ -586,7 +743,6 @@ SHA1 hash on your system is probably different that what is on mine,
 but you should see something like this.
 
 Sample:
-$ git log --max-count=1 --pretty=oneline
 =log
 EOF
 
@@ -597,20 +753,19 @@ Using the SHA1 hash from the above ...
 Set: hash=hash_for("Added a Rakefile")
 Execute:
 git cat-file -t <hash>
+=type
 git cat-file -p <hash>
 =dump
 
 Here's my output ...
 
 Sample:
-$ git cat-file -t <hash>
-commit
-$ git cat-file -p <hash>
+=type
 =dump
 EOF
 
 p(((((note). *NOTE:* If you defined the 'type' and 'dump' aliases from 
-the aliases lab, then you can type 'git type' and 'git dump' rather
+the aliases lab, then you can type @git type@ and @git dump@ rather
 than the longer cat-file commands (which I never remember).
 
 p(((((note). *ANOTHER* *NOTE:* You only have to type the first few
@@ -622,7 +777,7 @@ presentation earlier.
 
 h3. Finding the Tree
 
-p. We can dump the directory tree referenced int he commit.  This
+p. We can dump the directory tree referenced in the commit.  This
 should be a description of the (top level) files in our project (for
 that commit).
 
@@ -634,7 +789,6 @@ git cat-file -p <treehash>
 p. Here's what my tree looks like...
 
 Sample:
-$ git cat-file -p <treehash>
 =treedump
 EOF
 
@@ -647,7 +801,6 @@ git cat-file -p <libhash>
 =libdump
 
 Sample:
-$ git cat-file -p <libhash>
 =libdump
 EOF
 
@@ -659,7 +812,6 @@ git cat-file -p <rbhash>
 =rbdump
 
 Sample:
-$ git cat-file -p <rbhash>
 =rbdump
 EOF
 
@@ -751,25 +903,17 @@ p. You now have two branches in your project:
 
 Execute:
 git log --pretty=oneline --decorate --abbrev-commit 
+=log
 
 You should see something like:
 
 Sample:
-$ git log --pretty=oneline --decorate --abbrev-commit 
-1f9a5d2 (HEAD, greet) updated Rakefile
-851184d hello uses Greeter
-5a8a719 added Greeter class
-213276d (origin/master, origin/HEAD, master) added a rakefile
-d6fc54a Moved hello.rb to lib
-dafefe0 (v1) added default for name
-f0948e0 (v1-beta) Using ARGV
-aab4381 First Commit
-$ 
+=log
 EOF
 
 h3. Switching Branches
 
-p. Just use the 'git checkout command to switch between branches. 
+p. Just use the @git checkout@ command to switch between branches. 
 
 Execute:
 git checkout master
@@ -822,21 +966,12 @@ following log command to view the branches and how they diverge.
 
 Execute:
 git log --pretty=oneline --abbrev-commit --graph --decorate --all
+=log
 
 p. I get something like this:
 
 Sample:
-$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
-* a1416cc (greet) Updated Rakefile
-* fe1a57b hello uses Greeter
-* 40855dc added greeter class
-| * ac88530 (HEAD, master) Added README
-|/  
-* 4057fe3 Added a Rakefile.
-* 477c3d0 Moved hello.rb to lib
-* 66875dc (v1) added default for name
-* 01855a9 (v1-beta) Using ARGV
-* e8aaea7 First Commit
+=log
 EOF
 
 p. Adding the --graph option to git log causes it to draw the commit
@@ -911,26 +1046,12 @@ h3. View the Branches
 
 Execute:
 git log --pretty=oneline --decorate --abbrev-commit --graph --all
+=log
 
 p. I get the following:
 
 Sample:
-$ git log --pretty=oneline --decorate --abbrev-commit --graph --all
-*   b29584f (greet) Merge branch 'master' into greet
-|\  
-* | a5e7798 Updated Rakefile
-* | ec2a51e hello uses Greeter
-* | a672f68 added greeter class
-| | * 6b2a404 (HEAD, master) made interactive
-| |/  
-| * 5ce262a Added README
-|/  
-* 93e40bd Added a Rakefile.
-* 34b8342 Moved hello.rb to lib
-* 0705d29 (v1) added default for name
-* 91c92a1 (v1-beta) Using ARGV
-* 0d9ae0b First Commit
-end
+=log
 EOF
 
 p. Master at commit "Added README" has been merged to the greet
@@ -1071,28 +1192,12 @@ merge with master.  We need to find the last commit before the merge.
 
 Execute:
 git log --pretty=oneline --abbrev-commit --graph --decorate
+=log
 
 I see something like this:
 
 Sample:
-$ git log --pretty=oneline --abbrev-commit --graph --decorate
-*   266feda (HEAD, greet) Merged master fixed conflict.
-|\  
-| * 2bd4219 (master) made interactive
-* |   f60c7f6 Merge branch 'master' into greet
-|\ \  
-| |/  
-| * b6620b3 Added README
-* | 1f9a5d2 updated Rakefile
-* | 851184d hello uses Greeter
-* | 5a8a719 added Greeter class
-|/  
-* 213276d added a rakefile
-* d6fc54a Moved hello.rb to lib
-* dafefe0 (v1) added default for name
-* f0948e0 (v1-beta) Using ARGV
-* aab4381 First Commit
-$ 
+=log
 EOF
 
 p. That's a bit hard to read, but looking at the data we see that the
@@ -1120,22 +1225,12 @@ commits in its history.
 
 Execute:
 git log --pretty=oneline --abbrev-commit --graph --decorate --all
+=log
 
 p. I see something like...
 
 Sample:
-git log --pretty=oneline --abbrev-commit --graph --decorate --all
-* b6e8dd9 (HEAD, greet) Updated Rakefile
-* cbd0d9e hello uses Greeter
-* eea809d added greeter class
-| * 843a23d (master) made interactive
-| * 12e9e89 Added README
-|/  
-* dc8a533 Added a Rakefile.
-* 7fab506 Moved hello.rb to lib
-* 14f13d4 (v1) added default for name
-* 531dd55 (v1-beta) Using ARGV
-* 484866c First Commit
+=log
 EOF
 
 ----------------------------------------------------------------------
@@ -1153,16 +1248,10 @@ conflicting commit.
 Execute:
 git checkout master
 git log --pretty=oneline --abbrev-commit --graph --decorate
+=log
 
 Sample:
-$ git log --pretty=oneline --abbrev-commit --graph --decorate
-* 2bd4219 (HEAD, master) made interactive
-* b6620b3 Added README
-* 213276d added a rakefile
-* d6fc54a Moved hello.rb to lib
-* dafefe0 (v1) added default for name
-* f0948e0 (v1-beta) Using ARGV
-* aab4381 First Commit
+=log
 EOF
 
 p. Let's backup to the 'Added README' commit.
@@ -1171,6 +1260,7 @@ Set: hash=hash_for("Added README")
 Execute:
 git reset --hard <hash>
 git log --pretty=oneline --abbrev-commit --graph --decorate --all
+=log2
 
 p. Review the log.  It should look like the repository has been wound
 back in time to the point before we merged anything.
@@ -1178,17 +1268,7 @@ back in time to the point before we merged anything.
 p. I see ...
 
 Sample:
-$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
-* 219e23c (greet) Updated Rakefile
-* 41444b5 hello uses Greeter
-* 98b4456 added greeter class
-| * 6912532 (HEAD, master) Added README
-|/  
-* 606942b Added a Rakefile.
-* a724ded Moved hello.rb to lib
-* 7dcacae (v1) added default for name
-* 8aec63b (v1-beta) Using ARGV
-* 60e17f8 First Commit
+=log2
 EOF
 
 ----------------------------------------------------------------------
@@ -1207,6 +1287,7 @@ Execute:
 git checkout greet
 git rebase master
 git log --pretty=oneline --abbrev-commit --graph --decorate
+=log
 
 p. I got this:
 
@@ -1220,16 +1301,7 @@ Applying: added Greeter class
 Applying: hello uses Greeter
 Applying: updated Rakefile
 $
-$ git log --pretty=oneline --abbrev-commit --graph --decorate
-* 2959c66 (HEAD, greet) Updated Rakefile
-* 692cd13 hello uses Greeter
-* 19b340a added greeter class
-* f33db46 (master) Added README
-* 166ee19 Added a Rakefile.
-* 22176de Moved hello.rb to lib
-* f9ee428 (v1) added default for name
-* e0d38e1 (v1-beta) Using ARGV
-* 60beb94 First Commit
+=log
 EOF
 
 h3. Merge VS Rebase
@@ -1265,6 +1337,7 @@ h3 Merge greet into master
 Execute:
 git checkout master
 git merge greet
+=merge
 
 p. Here's what I saw:
 
@@ -1272,14 +1345,7 @@ Sample:
 $ git checkout master
 Switched to branch 'master'
 $
-$ git merge greet
-Updating b6620b3..de35373
-Fast-forward
- Rakefile       |    2 +-
- lib/greeter.rb |    8 ++++++++
- lib/hello.rb   |    5 ++++-
- 3 files changed, 13 insertions(+), 2 deletions(-)
- create mode 100644 lib/greeter.rb
+=merge
 EOF
  
 p. Because the head of master is a direct ancestor of the head of the
@@ -1293,18 +1359,10 @@ h3. Review the logs
 
 Execute:
 git log --pretty=oneline --abbrev-commit --graph --decorate
+=log
 
 Sample:
-$ git log --pretty=oneline --abbrev-commit --graph --decorate
-* fd8c01b (HEAD, master, greet) Updated Rakefile
-* 59c99fd hello uses Greeter
-* 7d8c072 added greeter class
-* 8050d82 Added README
-* 4f07f29 Added a Rakefile.
-* 2ff84c5 Moved hello.rb to lib
-* e06c9ff (v1) added default for name
-* d92e8fe (v1-beta) Using ARGV
-* f34f545 First Commit
+=log
 EOF
 
 p. The greet and master branches are now identical.
@@ -1361,21 +1419,13 @@ p. Let's take a look at the cloned repository.
 Execute:
 cd cloned_hello
 git log --pretty=oneline --abbrev-commit --graph --decorate --all
+=log
 
 p. Here's what I saw ...
  
 Sample:
 $ cd cloned_hello/
-$ git log --pretty=oneline --abbrev-commit --graph --decorate --all
-* 53bb25c (HEAD, origin/master, origin/greet, origin/HEAD, master) Updated Rakefile
-* 31f6fc0 hello uses Greeter
-* 080697b added greeter class
-* adde071 Added README
-* d19231f Added a Rakefile.
-* dfcfb9a Moved hello.rb to lib
-* 10ddda2 (v1) added default for name
-* 2f189a9 (v1-beta) Using ARGV
-* 0e63dc3 First Commit
+=log
 EOF
 
 h3. Remote branches
@@ -1397,10 +1447,10 @@ h2. Steps
 
 Execute:
 git remote
+=remote
 
 Sample:
-$ git remote
-origin
+=remote
 EOF
 
 p. We see that the cloned repository knows about a remote repository
@@ -1408,24 +1458,12 @@ named origin.  Let's see if we can get more information about origin:
 
 Execute:
 git remote show origin 
+=show
 
 p. This should look like
 
 Sample:
-$ git remote show origin
-* remote origin
-  Fetch URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
-  Push  URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
-  HEAD branch (remote HEAD is ambiguous, may be one of the following):
-    greet
-    master
-  Remote branches:
-    greet  tracked
-    master tracked
-  Local branch configured for 'git pull':
-    master merges with remote master
-  Local ref configured for 'git push':
-    master pushes to master (up to date)
+=show
 EOF
 
 p. Now we see that the remote repository origin is simply the original
@@ -1446,12 +1484,12 @@ p. Let's look at the branches available in our cloned repository.
 
 Execute:
 git branch
+=branch
 
 p. You should get ...
 
 Sample:
-$ git branch
-* master
+=branch
 EOF
 
 p. That's it, only the master branch is listed.  Where is the greet
@@ -1464,15 +1502,12 @@ p. Try this to see all the branches:
 
 Execute:
 git branch -a
+=branch_a
 
 p. You should get ...
 
 Sample:
-$ git branch
-* master
-  remotes/origin/HEAD -> origin/master
-  remotes/origin/greet
-  remotes/origin/master
+=branch_a
 EOF
 
 p. Git has all the commits from the original reposistory, but branches
@@ -1528,17 +1563,12 @@ Execute:
 cd ../cloned_hello
 +pwd
 git fetch
+=fetch
 
 p. You should see ...
 
 Sample:
-$ git fetch
-remote: Counting objects: 5, done.        
-remote: Compressing objects: 100% (3/3), done.        
-remote: Total 3 (delta 0), reused 0 (delta 0)        
-Unpacking objects: 100% (3/3), done.
-From /Users/jim/Documents/Presentations/git_immersion/auto/hello
-   1a7c8c1..82d92b3  master     -> origin/master
+=fetch
 EOF
 
 p. At this point the repository has all the commits from the original
@@ -1570,13 +1600,10 @@ h3. Merge the fetched changes into local master
 
 Execute:
 git merge origin/master
+=merge
 
 Sample:
-$ git merge origin/master
-Updating 1a7c8c1..82d92b3
-Fast-forward
- README |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+=merge
 EOF
 
 h3. Check the README again
@@ -1600,7 +1627,7 @@ h1. Pulling Changes
 
 h2. Goals
 
-* Learn that 'git pull' is equivalent to a 'git fetch' followed by a merge.
+* Learn that @git pull@ is equivalent to a @git fetch@ followed by a @git merge@.
 
 h2. Discussion
 
@@ -1613,10 +1640,6 @@ is indeed equivalent to the two step
 
 pre(instructions). git fetch
 git merge origin/master
-
-----------------------------------------------------------------------
-
-
 
 
 
@@ -1675,21 +1698,16 @@ h3. Add a local branch that tracks a remote branch.
 
 Execute:
 git branch --track greet origin/greet
+=branch_track
 git branch -a
+=branch_a
 git log --pretty=oneline --abbrev-commit --graph --decorate -n1
+=log
 
 Sample:
-$ git branch --track greet origin/greet
-Branch greet set up to track remote branch greet from origin.
-$ git branch -a
-  greet
-* master
-  remotes/origin/HEAD -> origin/master
-  remotes/origin/greet
-  remotes/origin/master
-$ git log --pretty=oneline --abbrev-commit --graph --decorate -n1
-* de35373 (HEAD, origin/master, origin/greet, origin/HEAD, master, greet) updated Rakefile
-$ 
+=branch_track
+=branch_a
+=log
 EOF
 
 p. We can now see the greet branch in the branch list and in the log.
@@ -1717,7 +1735,16 @@ Execute:
 git add README
 git commit -m 'Updated README'
 
-p. Now switch back to the cloned directory
+----------------------------------------------------------------------
+h1. Pull the Changes (TBD)
+
+h2. Goal
+
+* TBD
+
+h2. Steps
+
+h3. Now switch back to the cloned directory
 
 Execute:
 cd ../cloned_hello
@@ -1731,19 +1758,13 @@ h3. Fetch the Changes
 
 Execute:
 git fetch origin
+=fetch
 cat README
+=cat
 
 Sample:
-$ git fetch origin
-remote: Counting objects: 5, done.        
-remote: Compressing objects: 100% (3/3), done.        
-remote: Total 3 (delta 0), reused 0 (delta 0)        
-Unpacking objects: 100% (3/3), done.
-From /Users/jim/Documents/Presentations/GitTutorial/dist/work/hello
-   de35373..33e5af1  master     -> origin/master
-$ cat README
-This is the Hello World example from the git tutorial.
-$ 
+=fetch
+=cat
 EOF
 
 p. The changes have been copied into the repository, but have not yet
@@ -1773,16 +1794,13 @@ cd ..
 +pwd
 # (You should be in the work directory)
 git clone --bare hello hello.git
-git ls hello.git
+=clone
+ls hello.git
+=ls
 
 Sample:
-$ git clone --bare hello hello.git
-Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/hello.git/
-$ ls 
-cloned_hello	hello		hello.git
-$ ls hello.git/
-HEAD		config		hooks		objects		refs
-branches	description	info		packed-refs
+=clone
+=ls
 EOF
 
 p. The convention is that repositories ending in '.git' are bare
@@ -1820,18 +1838,10 @@ p. Now push the change to the shared repo.
 
 Execute:
 git push shared master
+=push
 
 Sample:
-$ git push shared master
-Counting objects: 5, done.
-Delta compression using up to 2 threads.
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 363 bytes, done.
-Total 3 (delta 1), reused 0 (delta 0)
-Unpacking objects: 100% (3/3), done.
-To ../hello.git
-   33e5af1..b044021  master -> master
-$
+=push
 EOF
 
 p(((((note). *NOTE:* We had to explicitly name the branch master that
@@ -1862,13 +1872,13 @@ Here is a quick and dirty way.
 
 h3. Start up the git server
 
-Execute:
+execute:
 # (From the work directory)
 git daemon --verbose --export-all --base-path=.
 
 p. Now, in a separate terminal window, go to your work directory
 
-Execute:
+execute:
 # (From the work directory) 
 git clone git:localhost/hello.git network_hello
 cd network_hello

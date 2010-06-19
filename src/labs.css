@@ -1,9 +1,136 @@
+body,
+html {
+    margin:0;
+    padding:0;
+    background:#eee;
+    color:#000;
+    font-family: helvetica, ariel;
+}
+body {
+    min-width:750px;
+    background:#FFFBE7;
+}
+#wrap {
+    background:#99c;
+    margin:0 auto;
+    width:750px;
+}
+#header, #footer {
+    background:#66554A;
+    color: #FFFBE7;
+    margin: 0px 0px;
+    padding: 10px 3em;
+    width: 90%;
+}
+#header {
+    border-bottom: 1px solid black;
+    height: 60px;
+}
+#header #logo {
+    float: right;
+}
+#footer {
+    border-top: 1px solid black;
+}
+#header h1 {
+    padding:5px;
+    margin:0;
+    font-weight: bold;
+}
+#header h2 {
+    padding:5px;
+    margin:0;
+    padding-bottom: 0.5em;
+    font-size: 80%;
+    font-weight: normal;
+    font-style: italic;
+}
+.nav {
+    padding:0px;
+}
+.nav ul{
+    margin:0;
+    padding:0px;
+    padding:5px;
+    list-style:none;
+}
+.nav li{
+    display:inline;
+    margin:0;
+    padding:5px;
+    color: #DED0C7;
+}
+.nav a {
+    color: #FFFBE7;
+    text-decoration: none;
+}
+.nav a:visited {
+    color: #EEE0D7;
+}
+.nav a:hover {
+    color: #FFFFFF;
+}
+#main {
+    background:#FFFBE7;
+    float:left;
+    margin: 0px 0px;
+    padding: 10px 3em;
+    width: 90%;
+}
+#main h2, #main h3, #main p {
+    padding: 0 10px;
+}
+#main a {
+    color: #66554A;
+    text-decoration: none;
+}
+#main a:visited {
+    color: #66554A;
+}
+#main a:hover {
+    color: #000000;
+}
+#content {
+    width: 80%;
+}
+#sidebar {
+    background:#99c;
+    float:right;
+    width:240px;
+}
+#sidebar h1 {
+    font-size: 110%;
+}
+#sidebar h1, h3, #sidebar p {
+    padding:0 10px 0 0;
+}
+#sidebar ul {
+    margin-bottom:0;
+}
+#sidebar h3, #sidebar p {
+    padding:0 10px;
+}
+#footer {
+    clear:both;
+}
+#footer p {
+    padding:5px;
+    margin:0;
+}
+.small_link {
+    font-size: 70%;
+}
+.title {
+    font-size: 80%;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 .note {
     font-style: italic;    
 }
 .filename {
     font-weight: bold;    
-    margin-left: 1.5em;
+    margin-left: 1em;
     margin-bottom: 0em;
     padding: 0.5em 0em;
 }
@@ -14,9 +141,10 @@
     padding: 0.5em 1em;
     border: 1px solid black;
     width: 90%;
+    background: #ccc;
+    color: black;
 }
 .sample {
-/*    font-weight: bold;     */
     margin-left: 2em;
     margin-right: 2em;
     margin-top: 0em;
@@ -28,7 +156,7 @@
 }
 .command {
     font-weight: bold;    
-    margin-left: 1.5em;
+    margin-left: 1em;
     margin-bottom: 0em;
     padding: 0em 0em;
 }

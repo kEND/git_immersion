@@ -97,32 +97,37 @@ module Labs
           open(sample_name) do |ins|
             ins.each do |sample_line|
               labs[lab_index] << "#{gathered_line}#{sample_line}"
+              gathered_line = ''
             end
           end
         else
           labs[lab_index] << "#{gathered_line}#{line}"
+          gathered_line = ''
         end
-        gathered_line = ''
       end
     end
-    labs.each do |lines|
-      to_html(lines)
+    labs.each do |lab|
+      to_html(lab)
     end
     index(labs)
   end
   
   def emit_links(f, lab)
+    f.puts "<div class=\"nav\">"
+    f.puts "<ul>"
     if lab.next
-      f.puts "<a href=\"#{lab.next.filename}\">Next Lab</a> | "
+      f.puts "<li><a href=\"#{lab.next.filename}\">Next Lab</a></li>"
     else
-      f.puts "Next Lab | "
+      f.puts "<li>Next Lab</li>"
     end
     if lab.prev
-      f.puts "<a href=\"#{lab.prev.filename}\">Previous Lab</a> | "
+      f.puts "<li><a href=\"#{lab.prev.filename}\">Previous Lab</a></li>"
     else
-      f.puts "Previous Lab | "
+      f.puts "<li>Previous Lab</li>"
     end
-    f.puts "<a href=\"index.html\">Index</a>"
+    f.puts "<li><a href=\"index.html\">Index</a></li>"
+    f.puts "</ul>"
+    f.puts "</div>"
   end
   
   def index(labs)
@@ -132,12 +137,22 @@ module Labs
       f.puts "<link href=\"labs.css\" media=\"screen,print\" rel=\"stylesheet\" type=\"text/css\" />"
       f.puts "</head>"
       f.puts "<body>"
-      f.puts "<h1>Git Immersion Labs</h1>"
+      f.puts "<div id=\"header\">"
+      f.puts "<a href=\"http://edgecase.com\">"
+      f.puts "<img id=\"logo\" src=\"edgecase.gif\"\ >"
+      f.puts "</a>"
+      f.puts "<h1 class=\"title\">Git Immersion Labs</h1>"
+      f.puts "</div>"
+      f.puts "<div id=\"main\">"
+      f.puts "<h1>Index of Labs</h1>"
       f.puts "<ul>"
       labs.each do |lab|
         f.puts "<li><a href=\"#{lab.filename}\">Lab #{lab.number}</a>: #{lab.name}</li>"
       end
       f.puts "</ul>"
+      f.puts "</div>"
+      f.puts "<div id=\"footer\">"
+      f.puts "</div>"
       f.puts "</body>"
       f.puts "</html>"
     }
@@ -151,17 +166,26 @@ module Labs
       f.puts "<link href=\"labs.css\" media=\"screen,print\" rel=\"stylesheet\" type=\"text/css\" />"
       f.puts "</head>"
       f.puts "<body>"
+      f.puts "<div id=\"header\">"
+      f.puts "<a href=\"http://edgecase.com\">"
+      f.puts "<img id=\"logo\" src=\"edgecase.gif\"\ >"
+      f.puts "</a>"
+      f.puts "<div class=\"title\">Git Immersion Labs</div>"
       emit_links(f, lab)
-      f.puts "<hr />"
+      f.puts "</div>"
+      f.puts "<div id=\"main\">"
+      f.puts "<div id=\"content\">"
       f.puts lab_html
-      f.puts "<hr />"
+      f.puts "</div>"
+      f.puts "</div>"
+      f.puts "<div id=\"footer\">"
       emit_links(f, lab)
+      f.puts "</div>"
       f.puts "</body>"
       f.puts "</html>"
     }
   end
 end
-  
 
 require 'rubygems'
 require 'redcloth'
@@ -174,6 +198,7 @@ directory Labs::HTML_DIR
 desc "Create the Lab HTML"
 task :labs => [Labs::HTML_DIR, "src/labs.txt", "rakelib/labs.rake"] do |t|
   cp "src/labs.css", "#{Labs::HTML_DIR}/labs.css"
+  cp "src/edgecase.gif", "#{Labs::HTML_DIR}/edgecase.gif"
   File.open("src/labs.txt") { |f| Labs.generate_labs(f) }
 end
 

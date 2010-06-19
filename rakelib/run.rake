@@ -11,10 +11,12 @@ module RunLabs
       dir = $1
       puts "Changing to '#{dir}'"
       Dir.chdir(dir)
-      @command_output = ''
+      @command_output = "$ #{command}"
     else
-      @command_output = `#{command}`
-      puts @command_output
+      output = `#{command.strip} 2>&1`
+      @command_output = "$ #{command}#{output}"
+      print output
+      puts "DBG: @command_output=#{@command_output.inspect}"
     end
   end
 
@@ -29,7 +31,7 @@ module RunLabs
     line = lines.grep(/#{pattern}/).first || ""
     md = /[0-9a-zA-Z]{40}/.match(line)
     fail "No hash found for /#{pattern}/ while dumping '#{hash}'" if md.nil?
-    md[0]
+    md[0][0,8]
   end
   
   def run_labs(source, last_lab)
@@ -110,9 +112,9 @@ directory SAMPLES_DIR
 desc "Run the labs automatically"
 task :run, [:last_lab] => [SAMPLES_DIR] do |t, args|
   rm_r "auto" rescue nil
-  mkdir_p "auto/hello"
+  mkdir_p "auto"
   open("src/labs.txt") do |lab_source|
-    Dir.chdir "auto/hello"
+    Dir.chdir "auto"
     RunLabs.run_labs(lab_source, args.last_lab)
   end
 end
