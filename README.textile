@@ -1,3 +1,9 @@
 h1. Git Immersion Labs
 
-p. These are the labs for the Git Immersion training.
+p. These are the labs for the Git Immersion training, a series of
+self-paced exercises that take you through the basics of using git.
+
+h2. Online
+
+p. You can find the labs online at
+"http://edgecase.github.com/git_immersion":http://edgecase.github.com/git_immersion.
