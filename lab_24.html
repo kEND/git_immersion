@@ -1,0 +1,90 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_25.html">Next Lab</a></li>
+<li><a href="lab_23.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 24:  Creating a Branch</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to create a local branch in a repository</li>
+</ul>
+<h2>Steps</h2>
+<p>It&#8217;s time to do a major rewrite of the hello world functionality. Since this might take awhile, you want to put these changes into a separate branch to isolate them from changes in master.</p>
+<h3>Create a Branch</h3>
+<p>Let&#8217;s call our new branch &#8216;greet&#8217;.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout -b greet
+git status</pre>
+<p>Notice that the git status command reports that you are on the &#8216;greet&#8217; branch.</p>
+<h3>Changes for Greet: Add a Greeter class.</h3>
+<p class="filename">File: lib/greeter.rb</p>
+<pre class="file">class Greeter
+  def initialize(who)
+    @who = who
+  end
+  def greet
+    "Hello, #{@who}"
+  end
+end
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git commit -m 'Added greeter class'</pre>
+<h3>Changes for Greet: Modify the main program</h3>
+<p>Update the hello.rb file to use greeter</p>
+<p class="filename">File: lib/hello.rb</p>
+<pre class="file">require 'greeter'
+
+# Default is World
+name = ARGV.first || "World"
+
+greeter = Greeter.new(name)
+puts greeter.greet
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git commit -m 'Hello uses Greeter'</pre>
+<h3>Changes for Greet: Update the Rakefile</h3>
+<p>Update the Rakefile to use an external ruby process</p>
+<p class="filename">File: Rakefile</p>
+<pre class="file">#!/usr/bin/ruby -wKU
+
+task :default =&gt; :run
+
+task :run do
+  ruby '-Ilib', 'lib/hello.rb'
+end
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git commit -m 'Updated Rakefile'</pre>
+<h3>Up Next</h3>
+<p>We now have a new branch called <strong>greet</strong> with 3 new commits on it. Next we will learn who to navigate and switch between branches.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_25.html">Next Lab</a></li>
+<li><a href="lab_23.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

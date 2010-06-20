@@ -1,0 +1,87 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_26.html">Next Lab</a></li>
+<li><a href="lab_24.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 25:  Navigating Branches</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to navigate between the branches of a repository</li>
+</ul>
+<h2>Steps</h2>
+<p>You now have two branches in your project:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist --all</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist --all
+* 2e80a49 - 2010-06-20 Updated Rakefile (HEAD, greet) [Jim Weirich]
+* 33bb025 - 2010-06-20 Hello uses Greeter [Jim Weirich]
+* 9d4bc89 - 2010-06-20 Added greeter class [Jim Weirich]
+* c912f5d - 2010-06-20 Added a Rakefile. (master) [Jim Weirich]
+* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
+* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<h3>Switch to the Master Branch</h3>
+<p>Just use the <code>git checkout</code> command to switch between branches.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout master
+cat lib/hello.rb</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout master
+Switched to branch 'master'
+$ cat lib/hello.rb
+# This is an unwanted but committed change
+# Author: Jim Weirich (jim@somewhere.com)
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>You are now on the master branch.  You can tell because the hello.rb file doesn&#8217;t use the <code>Greeter</code> class.</p>
+<h3>Switch Back to the Greet Branch.</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout greet
+cat lib/hello.rb</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout greet
+Switched to branch 'greet'
+$ cat lib/hello.rb
+require 'greeter'
+
+# Default is World
+name = ARGV.first || "World"
+
+greeter = Greeter.new(name)
+puts greeter.greet
+</pre>
+<p>The contents of the <code>lib/hello.rb</code> confirms we are back on the <strong>greet</strong> branch.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_26.html">Next Lab</a></li>
+<li><a href="lab_24.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

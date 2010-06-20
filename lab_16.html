@@ -1,0 +1,80 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_17.html">Next Lab</a></li>
+<li><a href="lab_15.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 16:  Reverting Committed Changes</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to revert changes that have been committed to a local repository.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Undoing Commits</h3>
+<p>Sometimes you realized that a change that you have already committed was not correct and you wish to undo that commit.  There are several ways of handling that issue, and the way we are going to use in this lab is always safe to use.</p>
+<p>Essentially we will undo the commit by creating a new commit that reverses the unwanted changes.</p>
+<h3>Change the file and commit it.</h3>
+<p>Change the <code>hello.rb</code> file to the following.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># This is an unwanted but committed change
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git add hello.rb
+git commit -m "Oops, we didn't want this commit"</pre>
+<h3>Create a Reverting Commit</h3>
+<p>To undo a committed change, we need to generate a commit that removes the changes introduced by our unwanted commit.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git revert head</pre>
+<p>This will pop you into the editor.  Edit the commit message and close the file.  You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git revert head --no-edit
+Finished one revert.
+[master 9433335] Revert "Oops, we didn't want this commit"
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+</pre>
+<p>Since we were undoing the very last commit we made We were able to use <code>head</code> as the argument to revert.  We can revert any arbitrary commit earlier in history by simply specifying its hash value.</p>
+<h3>Check the log</h3>
+<p>Checking the log shows both the unwanted and the reverting commits in our repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist
+* 9433335 - 2010-06-20 Revert "Oops, we didn't want this commit" (HEAD, master) [Jim Weirich]
+* 9774f51 - 2010-06-20 Oops, we didn't want this commit [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>This technique will work with any commit (although you may have to resolve conflicts).  It is safe to use even on branches that are publicly shared on remote repositories.</p>
+<h3>Up Next</h3>
+<p>Next, let&#8217;s look at a technique that can be used to remove the most recent commits from the repository history.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_17.html">Next Lab</a></li>
+<li><a href="lab_15.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

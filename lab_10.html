@@ -1,0 +1,118 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_11.html">Next Lab</a></li>
+<li><a href="lab_09.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 10:  History</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to view the history of the project.</li>
+</ul>
+<h2>Steps</h2>
+<p>Getting a listing of what changes have been made is the function of the <code>git log</code> command.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git log</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git log
+commit 20f2972f138317925860fd29188a561473de41f4
+Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
+Date:   Sun Jun 20 00:26:01 2010 -0400
+
+    Added a comment
+
+commit c69b1e9eb6d2a99e43da9d966caffebd545c8efa
+Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
+Date:   Sun Jun 20 00:26:01 2010 -0400
+
+    Added a default value
+
+commit 9e65ccd151070a0bd0e42fe3577578bdde9a54ba
+Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
+Date:   Sun Jun 20 00:26:01 2010 -0400
+
+    Using ARGV
+
+commit 5fb8ac78b829e188f0a197cdd500cf258c192dec
+Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
+Date:   Sun Jun 20 00:26:00 2010 -0400
+
+    First Commit
+</pre>
+<p>Here is a list of all four commits that we have made to the repository so far.</p>
+<h3>One Line Histories</h3>
+<p>You have a great deal o control of exactly what the <code>log</code> command displays.  I like the one line format:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git log --pretty=oneline</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git log --pretty=oneline
+20f2972f138317925860fd29188a561473de41f4 Added a comment
+c69b1e9eb6d2a99e43da9d966caffebd545c8efa Added a default value
+9e65ccd151070a0bd0e42fe3577578bdde9a54ba Using ARGV
+5fb8ac78b829e188f0a197cdd500cf258c192dec First Commit
+</pre>
+<h3>Controlling Which Entries are Displayed</h3>
+<p>There are a lot of options for selecting which entries are displayed in the log.  Play around with the following options:</p>
+<pre class="instructions">git log --pretty=oneline --max-count=2
+git log --pretty=oneline --since='5 minutes ago' 
+git log --pretty=oneline --until='5 minutes ago' 
+git log --pretty=oneline --author=&lt;your name&gt;
+git log --pretty=oneline --all</pre>
+<p>See man git-log for all the details.</p>
+<h3>Getting Fancy</h3>
+<p>Here&#8217;s what I use to review the changes made in the last week. I&#8217;ll add a &#8212;author=jim to it I only want to see changes I made.</p>
+<pre class="instructions">git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago'</pre>
+<h3>The Ultimate Log Format</h3>
+<p>Over time, I&#8217;ve decided that I like the following log format for most of my work.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git log --pretty=format:"%h - %ad %s%d [%an]" --graph --date=short</pre>
+<p>It looks like this:</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git log --pretty=format:"%h - %ad %s%d [%an]" --graph --date=short
+* 20f2972 - 2010-06-20 Added a comment (HEAD, master) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>Let&#8217;s look at it in detail:</p>
+<ul>
+	<li><code>--pretty="..."</code> defines the format of the output.</li>
+	<li><code>%h</code> is the abbreviated hash of the commit</li>
+	<li><code>%d</code> are any decorations on that commit (e.g. branch heads or tags)</li>
+	<li><code>%ad</code> is the author date</li>
+	<li><code>%s</code> is the comment</li>
+	<li><code>%an</code> is the author name</li>
+	<li><code>--graph</code> informs git to display the commit tree in an <span class="caps">ASCII</span> graph layout</li>
+	<li><code>--date=short</code> keeps the date format nice and short</li>
+</ul>
+<p>This is a lot to type everytime you want to see the log. Fortunately we will learn about git aliases in the next lab.</p>
+<h3>Other Tools</h3>
+<p>Both <code>gitx</code> (for Macs) and <code>gitk</code> (any platform) are useful in exploring log history.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_11.html">Next Lab</a></li>
+<li><a href="lab_09.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

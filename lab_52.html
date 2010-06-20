@@ -1,0 +1,48 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_53.html">Next Lab</a></li>
+<li><a href="lab_51.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 52:  Hosting your Git Repositories</h1>
+<p>There are many ways to share git repositories over the network. Here is a quick and dirty way.</p>
+<h3>Start up the git server</h3>
+<p class="command">Execute:</p>
+<pre class="instructions"># (From the work directory)
+git daemon --verbose --export-all --base-path=.</pre>
+<p>Now, in a separate terminal window, go to your work directory</p>
+<p class="command">Execute:</p>
+<pre class="instructions"># (From the work directory) 
+git clone git:localhost/hello.git network_hello
+cd network_hello
+ls</pre>
+<p>You should see a copy of hello project.</p>
+<h3>Pushing to the Git Daemon</h3>
+<p>If you want to push to the git daemon repository, add <code>--enable=receive-pack</code> to the git daemon command.  Be careful because there is not authentication on this server, anyone could push to your repository.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_53.html">Next Lab</a></li>
+<li><a href="lab_51.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

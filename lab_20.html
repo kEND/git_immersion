@@ -1,0 +1,74 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_21.html">Next Lab</a></li>
+<li><a href="lab_19.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 20:  Moving Files</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to move a file within a repository.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Move the hello.rb file into a lib directory.</h3>
+<p>We are now going to build up the structure our little repository. Let&#8217;s move the program into a lib directory.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">mkdir lib
+git mv hello.rb lib
+git status</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ mkdir lib
+$ git mv hello.rb lib
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	renamed:    hello.rb -&gt; lib/hello.rb
+#
+</pre>
+<p>By using git to do the move, we inform git of 2 things</p>
+<ol>
+	<li>That the file <code>hello.rb</code> has been deleted.</li>
+	<li>The file <code>lib/hello.rb</code> has been created.</li>
+</ol>
+<p>Both of these bits of information are immediately staged and ready to be commited.  The git status command reports that the file has been moved.</p>
+<h3>Another way of moving files</h3>
+<p>One of the nice things about git is that you can forget about source control until the point you are ready to start committing code. What would happen if we used the operating system command to move the file instead of the git command?</p>
+<p>It turns out the following set of commands is identical to what we just did.  Its a bit more work, but the result is the same.</p>
+<p class="command">We could have done:</p>
+<pre class="instructions">mkdir lib
+mv hello.rb lib
+git add lib/hello.rb
+git rm hello.rb</pre>
+<h3>Commit the new directory</h3>
+<p>Let&#8217;s commit this move.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git commit -m 'Moved hello.rb to lib'</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_21.html">Next Lab</a></li>
+<li><a href="lab_19.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

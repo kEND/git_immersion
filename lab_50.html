@@ -1,0 +1,52 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_51.html">Next Lab</a></li>
+<li><a href="lab_49.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 50:  Pushing a Change</h1>
+<p>Edit the <span class="caps">README</span> and commit it</p>
+<p class="filename">File: <span class="caps">README</span></p>
+<pre class="file">This is the Hello World example from the git tutorial.
+(Changed in the original and pushed to shared)
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout master
+git add README
+git commit -m 'Added shared comment to readme'</pre>
+<p>Now push the change to the shared repo.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git push shared master</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git push shared master
+To ../hello.git
+   b96271e..2714e37  master -&gt; master
+</pre>
+<p style="padding-left:4em;" class="note"><strong><span class="caps">NOTE</span>:</strong> We had to explicitly name the branch master that we were pushing.  It is possible to set it up automatically, but I <em>never</em> remember the commands to do that.  Check out the &#8220;Git Remote Branch&#8221; gem for easy management of remote branches.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_51.html">Next Lab</a></li>
+<li><a href="lab_49.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

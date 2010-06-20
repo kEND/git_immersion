@@ -1,0 +1,107 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_23.html">Next Lab</a></li>
+<li><a href="lab_21.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 22:  Git Internals: The .git directory</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn about the structure of the <code>.git</code> directory</li>
+</ul>
+<h3>The <code>.git</code> Directory</h3>
+<p>Time to do some exploring.  First, from the root of your project directory&#8230;</p>
+<p class="command">Execute:</p>
+<pre class="instructions">cls -C .git</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cls -C .git
+sh: cls: command not found
+</pre>
+<p>This is the magic directory where all the git &#8220;stuff&#8221; is stored. Let&#8217;s peek in the objects directory.</p>
+<h3>The Object Store</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">ls -C .git/objects</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ ls -C .git/objects
+11	3a	59	74	94	a2	dc
+20	43	5f	78	97	af	ec
+24	49	69	79	9c	c6	info
+27	57	6b	8e	9e	c9	pack
+</pre>
+<p>You should see a bunch of directories with 2 letter names.  The directory names are the first two letters of the sha1 hash of the object stored in git.</p>
+<h3>Deeper into the Object Store</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">ls -C .git/objects/&lt;dir&gt;</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ ls -C .git/objects/11
+b345c2fc315b5f7ae6db2e0f6b0570780c20d1
+</pre>
+<p>Look in one of the two-letter directories.  You should see some files with 38 character names.  These are the files that contain the objects stored in git.  These files are compressed and encoded, so looking at their contents directly won&#8217;t be very helpful, but we will take a closer look in a bit.</p>
+<h3>Config File</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cat .git/config</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cat .git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+</pre>
+<p>This is project specific configuration file.  Config entries in here will override the config entries in the <code>.gitconfig</code> file in your home directory, at least for this project.</p>
+<h3>Branches and Tags</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">ls .git/refs
+ls .git/refs/heads
+ls .git/refs/tags
+cat .git/refs/tags/v1</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ ls .git/refs
+heads
+tags
+$ ls .git/refs/heads
+master
+$ ls .git/refs/tags
+v1
+v1-beta
+$ cat .git/refs/tags/v1
+20f2972f138317925860fd29188a561473de41f4
+</pre>
+<p>You should recogize the files in the tags subdirectory.  Each file corresponds to a tag you created with the <code>git tag</code> command earlier. It&#8217;s content is just the hash of the commit tied to the tag.</p>
+<p>The heads directory is similar, but is used for branches rather than tags.  We only have one branch at the moment, so all you will see is master in this directory.</p>
+<h3>The <span class="caps">HEAD</span> File</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cat .git/HEAD</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cat .git/HEAD
+ref: refs/heads/master
+</pre>
+<p>The <span class="caps">HEAD</span> file contains a reference to the current branch.  Should be a reference to master at this point.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_23.html">Next Lab</a></li>
+<li><a href="lab_21.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

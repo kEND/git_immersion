@@ -1,0 +1,43 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_08.html">Next Lab</a></li>
+<li><a href="lab_06.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 7:  Staging and Committing</h1>
+<p>A separate staging step in git is in line with the philosophy of getting out of the way until you need to deal with source control. You can continue to make changes to your working directory, and then at the point you want to interact with source control, git allows to to record your changes in small commits that record exactly what you did.</p>
+<p>For example, suppose you editted three files (<code>a.rb</code>, <code>b.rb</code>, and <code>c.rb</code>).  Now you want to commit all the changes, but you want the changes in <code>a.rb</code> and <code>b.rb</code> to be a single commit, while the changes to <code>c.rb</code> are not logically related to the first two files and should be a separate commit.</p>
+<p>You could do the following:</p>
+<pre class="instructions">git add a.rb
+git add b.rb
+git commit -m 'Changes for a and b'</pre>
+<pre class="instructions">git add c.rb
+git commit -m 'Unrelated change to c'</pre>
+<p>By separating staging and committing, you have the ability to easily fine tune what goes into each commit</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_08.html">Next Lab</a></li>
+<li><a href="lab_06.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

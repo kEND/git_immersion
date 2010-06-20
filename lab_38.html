@@ -1,0 +1,65 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_39.html">Next Lab</a></li>
+<li><a href="lab_37.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 38:  What is Origin?</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn about naming remote repositories.</li>
+</ul>
+<h2>Steps</h2>
+<p class="command">Execute:</p>
+<pre class="instructions">git remote</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git remote
+origin
+</pre>
+<p>We see that the cloned repository knows about a remote repository named origin.  Let&#8217;s see if we can get more information about origin:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git remote show origin </pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git remote show origin 
+* remote origin
+  Fetch URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
+  Push  URL: /Users/jim/Documents/Presentations/git_immersion/auto/hello
+  HEAD branch (remote HEAD is ambiguous, may be one of the following):
+    greet
+    master
+  Remote branches:
+    greet  tracked
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+</pre>
+<p>Now we see that the remote repository origin is simply the original <strong>hello</strong> repository.  There is nothing particularly special about the name &#8220;origin&#8221;, however the convention is to use the name &#8216;origin&#8217; for the primary centralized repository (if there is one).</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_39.html">Next Lab</a></li>
+<li><a href="lab_37.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

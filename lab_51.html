@@ -1,0 +1,42 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_52.html">Next Lab</a></li>
+<li><a href="lab_50.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 51:  Pulling Shared Changes</h1>
+<p>Quick hop over to the clone repository and lets pull down the changes just pushed to the shared repo.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ../cloned_hello
+# (You should be in the cloned repository)
+git remote add shared ../hello.git
+git branch --track shared master
+git pull shared master
+cat README</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_52.html">Next Lab</a></li>
+<li><a href="lab_50.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

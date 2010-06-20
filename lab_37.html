@@ -1,0 +1,59 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_38.html">Next Lab</a></li>
+<li><a href="lab_36.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 37:  Review the Cloned Repository</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn about branches on remote repositories.</li>
+</ul>
+<h3>Look at the cloned repository</h3>
+<p>Let&#8217;s take a look at the cloned repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">cd cloned_hello
+git hist --all</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cd cloned_hello/
+$ git hist --all
+* 9445ca0 - 2010-06-20 Updated Rakefile (HEAD, origin/master, origin/greet, origin/HEAD, master) [Jim Weirich]
+* cb563df - 2010-06-20 Hello uses Greeter [Jim Weirich]
+* 5b1ed69 - 2010-06-20 Added greeter class [Jim Weirich]
+* 10f5258 - 2010-06-20 Added README [Jim Weirich]
+* c912f5d - 2010-06-20 Added a Rakefile. [Jim Weirich]
+* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
+* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<h3>Remote branches</h3>
+<p>This is almost the same as the original hello repository.  However, not the list of branches on the &#8220;Updated Rakefile&#8221; line.  You have a <strong>master</strong> branch, but you also have number of strangely named branches (<strong>origin/master</strong>, <strong>origin/greet</strong> and <strong>origin/<span class="caps">HEAD</span></strong>).  We&#8217;ll talk about them in a bit.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_38.html">Next Lab</a></li>
+<li><a href="lab_36.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

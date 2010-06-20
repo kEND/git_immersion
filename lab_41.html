@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_42.html">Next Lab</a></li>
+<li><a href="lab_40.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 41:  Fetching Changes</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to pull changes from a remote repository.</li>
+</ul>
+<h2>Steps</h2>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ../cloned_hello
+git fetch</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git fetch
+From /Users/jim/Documents/Presentations/git_immersion/auto/hello
+   9445ca0..81f8902  master     -&gt; origin/master
+</pre>
+<p>At this point the repository has all the commits from the original repository.  However, they have not been merged into the local master branch.</p>
+<h3>Check the <span class="caps">README</span></h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cat README</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cat README
+This is the Hello World example from the git tutorial.
+</pre>
+<p>See, no changes.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_42.html">Next Lab</a></li>
+<li><a href="lab_40.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_48.html">Next Lab</a></li>
+<li><a href="lab_46.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 47:  Pull the Changes (<span class="caps">TBD</span>)</h1>
+<h2>Goal</h2>
+<ul>
+	<li><span class="caps">TBD</span></li>
+</ul>
+<h2>Steps</h2>
+<h3>Now switch back to the cloned directory</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ../cloned_hello
+# (You should be in the cloned hello repository)
+ls</pre>
+<p>We see the changes to <span class="caps">README</span> are not here yet.</p>
+<h3>Fetch the Changes</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git fetch origin
+cat README</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git fetch origin
+From /Users/jim/Documents/Presentations/git_immersion/auto/hello
+   81f8902..b96271e  master     -&gt; origin/master
+$ cat README
+This is the Hello World example from the git tutorial.
+(changed in original)
+</pre>
+<p>The changes have been copied into the repository, but have not yet been moved into the working directory.  We get the changes by merging the changes in the remote branch into master.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git merge origin/master</pre>
+<h3>Pulling</h3>
+<p>The fetch/merge commands can be done in one operation with pull.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git pull origin</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_48.html">Next Lab</a></li>
+<li><a href="lab_46.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

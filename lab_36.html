@@ -1,0 +1,61 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_37.html">Next Lab</a></li>
+<li><a href="lab_35.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 36:  Cloning Repositories</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to make copies of repositories.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Create a clone of the hello repository</h3>
+<p>Go to the working directory and make a clone of your hello repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ..
+pwd
+# (you should be in the 'work' directory now) 
+ls
+# (you should see the 'hello' repository)  
+git clone hello cloned_hello
+ls
+# (you should now see the 'cloned_hello' repository as well) </pre>
+<p class="command">Output:</p>
+<pre class="sample">$ cd ..
+$ pwd
+/Users/jim/Documents/Presentations/GitTutorial/dist/work
+$ ls
+hello
+$ git clone hello cloned_hello
+Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/cloned_hello/.git/
+$ ls
+cloned_hello	hello
+</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_37.html">Next Lab</a></li>
+<li><a href="lab_35.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

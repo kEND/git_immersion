@@ -1,0 +1,85 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_16.html">Next Lab</a></li>
+<li><a href="lab_14.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 15:  Reverting Staged Changes (before committing)</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to revert changes that have been staged</li>
+</ul>
+<h2>Steps</h2>
+<h3>Change the file and stage the change</h3>
+<p>Modify the <code>hello.rb</code> file to have a bad comment</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># This is an unwanted but staged comment
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>And then go ahead and stage it.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add hello.rb</pre>
+<h3>Check the Status</h3>
+<p>Check the status of your unwanted change.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git status</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	modified:   hello.rb
+#
+</pre>
+<p>The status output shows that the change has been staged and is ready to be committed.</p>
+<h3>Reset the Staging Area</h3>
+<p>Fortunately the status output tells us exactly what we need to do to unstage the change.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git reset HEAD hello.rb</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git reset HEAD hello.rb
+Unstaged changes after reset:
+M	hello.rb
+</pre>
+<p>The <code>reset</code> command resets the staging area to be whatever is in <span class="caps">HEAD</span>.  This clears the staging area of the change we just staged.</p>
+<p>The <code>reset</code> command (by default) doesn&#8217;t change the working directory.  So the working directory still has the unwanted comment in it.  We can use  the <code>checkout</code> command of the previous lab to remove the unwanted change from the working directory.</p>
+<h3>Checkout the Commited Version</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout hello.rb
+git status</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+nothing to commit (working directory clean)
+</pre>
+<p>And our working directory is clean once again.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_16.html">Next Lab</a></li>
+<li><a href="lab_14.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

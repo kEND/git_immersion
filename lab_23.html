@@ -1,0 +1,100 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_24.html">Next Lab</a></li>
+<li><a href="lab_22.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 23:  Git Internals: Working directly with Git Objects</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Explore the structure of the object store</li>
+	<li>Learn how to use the SHA1 hashes to find content in the repository</li>
+</ul>
+<h2>Steps</h2>
+<p>Now let&#8217;s use some tools to probe git objects directly.</p>
+<h3>Finding the Latest Commit</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist --max-count=1</pre>
+<p>This should show the latest commit made in the repository.  The SHA1 hash on your system is probably different that what is on mine, but you should see something like this.</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist --max-count=1
+* c912f5d - 2010-06-20 Added a Rakefile. (HEAD, master) [Jim Weirich]</pre>
+<h3>Dumping the Latest Commit</h3>
+<p>Using the SHA1 hash from the commit listed above &#8230;</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git cat-file -t &lt;hash&gt;
+git cat-file -p &lt;hash&gt;</pre>
+<p>Here&#8217;s my output &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git cat-file -t c912f5d
+commit
+$ git cat-file -p c912f5d
+tree 79c3801107f0327a4596fa1699a5e8a763ceab1b
+parent 3af42b0c1c1ba6221131b0e79d861108b4fda5a4
+author Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277007963 -0400
+committer Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277007963 -0400
+
+Added a Rakefile.
+</pre>
+<p style="padding-left:4em;" class="note"><strong><span class="caps">NOTE</span>:</strong> If you defined the &#8216;type&#8217; and &#8216;dump&#8217; aliases from the aliases lab, then you can type <code>git type</code> and <code>git dump</code> rather than the longer cat-file commands (which I never remember).</p>
+<p>This is the dump of the commit object that is at the head of the master branch.  It looks a lot like the commit object from the presentation earlier.</p>
+<h3>Finding the Tree</h3>
+<p>We can dump the directory tree referenced in the commit.  This should be a description of the (top level) files in our project (for that commit).  Use the SHA1 hash from the &#8220;tree&#8221; line listed above.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git cat-file -p &lt;treehash&gt;</pre>
+<p>Here&#8217;s what my tree looks like&#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git cat-file -p 79c3801
+100644 blob dc50d9d7cb0f213ccaaedefc13572752f84f9608	Rakefile
+040000 tree ecba9b1fab125f404797a2922fb467f1f6a97eb2	lib
+</pre>
+<p>Yep, I see the Rakefile and the lib directory.</p>
+<h3>Dumping the lib directory</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git cat-file -p &lt;libhash&gt;</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git cat-file -p ecba9b1
+100644 blob 4921a62249a1e75f77bc223a992f2d8b097d0f93	hello.rb
+</pre>
+<p>There&#8217;s the <code>hello.rb</code> file.</p>
+<h3>Dumping the <code>hello.rb</code> file</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git cat-file -p &lt;rbhash&gt;</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git cat-file -p 4921a62
+# This is an unwanted but committed change
+# Author: Jim Weirich (jim@somewhere.com)
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>There you have it.  We&#8217;ve dumped commit objects, tree objects and blob objects directly from the git repository.  That&#8217;s all that is there, blobs, trees and commits.</p>
+<h3>Explore On You Own</h3>
+<p>Explore the git repo manually on your own.  See if you can find the original hello.rb file from the very first commit by manually following the SHA1 hash references starting in the latest commit.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_24.html">Next Lab</a></li>
+<li><a href="lab_22.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

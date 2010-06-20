@@ -1,0 +1,96 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_31.html">Next Lab</a></li>
+<li><a href="lab_29.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 30:  Resolving Conflicts</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to handle conflicts during a merge</li>
+</ul>
+<h2>Steps</h2>
+<h3>Merge master to greet</h3>
+<p>Now go back to the greet branch and try to merge the new master.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout greet
+git merge master</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout greet
+Switched to branch 'greet'
+$ git merge master
+Auto-merging lib/hello.rb
+CONFLICT (content): Merge conflict in lib/hello.rb
+Automatic merge failed; fix conflicts and then commit the result.
+</pre>
+<p>If you open lib/hello.rb, you will see:</p>
+<p class="filename">File: lib/hello.rb</p>
+<pre class="file">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+require 'greeter'
+
+# Default is World
+name = ARGV.first || "World"
+
+greeter = Greeter.new(name)
+puts greeter.greet
+=======
+# Default is World
+
+puts "What's your name"
+my_name = gets.strip
+
+puts "Hello, #{my_name}!"
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
+</pre>
+<p>The first section is the version on the head of the current branch (greet).  The second section is the version on the master branch.</p>
+<h3>Fix the Conflict</h3>
+<p>You need to manually resolve the conflict.  Modify <code>lib/hello.rb</code> to be the following.</p>
+<p class="filename">File: lib/hello.rb</p>
+<pre class="file">require 'greeter'
+
+# Default is World
+
+puts "What's your name"
+my_name = gets.strip
+
+greeter = Greeter.new(my_name)
+puts greeter.greet
+</pre>
+<h3>Commit the Conflict Resolution</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git add lib/hello.rb
+git commit -m 'Merged master fixed conflict.'</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git add lib/hello.rb
+$ git commit -m 'Merged master fixed conflict.'
+[greet cf33651] Merged master fixed conflict.
+</pre>
+<h3>Advanced Merging</h3>
+<p>git doesn&#8217;t provide any graphical merge tools, but it will gladly work with any third party merge tool you wish to use.  See <a href="http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red">http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red</a> for a description of using the Perforce merge tool with git.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_31.html">Next Lab</a></li>
+<li><a href="lab_29.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

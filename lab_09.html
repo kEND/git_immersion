@@ -1,0 +1,123 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_10.html">Next Lab</a></li>
+<li><a href="lab_08.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 9:  Changes, not Files</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn the git works with changes, not files.</li>
+</ul>
+<h2>Steps</h2>
+<p>Most source control systems work with files.  You add a file to source control and the system will track changes to the file from that point on.</p>
+<p>Git focuses on the changes to a file rather than the file itself. When you say <code>git add file</code>, you are not telling git to add the file to the repository.  Rather you are saying that git should make note of the current state of that file to be commited later.</p>
+<p>We will attempt to explore that difference in this lab.</p>
+<h3>First Change: Allow a default name</h3>
+<p>Change the &#8220;Hello, World&#8221; program to have a default value if a command line argument is not supplied.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file">name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<h3>Add this Change</h3>
+<p>Now add this change to the git&#8217;s staging area.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add hello.rb</pre>
+<h3>Second change: Add a comment</h3>
+<p>Now add a comment to the &#8220;Hello, World&#8221; program.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># Default is "World"
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<h3>Check the current status</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git status</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	modified:   hello.rb
+#
+# Changed but not updated:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#	modified:   hello.rb
+#
+</pre>
+<p>Notice how <code>hello.rb</code> is listed twice in the status.  The first change (adding a default) is staged and is ready to be committed.  The second change (adding a comment) is unstaged.  If you were to commit right now, the comment would not be saved in the repository.</p>
+<p>Let&#8217;s try that</p>
+<h3>Commiting</h3>
+<p>Commit the stage change (the default value), and then recheck the status.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git commit -m 'Added a default value'
+git status</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git commit -m 'Added a default value'
+[master c69b1e9] Added a default value
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+$ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#	modified:   hello.rb
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+</pre>
+<p>The status command is telling you that <code>hello.rb</code> has unrecorded changes, but is no longer in the staging area.  The</p>
+<h3>Add the Second Change</h3>
+<p>Now add the second change to staging area, then run git status.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git status</pre>
+<p style="padding-left:4em;" class="note"><b>Note:</b> We used the current directory (&#8216;.&#8217;) as the file to add.  This is a really convenient shortcut for adding in all the changes to the files in the current directory and below.  Since it adds everything, its a good idea to run the status before doing an &#8220;add .&#8221;.</p>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	modified:   hello.rb
+#
+</pre>
+<p>Now the second change has been staged and is ready to commit.</p>
+<h3>Commit the Second Change</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git commit -m 'Added a comment'</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_10.html">Next Lab</a></li>
+<li><a href="lab_08.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

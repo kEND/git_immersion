@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_07.html">Next Lab</a></li>
+<li><a href="lab_05.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 6:  Staging Changes</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to stage changes for later commits</li>
+</ul>
+<h2>Steps</h2>
+<h3>Add Changes</h3>
+<p>Now tell git to stage the changes.  Check the status</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add hello.rb
+git status</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git add hello.rb
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	modified:   hello.rb
+#
+</pre>
+<p>The change to the <code>hello.rb</code> file has been staged.  This means that git now knows about the change, but the changes hasn&#8217;t been _permanently recorded in the repository yet.  The next commit operation will included the staged changes.</p>
+<p>If you decide you <em>don&#8217;t</em> want to commit that change after all, the status command reminds you that the <code>git reset</code> command can be used to unstage that change.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_07.html">Next Lab</a></li>
+<li><a href="lab_05.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

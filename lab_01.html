@@ -1,0 +1,53 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_02.html">Next Lab</a></li>
+<li>Previous Lab</li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 1:  Setup</h1>
+<h2>Goals</h2>
+<ul>
+	<li>To setup git so that it is ready for work.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Setup Name and Email</h3>
+<p>If you have never used git before, you need to do some setup first. Run the following commands so that git knows your name and email.  If you have git already setup, you can skip down to the line ending section.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git config --global user.name "Your Name"
+git config -- user.email "your_email@whatever.com"</pre>
+<h3>Setup Line Ending Preferences</h3>
+<p>Also, for Unix/Mac users:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git config --global core.autocrlf input
+git config --global core.safecrlf true</pre>
+<p>And for Windows users:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git config --global core.autocrlf true
+git config --global core.safecrlf true</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_02.html">Next Lab</a></li>
+<li>Previous Lab</li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

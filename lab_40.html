@@ -1,0 +1,54 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_41.html">Next Lab</a></li>
+<li><a href="lab_39.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 40:  Change the Original Repository</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Make some changes to the original repository so we can try to pull the changes</li>
+</ul>
+<h2>Steps</h2>
+<h3>Make a change in the original <strong>hello</strong> repository</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ../hello
+# (You should be in the original hello repository now)</pre>
+<p>Make the following changes to <span class="caps">README</span>:</p>
+<p class="filename">File: <span class="caps">README</span></p>
+<pre class="file">This is the Hello World example from the git tutorial.
+(changed in original)
+</pre>
+<p>Now add and commit this change</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add README
+git commit -m 'Changed REAME in original repo'</pre>
+<h3>Up Next</h3>
+<p>The original repository now has later changes that are not in the cloned version.  Next we will pull those changes across to the cloned repository.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_41.html">Next Lab</a></li>
+<li><a href="lab_39.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

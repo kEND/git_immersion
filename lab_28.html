@@ -1,0 +1,72 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_29.html">Next Lab</a></li>
+<li><a href="lab_27.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 28:  Merging</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learning who to merge two diverging branches to bring the changes back into a single branch.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Merge the branches</h3>
+<p>Merging brings the changes in two branches together.  Let&#8217;s go back to the greet branch and merge master onto greet.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout greet
+git merge master
+git hist --all</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout greet
+Switched to branch 'greet'
+$ git merge master
+Merge made by recursive.
+ README |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 README
+$ git hist --all
+*   c8f9eed - 2010-06-20 Merge branch 'master' into greet (HEAD, greet) [Jim Weirich]
+|\  
+| * 10f5258 - 2010-06-20 Added README (master) [Jim Weirich]
+* | 2e80a49 - 2010-06-20 Updated Rakefile [Jim Weirich]
+* | 33bb025 - 2010-06-20 Hello uses Greeter [Jim Weirich]
+* | 9d4bc89 - 2010-06-20 Added greeter class [Jim Weirich]
+|/  
+* c912f5d - 2010-06-20 Added a Rakefile. [Jim Weirich]
+* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
+* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>By merging master into your greet branch periodically, you can pick up any changes to master and keep your changes in greet compatible with changes in the mainline.</p>
+<p>However, it does produce ugly commit graphs. Latter we will look at the option of rebasing rather than merging.</p>
+<h3>Up Next</h3>
+<p>But first, what if the changes in master conflict with the changes in greet?</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_29.html">Next Lab</a></li>
+<li><a href="lab_27.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_14.html">Next Lab</a></li>
+<li><a href="lab_12.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 13:  Tagging versions</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to tag commits with names for future reference</li>
+</ul>
+<h2>Steps</h2>
+<p>Let&#8217;s call the current version of the hello program version 1 (v1).</p>
+<h3>Tagging version 1</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git tag v1</pre>
+<p>Now you can refer to the current version of the program as v1.</p>
+<h3>Tagging Previous Versions</h3>
+<p>Let&#8217;s tag the version immediately prior to the current version v1-beta.  First we need to checkout the previous version.  Rather than lookup up the hash, we will use the ^ notation to indicate &#8220;the parent of v1&#8221;.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout v1^
+cat hello.rb</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout v1^
+Note: moving to 'v1^' which isn't a local branch
+If you want to create a new branch from this checkout, you may do so
+(now or later) by using -b with the checkout command again. Example:
+  git checkout -b &lt;new_branch_name&gt;
+HEAD is now at c69b1e9... Added a default value
+$ cat hello.rb
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>See, this is the version with the default value <em>before</em> we added the comment.  Let&#8217;s make this v1-beta.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git tag v1-beta</pre>
+<h3>Checking Out by Tag Name</h3>
+<p>Now try going back and forth between the two tagged versions.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout v1
+git checkout v1-beta</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout v1
+Previous HEAD position was c69b1e9... Added a default value
+HEAD is now at 20f2972... Added a comment
+$ git checkout v1-beta
+Previous HEAD position was 20f2972... Added a comment
+HEAD is now at c69b1e9... Added a default value
+</pre>
+<h3>Viewing Tags using the <code>tag</code> command</h3>
+<p>You can see what tags are available using the <code>git tag</code> command.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git tag</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git tag
+v1
+v1-beta
+</pre>
+<h3>Viewing Tags in the Logs</h3>
+<p>You can also check for tags in the log.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist master --all</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist master --all
+* 20f2972 - 2010-06-20 Added a comment (v1, master) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (HEAD, v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>You can see both tags (<code>v1</code> and <code>v1-beta</code>) listed in the log output, along with the branch name (<code>master</code>).  Also <code>HEAD</code> shows you the currently checked out commit (which is <code>v1-beta</code> at the moment).</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_14.html">Next Lab</a></li>
+<li><a href="lab_12.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

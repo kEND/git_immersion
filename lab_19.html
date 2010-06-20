@@ -1,0 +1,82 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_20.html">Next Lab</a></li>
+<li><a href="lab_18.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 19:  Amending Commits</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to amend an existing commit</li>
+</ul>
+<h2>Steps</h2>
+<h3>Change the program then commit</h3>
+<p>Add an author commit to the program.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># This is an unwanted but committed change
+# Author: Jim Weirich
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git commit -m 'Add an author comment'</pre>
+<h3>Oops, Should have an Email</h3>
+<p>After you make the commit, you realize that any good author comment should have an email included.  Update the hello program to include an email.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># This is an unwanted but committed change
+# Author: Jim Weirich (jim@somewhere.com)
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<h3>Ammend the Previous Commit</h3>
+<p>We really don&#8217;t want a separate commit for just the email.  Let&#8217;s amend the previous commit to include the email change.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add .
+git commit --amend -m 'Add an author/email comment'</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git add .
+$ git commit --amend -m 'Add an author/email comment'
+[master 74cf292] Add an author/email comment
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+</pre>
+<h3>Review the History</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist
+* 74cf292 - 2010-06-20 Add an author/email comment (HEAD, master) [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>We can see the original &#8220;author&#8221; commit is now gone, and it is replaced by the &#8220;author/email&#8221; commit.  You can achieve the same effect by reseting the branch back one commit and then recommitting the new changes.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_20.html">Next Lab</a></li>
+<li><a href="lab_18.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

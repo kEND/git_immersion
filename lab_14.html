@@ -1,0 +1,86 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_15.html">Next Lab</a></li>
+<li><a href="lab_13.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 14:  Reverting Local Changes (before staging)</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to revert changes in the working directory</li>
+</ul>
+<h2>Steps</h2>
+<h3>Checkout Master</h3>
+<p>Make sure you are on the lastest commit in master before proceeding.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout master</pre>
+<h3>Change hello.rb</h3>
+<p>Sometimes you have modified a file in your local working directory and you wish to just revert to what has already been commited.  The checkout command will handle that.</p>
+<p>Change hello.rb to have a bad comment.</p>
+<p class="filename">File: hello.rb</p>
+<pre class="file"># This is a bad comment.  We want to revert it.
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<h3>Check the Status</h3>
+<p>First, check the status of the working directory.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git status</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#	modified:   hello.rb
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+</pre>
+<p>We see that the <code>hello.rb</code> file has been modified, but hasn&#8217;t been staged yet.</p>
+<h3>Revert the changes in the working directory</h3>
+<p>Use the <code>checkout</code> command to checkout the repository&#8217;s version of the <code>hello.rb</code> file.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout hello.rb
+git status
+cat hello.rb    </pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout hello.rb
+$ git status
+# On branch master
+nothing to commit (working directory clean)
+$ cat hello.rb    
+# Default is "World"
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>The status command shows us that there are no outstanding changes in the working directory.  And the &#8220;bad comment&#8221; is no longer part of the file contents.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_15.html">Next Lab</a></li>
+<li><a href="lab_13.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

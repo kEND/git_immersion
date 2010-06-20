@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_49.html">Next Lab</a></li>
+<li><a href="lab_47.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 48:  Bare Repositories</h1>
+<p>Bare repositories (without working directories) are usually used for<br />
+sharing).</p>
+<h3>Create a bare repository.</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">cd ..
+# (You should be in the work directory)
+git clone --bare hello hello.git
+ls hello.git</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git clone --bare hello hello.git
+Initialized empty Git repository in /Users/jim/Documents/Presentations/git_immersion/auto/hello.git/
+$ ls hello.git
+HEAD
+branches
+config
+description
+hooks
+info
+objects
+packed-refs
+refs
+</pre>
+<p>The convention is that repositories ending in &#8216;.git&#8217; are bare repositories.  We can see that there is no working directory in the hello.git repo.  Essentially it is nothing but the .git directory of a non-bare repo.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_49.html">Next Lab</a></li>
+<li><a href="lab_47.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

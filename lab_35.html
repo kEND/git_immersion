@@ -1,0 +1,76 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_36.html">Next Lab</a></li>
+<li><a href="lab_34.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 35:  Merging Back to Master</h1>
+<h2>Goals</h2>
+<ul>
+	<li>We&#8217;ve kept our greet branch up to date with master (via rebase), now lets merge the greet changes back into the master branch.</li>
+</ul>
+<h2>Steps</h2>
+<p>h3 Merge greet into master</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout master
+git merge greet</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout master
+Switched to branch 'master'
+$
+$ git merge greet
+Updating 10f5258..9445ca0
+Fast-forward
+ Rakefile       |    2 +-
+ lib/greeter.rb |    8 ++++++++
+ lib/hello.rb   |    8 +++++---
+ 3 files changed, 14 insertions(+), 4 deletions(-)
+ create mode 100644 lib/greeter.rb
+</pre>
+
+<p>Because the head of master is a direct ancestor of the head of the greet branch, git is able to do a fast forward merge.  When fast-forwarding, the branch pointer is simply moved forward to point to same commit as the greeter branch.</p>
+<p>There will never be conflicts in a fast forward merge.</p>
+<h3>Review the logs</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist
+* 9445ca0 - 2010-06-20 Updated Rakefile (HEAD, master, greet) [Jim Weirich]
+* cb563df - 2010-06-20 Hello uses Greeter [Jim Weirich]
+* 5b1ed69 - 2010-06-20 Added greeter class [Jim Weirich]
+* 10f5258 - 2010-06-20 Added README [Jim Weirich]
+* c912f5d - 2010-06-20 Added a Rakefile. [Jim Weirich]
+* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
+* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>The greet and master branches are now identical.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_36.html">Next Lab</a></li>
+<li><a href="lab_34.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_18.html">Next Lab</a></li>
+<li><a href="lab_16.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 17:  Removing Commits from a Branch</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to remove the most recent commits from a branch</li>
+</ul>
+<h2>Steps</h2>
+<p>The <code>revert</code> command of the previous section is a powerful command that lets us undo the effects of any commit in the repository. However, both the original commit and the &#8220;undoing&#8221; commit are visible in the branch history (using the <code>git log</code> command).</p>
+<p>Often we make a commit and immediately realize that it was a mistake.  It would be nice to have a &#8220;take back&#8221; command that would allow us to pretend that the incorrect commit never happened.  The &#8220;take back&#8221; command would even prevent the bad commit from showing up the <code>git log</code> history.  It would be as if the bad commit never happened.</p>
+<h3>The <code>reset</code> command</h3>
+<p>We&#8217;ve already seen the <code>reset</code> command and have used it to set the staging area to be consistent with a given commit (we used the <span class="caps">HEAD</span> commit in our previous lab).</p>
+<p>When given a commit reference (i.e. a hash, branch or tag name), the <code>reset</code> command will &#8230;</p>
+<ol>
+	<li>Rewrite the current branch to point to the specified commit</li>
+	<li>Optionally reset the staging area to match the specified commit</li>
+	<li>Optionally reset the working directory to match the specified commit</li>
+</ol>
+<h3>Check Our History</h3>
+<p>Let&#8217;s do a quick check of our commit history.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist
+* 9433335 - 2010-06-20 Revert "Oops, we didn't want this commit" (HEAD, master) [Jim Weirich]
+* 9774f51 - 2010-06-20 Oops, we didn't want this commit [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>We see that we have an &#8220;Oops&#8221; commit and a &#8220;Revert Oops&#8221; commit as the last two commits made in this branch.  Let&#8217;s remove them using reset.</p>
+<h3>First, Mark this Branch</h3>
+<p>But before we remove the commits, let&#8217;s mark the latest commit with a tag so we can find it again.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git tag oops</pre>
+<h3>Reset to Before Oops</h3>
+<p>Looking at the log history (above), we see that the commit tagged &#8216;v1&#8217; is the commit right before the bad commit.  Let&#8217;s reset the branch to that point.  Since that branch is tagged, we can use the tag name in the reset command (if it wasn&#8217;t tagged, we could just use the hash value).</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git reset --hard v1
+git hist</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git reset --hard v1
+HEAD is now at 20f2972 Added a comment
+$ git hist
+* 20f2972 - 2010-06-20 Added a comment (HEAD, v1, master) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>Our master branch now points to the v1 commit and the Oops commit and the Revert Oops commit are no longer in the branch.  The <code>--hard</code> parameter indicates that the working directory should be updated to be consistent with the new branch head.</p>
+<h3>Nothing is Ever Lost</h3>
+<p>But what happened to the bad commits?  It turns out that the commits are still in the repository.  In fact, we can still reference them.  Remember that at the beginning of this lab we tagged the reverting commit with the tag &#8220;oops&#8221;.  Lets look at <em>all</em> the commits.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist --all</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist --all
+* 9433335 - 2010-06-20 Revert "Oops, we didn't want this commit" (oops) [Jim Weirich]
+* 9774f51 - 2010-06-20 Oops, we didn't want this commit [Jim Weirich]
+* 20f2972 - 2010-06-20 Added a comment (HEAD, v1, master) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>Here we see that the bad commits haven&#8217;t disappeared.  They are still in the repository.  It&#8217;s just that they are no longer listed in the master branch.  If we hadn&#8217;t tagged them, they would still be in the repository, but there would be no way to reference them other than using their hash names.  Commits that are unreferenced remain in the repository until the system runs the garbage collection software.</p>
+<h3>Dangers of Reset</h3>
+<p>Resets on local branches are generally safe.  Any &#8220;accidents&#8221; can usually be recovered from by just resetting again with the desired commit.</p>
+<p>However, if the branch is shared on remote repositories, reseting can confuse other users sharing the branch.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_18.html">Next Lab</a></li>
+<li><a href="lab_16.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

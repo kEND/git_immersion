@@ -1,0 +1,85 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_09.html">Next Lab</a></li>
+<li><a href="lab_07.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 8:  Commiting Changes</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to commit changes to the repository</li>
+</ul>
+<h2>Steps</h2>
+<h3>Commit the change</h3>
+<p>Ok, enough about staging.  Let&#8217;s commit what we have staged to the repository.</p>
+<p>When you used <code>git commit</code> previously to commit the initial version of the <code>hello.rb</code> file to the repository, you included the <code>-m</code> flag that gave a comment on the command line.  The commit command will allow you to interactively edit a comment for the commit.  Let&#8217;s try that now.</p>
+<p>If you omit the <code>-m</code> flag from the command line, git will pop you into the editor of your choice.  The editor is chosen from the following list (in priority order):</p>
+<ul>
+	<li>GIT_EDITOR environment variable</li>
+	<li>core.editor configuration setting</li>
+	<li><span class="caps">VISUAL</span> environment variable</li>
+	<li><span class="caps">EDITOR</span> environment variable</li>
+</ul>
+<p>I have the <span class="caps">EDITOR</span> variable set to <code>emacsclient</code>.</p>
+<p>So commit now and check the status.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git commit</pre>
+<p>You should see the following in your editor:</p>
+<p class="command">Output:</p>
+<pre class="sample">|
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#	modified:   hello.rb
+#
+</pre>
+
+<p>On the first line, enter the comment: &#8220;Using <span class="caps">ARGV</span>&#8221;.  Save the file and exit the editor.  You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">git commit
+Waiting for Emacs...
+[master 569aa96] Using ARGV
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+</pre>
+<p>The &#8220;Waiting for Emacs&#8230;&#8221; line comes from the <code>emacsclient</code> program which sends the file to a running emacs program and waits for the file to be closed.  The rest of the output is the standard commit messages.</p>
+<h3>Check the status</h3>
+<p>Finally let&#8217;s check the status again.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git status</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git status
+# On branch master
+nothing to commit (working directory clean)
+</pre>
+<p>The working directory is clean and ready for you to continue.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_09.html">Next Lab</a></li>
+<li><a href="lab_07.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

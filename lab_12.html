@@ -1,0 +1,84 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_13.html">Next Lab</a></li>
+<li><a href="lab_11.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 12:  Getting Old Versions</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to checkout any previous snapshot into the working directory.</li>
+</ul>
+<h2>Steps</h2>
+<p>Going back in history is very easy.  The checkout command will copy any snapshot from the repository to the working directory.</p>
+<h3>Get the hashes for previous versions</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git hist</pre>
+<p style="padding-left:4em;" class="note"><strong>Note:</strong> You did remember to define <code>hist</code> in your <code>.gitconfig</code> file, right?  If not, review the lab on aliases.</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git hist
+* 20f2972 - 2010-06-20 Added a comment (HEAD, master) [Jim Weirich]
+* c69b1e9 - 2010-06-20 Added a default value [Jim Weirich]
+* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
+* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+<p>Examine the log output and find the hash for the first commit.  It should be the last line of the <code>git hist</code> output.  Use that hash code (the first 8 characters is enough) in the command below.  Then check the contents of the hello.rb file.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout &lt;hash&gt;
+cat hello.rb</pre>
+<p style="padding-left:4em;" class="note"><strong>Note:</strong> The commands given here are Unix commands and work on both Mac and Linux boxes.  Unfortunately, Windows users will have to translate to their native commands.</p>
+<p style="padding-left:4em;" class="note"><strong>Note:</strong> Many commands depend on the hash values in the repository.  Since your hash values will vary from mine, whenever you see something like &lt;hash&gt; or &lt;treehash&gt; in the command, substitute in the proper hash value for your repository.</p>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout 5fb8ac7
+Note: moving to '5fb8ac7' which isn't a local branch
+If you want to create a new branch from this checkout, you may do so
+(now or later) by using -b with the checkout command again. Example:
+  git checkout -b &lt;new_branch_name&gt;
+HEAD is now at 5fb8ac7... First Commit
+$ cat hello.rb
+puts "Hello, World"
+</pre>
+<p>You can ignore the comments about not being on a local branch. That&#8217;s ok for now.  Notice the contents of the hello.rb file are the original contents.</p>
+<h3>Return the latest version in the master branch</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git checkout master
+cat hello.rb</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git checkout master
+Previous HEAD position was 5fb8ac7... First Commit
+Switched to branch 'master'
+$ cat hello.rb
+# Default is "World"
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+</pre>
+<p>&#8216;master&#8217; is the name of the default branch.  By checking out a branch by name, you go to the lastest version of that branch.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_13.html">Next Lab</a></li>
+<li><a href="lab_11.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

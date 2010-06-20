@@ -1,0 +1,68 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_04.html">Next Lab</a></li>
+<li><a href="lab_02.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 3:  Create a Project</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to create a git repository from scratch.</li>
+</ul>
+<h2>Steps</h2>
+<h3>Create a &#8220;Hello, World&#8221; program</h3>
+<p>Starting in the empty working directory, create an empty directory named &#8220;hello&#8221;, then create a file named <code>hello.rb</code> with the contents below.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">mkdir hello
+cd hello</pre>
+<p class="filename">File: hello.rb</p>
+<pre class="file">puts "Hello, World"
+</pre>
+<h3>Create the Repository</h3>
+<p>You now have a directory with a single file.  To create a git repository from that directory, run the git init command.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git init</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git init
+Initialized empty Git repository in /Users/jim/Documents/Presentations/git_immersion/auto/hello/.git/
+</pre>
+<h3>Add the program to the repository</h3>
+<p>Now let&#8217;s add the &#8220;Hello, World&#8221; program to the repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git add hello.rb
+git commit -m 'First Commit'</pre>
+<p>You should see &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git add hello.rb
+$ git commit -m 'First Commit'
+[master (root-commit) 5fb8ac7] First Commit
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 hello.rb
+</pre>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_04.html">Next Lab</a></li>
+<li><a href="lab_02.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

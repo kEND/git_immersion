@@ -1,0 +1,61 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_40.html">Next Lab</a></li>
+<li><a href="lab_38.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 39:  Remote Branches</h1>
+<h2>Goals</h2>
+<ul>
+	<li>Learn about local VS remote branches</li>
+</ul>
+<h2>Steps</h2>
+<p>Let&#8217;s look at the branches available in our cloned repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git branch</pre>
+<p>You should get &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git branch
+* master
+</pre>
+<p>That&#8217;s it, only the master branch is listed.  Where is the greet branch?  The <strong>git</strong> <strong>branch</strong> command only lists the local branches by default.</p>
+<h3>List Remote Branches</h3>
+<p>Try this to see all the branches:</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git branch -a</pre>
+<p>You should get &#8230;</p>
+<p class="command">Output:</p>
+<pre class="sample">$ git branch -a
+* master
+  remotes/origin/HEAD -&gt; origin/master
+  remotes/origin/greet
+  remotes/origin/master
+</pre>
+<p>Git has all the commits from the original reposistory, but branches in the remote repository are not treated as local branches here.  If we want our own <strong>greet</strong> branch, we need to create it ourselves. We will see how to do that in a minute.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_40.html">Next Lab</a></li>
+<li><a href="lab_38.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

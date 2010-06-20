@@ -1,0 +1,58 @@
+<html>
+<head>
+<link href="labs.css" media="screen,print" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<a href="http://edgecase.com">
+<img id="logo" src="edgecase.gif" >
+</a>
+<div class="title">Git Immersion Labs</div>
+<div class="nav">
+<ul>
+<li><a href="lab_46.html">Next Lab</a></li>
+<li><a href="lab_44.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="content">
+<h1>Lab 45:  Added a Tracking Branch</h1>
+(<span class="caps">NOTE</span>: Consider moving this section after the bare repository)
+<h2>Goals</h2>
+<ul>
+	<li>Learn how to add a local branch that tracks a remote branch.</li>
+</ul>
+<h2>Steps</h2>
+<p>The branches starting with remotes/origin are branches from the original repo.  Notice that you don&#8217;t have a branch called greet anymore, but it knows that the original repo had a greet branch.</p>
+<h3>Add a local branch that tracks a remote branch.</h3>
+<p class="command">Execute:</p>
+<pre class="instructions">git branch --track greet origin/greet
+git branch -a
+git hist --max-count=1</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git branch --track greet origin/greet
+Branch greet set up to track remote branch greet from origin.
+$ git branch -a
+  greet
+* master
+  remotes/origin/HEAD -&gt; origin/master
+  remotes/origin/greet
+  remotes/origin/master
+$ git hist --max-count=1
+* 81f8902 - 2010-06-20 Changed REAME in original repo (HEAD, origin/master, origin/HEAD, master) [Jim Weirich]</pre>
+<p>We can now see the greet branch in the branch list and in the log.</p>
+</div>
+</div>
+<div id="footer">
+<div class="nav">
+<ul>
+<li><a href="lab_46.html">Next Lab</a></li>
+<li><a href="lab_44.html">Previous Lab</a></li>
+<li><a href="index.html">Index</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>
