@@ -80,6 +80,9 @@ body {
 #main h2, #main h3, #main p {
     padding: 0 10px;
 }
+#main h3 {
+    font-style: italic;
+}
 #main a {
     color: #66554A;
     text-decoration: none;

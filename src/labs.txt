@@ -89,9 +89,7 @@ Execute:
 git init
 =init
 
-p. You should see something like this (the directory will be different, of course).
-
-Sample:
+Output:
 =init
 EOF
 
@@ -107,7 +105,7 @@ git commit -m 'First Commit'
 
 p. You should see ...
 
-Sample:
+Output:
 =add
 =commit
 EOF
@@ -132,7 +130,7 @@ git status
 
 p. You should see
 
-Sample:
+Output:
 =status
 EOF
 
@@ -171,7 +169,7 @@ Execute:
 
 p. You should see ...
 
-Sample:
+Output:
 =status
 EOF
 
@@ -209,7 +207,7 @@ git status
 
 p. You should see ...
 
-Sample:
+Output:
 =add
 =status
 EOF
@@ -267,18 +265,22 @@ h3. Commit the change
 p. Ok, enough about staging.  Let's commit what we have staged to the
 repository.
 
-p. The the 
+p. When you used @git commit@ previously to commit the initial version
+of the @hello.rb@ file to the repository, you included the @-m@ flag
+that gave a comment on the command line.  The commit command will
+allow you to interactively edit a comment for the commit.  Let's try
+that now.
 
-p. The change to @hello.rb@ is ready to be committed.  If you leave
-off the -m, Git will allow you to edit the commit message using your
-editor.  The editor is selected from (in order):
+p. If you omit the @-m@ flag from the command line, git will pop you
+into the editor of your choice.  The editor is chosen from the
+following list (in priority order):
 
 * GIT_EDITOR environment variable
 * core.editor configuration setting
 * VISUAL environment variable
 * EDITOR environment variable
 
-p. Mine is set to "emacsclient".
+p. I have the EDITOR variable set to @emacsclient@.
 
 p. So commit now and check the status.
 
@@ -286,24 +288,75 @@ Execute:
 -git commit
 +git commit -m 'Using ARGV'
 
-p. Using your editor, enter the commit comment "Using ARGV"
+p. You should see the following in your editor:
 
-p. Finally check the status again.  It should say "nothing to commit
-(working directory clean)".
+Output:
+|
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   hello.rb
+#
+EOF
+ 
+p. On the first line, enter the comment: "Using ARGV".  Save the file
+and exit the editor.  You should see ...
+
+Output:
+git commit
+Waiting for Emacs...
+[master 569aa96] Using ARGV
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+EOF
+
+p. The "Waiting for Emacs..." line comes from the @emacsclient@
+program which sends the file to a running emacs program and waits for
+the file to be closed.  The rest of the output is the standard commit
+messages.
+
+h3. Check the status
+
+p. Finally let's check the status again.
 
 Execute:
 !git status
+=status
+
+You should see ...
+
+Output:
+=status
+EOF
+
+p. The working directory is clean and ready for you to continue.
 
 ----------------------------------------------------------------------
 h1. Changes, not Files
 
-p. Most source control systems work with files.  Git focuses on
-changes rather than files.  This lab will attempt to show the
-difference.
+h2. Goals
+
+* Learn the git works with changes, not files.
+
+h2. Steps
+
+p. Most source control systems work with files.  You add a file to
+source control and the system will track changes to the file from that
+point on.
+
+p. Git focuses on the changes to a file rather than the file itself.
+When you say @git add file@, you are not telling git to add the file
+to the repository.  Rather you are saying that git should make note of
+the current state of that file to be commited later.
+
+p. We will attempt to explore that difference in this lab.
 
 h3. First Change: Allow a default name
 
-p. Change the file to be:
+p. Change the "Hello, World" program to have a default value if a
+command line argument is not supplied.
 
 File: hello.rb
 name = ARGV.first || "World"
@@ -313,12 +366,14 @@ EOF
 
 h3. Add this Change
 
+p. Now add this change to the git's staging area.
+
 Execute:
 git add hello.rb
 
 h3. Second change: Add a comment
 
-Change hello.rb to be:
+p. Now add a comment to the "Hello, World" program.
 
 File: hello.rb
 # Default is "World"
@@ -331,23 +386,50 @@ h3. Check the current status
 
 Execute:
 !git status
+=status
 
-p. Notice how hello.rb is listed twice in the status.  It has some
-changes (the default value for name) ready to be committed.
+p. You should see ...
 
-p. It also has some changes (the added comment) that are unstaged.  If
-a commit were to happen right now, only the first change would be
-committed.
+Output:
+=status
+EOF
 
-p. Git tracks changes, not files.
+p. Notice how @hello.rb@ is listed twice in the status.  The first
+change (adding a default) is staged and is ready to be committed.  The
+second change (adding a comment) is unstaged.  If you were to commit
+right now, the comment would not be saved in the repository.
 
-h3. Adding the additional changes
+p. Let's try that
+
+h3. Commiting
+
+p. Commit the stage change (the default value), and then recheck the
+status.
+
+Execute:
+git commit -m 'Added a default value'
+=commit
+git status
+=status2
+
+p. You should see ...
+
+Output:
+=commit
+=status2
+EOF
+
+p. The status command is telling you that @hello.rb@ has unrecorded changes,
+but is no longer in the staging area.  The 
+
+h3. Add the Second Change
 
 p. Now add the second change to staging area, then run git status.
 
 Execute:
 git add .
 !git status
+=status3
 
 p(((((note). <b>Note:</b> We used the current directory ('.') as the
 file to add.  This is a really convenient shortcut for adding in all
@@ -355,30 +437,70 @@ the changes to the files in the current directory and below.  Since it
 adds everything, its a good idea to run the status before doing an
 "add .".
 
-p. Both changes have been staged and are ready to be committed.
+p. You should see ...
+
+Output:
+=status3
+EOF
+
+p. Now the second change has been staged and is ready to commit.
+
+h3. Commit the Second Change
 
 Execute:
-git commit -m 'added default for name'
+git commit -m 'Added a comment'
 
 ----------------------------------------------------------------------
 h1. History
+
+h2. Goals
+
+* Learn how to view the history of the project.
+
+h2. Steps
 
 p. Getting a listing of what changes have been made is the function of
 the @git log@ command.
 
 Execute:
 git log
+=log
 
-p. This dumps a listing of all the commits made to date. You can limit
-the number of entries in a number of different ways.  You can also
-change the format. Play around with the following:
+p. You should see ...
+
+Output:
+=log
+EOF
+
+p. Here is a list of all four commits that we have made to the
+repository so far.
+
+h3. One Line Histories
+
+p. You have a great deal o control of exactly what the @log@ command
+displays.  I like the one line format:
+
+Execute:
+git log --pretty=oneline
+=oneline
+
+p. You should see ...
+
+Output:
+=oneline
+EOF
+
+h3. Controlling Which Entries are Displayed
+
+p. There are a lot of options for selecting which entries are
+displayed in the log.  Play around with the following options:
 
 pre(instructions).
-git log --max-count=2
-git log --since='5 minutes ago' 
-git log --until='5 minutes ago' 
-git log --author=<your name>
-git log --pretty=oneline
+git log --pretty=oneline --max-count=2
+git log --pretty=oneline --since='5 minutes ago' 
+git log --pretty=oneline --until='5 minutes ago' 
+git log --pretty=oneline --author=<your name>
+git log --pretty=oneline --all
 
 p. See man git-log for all the details.
 
@@ -390,157 +512,55 @@ I'll add a --author=jim to it I only want to see changes I made.
 pre(instructions).
 git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago'
 
+h3. The Ultimate Log Format
+
+p. Over time, I've decided that I like the following log format for
+most of my work.
+
+Execute:
+git log --pretty=format:"%h - %ad %s%d [%an]" --graph --date=short
+=ultimate
+
+It looks like this:
+
+Output:
+=ultimate
+EOF
+
+p. Let's look at it in detail:
+
+* @--pretty="..."@ defines the format of the output.
+* @%h@ is the abbreviated hash of the commit
+* @%d@ are any decorations on that commit (e.g. branch heads or tags)
+* @%ad@ is the author date
+* @%s@ is the comment
+* @%an@ is the author name
+* @--graph@ informs git to display the commit tree in an ASCII graph layout
+* @--date=short@ keeps the date format nice and short
+
+p. This is a lot to type everytime you want to see the log.
+Fortunately we will learn about git aliases in the next lab.
+
 h3. Other Tools
 
 p. Both <code>gitx</code> (for Macs) and <code>gitk</code> (any
 platform) are useful in exploring log history.
 
 ---------------------------------------------------------------------- 
-h1. Getting Old Versions
-
-p. Going back in history is very easy.  The checkout command will copy
-any snapshot from the repository to the working directory.
-
-h3. Get the hashes for previous versions
-
-Execute:
-git log --pretty=oneline
-=log
-
-p. You should see something like:
-
-Sample:
-=log
-EOF
-
-p. Examine the log output and find the hash for the first commit.  Use
-that hash code (the first 8 characters is enough) in the command
-below.  Then check the contents of the hello.rb file.
-
-Set: hash=hash_for("First Commit")
-Execute:
-git checkout <hash>
-=checkout
-cat hello.rb
-=cat
-
-p(((((note). *Note:* The commands given here are Unix commands and 
-work on both Mac and Linux boxes.  Unfortunately, Windows users will
-have to translate to their native commands.  
-
-p(((((note). *Note:* Many commands depend on the hash values in the
-repository.  Since your hash values will vary from mine, whenever you
-see something like &lt;hash&gt; or &lt;treehash&gt; in the command,
-substitute in the proper hash value for your repository.
-
-p. You should see ...
-
-Sample:
-=checkout
-=cat
-EOF
-
-p. You will probably get some complaints about not being on a local
-branch.  That's ok for now.  Notice the contents of the hello.rb file
-are the original contents.
-
-h3. Return the latest version in the master branch
-
-Execute:
-git checkout master
-cat hello.rb
-
-p. 'master' is the name of the default branch.  By checking out a branch
-by name, you go to the lastest version of that branch.
-
-----------------------------------------------------------------------
-h1. Tagging versions
-
-p. Let's call the current version of the hello program version 1 (v1).
-
-h3. Tagging version 1
-
-Execute:
-git tag v1
-
-p. Now you can refer to the current version of the program as v1.  
-
-h3. Tagging a previous version
-
-p. Let's tag the second version of our program as v1-beta.  First we need
-to checkout the previous version.  Rather than lookup up the hash, we
-will use the ^ notation to indicate "the parent of v1".
-
-Execute:
-git checkout v1^
-cat hello.rb
-
-p. See, this is the version _before_ we added the default value.
-Let's make this v1-beta.
-
-Execute:
-git tag v1-beta
-
-p. Now try going back and forth between the two tagged versions.
-
-Execute:
-git checkout v1
-git checkout v1-beta
-
-p. You can see what tags are available using the @git tag@ command.
-
-Execute:
-git tag
-
-p. Make sure you are at the head of the master branch before
-proceeding to the next lab.
-
-Execute:
-git checkout master
-
-----------------------------------------------------------------------
-h1. Reverting Local Changes (before committing)
-
-p. Sometimes you have modified a file in your local working directory
-and you wish to just revert to what has already been commited.  The
-checkout command will handle that.
-
-h3. Change hello.rb
-
-Change hello.rb to have a bad comment.
-
-File: hello.rb
-# This is a bad comment.  We want to revert it.
-name = ARGV.first || "World"
-
-puts "Hello, #{name}!"
-EOF
-
-h3. Run
-
-p. First, check the status.
-
-Execute:
-!git status
-
-Now lets go back to the previous version of the file.
-
-Execute:
-git checkout hello.rb
-!git status
-cat hello.rb
-
-p. We are now back to the checked-in version.
-
----------------------------------------------------------------------- 
 h1. Aliases
+
+h2. Goals
+
+* Learn how to setup aliases and shortcuts for git commands
+
+h2. Steps
+
+h3. Common Aliases
 
 p. Git status, git add, git commit, and git checkout are such common
 commands that it is useful to have abbreviations for them.
 
-h3. Common Aliases
-
-Add the following to the .gitconfig file in your $HOME directory.
+p. Add the following to the .gitconfig file in your $HOME directory.
 
 file: .gitconfig
 [alias]
@@ -548,23 +568,28 @@ file: .gitconfig
   ci = commit
   st = status
   br = branch
-  hist = log --pretty=format:\"%h %d - %ad %s (%an)\" --abbrev-commit --graph --decorate --date=short
+  hist = log --pretty=format:\"%h - %ad %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
 EOF
 
-p. We've covered checkout, commit and status already.  Now, whenever
-you can type @git co@ whereever you used to have to type @git
-checkout@.  Likewise with @git st@ for @git status@ and @git ci@ for
-@git commit@.
+p. We've covered checkout, commit and status already.  And we just
+covered the @log@ command in the previous lab. Nowyou can type @git
+co@ whereever you used to have to type @git checkout@.  Likewise with
+@git st@ for @git status@ and @git ci@ for @git commit@.  And best of
+all, @git hist@ will allow you to avoid the really long @log@ command.
 
 p. Go ahead and give the new commands a try.
 
-p. By the way, I'll continue to type out the full command in these
-instructions, but feel free to use the aliases above.  Also, you
-should experiment with adding your own aliases as you go.
+h3. Define the @hist@ alias in your @.gitconfig@ file
 
-h3. Commands to come...
+p. For the most part, I will continue to type out the full command in
+these instructions.  The only exception is that I will use the @hist@
+alias defined above anytime we need to see the git log output.  Make
+sure you have a @hist@ alias setup in your @.gitconfig@ file before
+continuing if you wish to follow along.
+
+h3. @Type@ and @Dump@
 
 p. We've added a few aliases for command we haven't covered yet. The
 @git branch@ command will be coming up soon.  And the @git cat-file@
@@ -597,18 +622,628 @@ pre(instructions). go <branch>
 
 p. to checkout a particular branch.
 
-p. And yes, I do mistype @git@ as @get@ or @got@ enough to create
-aliases for them.
+p. And yes, I do mistype @git@ as @get@ or @got@ often enough to
+create aliases for them.
  
+---------------------------------------------------------------------- 
+h1. Getting Old Versions
+
+h2. Goals
+
+* Learn how to checkout any previous snapshot into the working directory.
+
+h2. Steps
+
+p. Going back in history is very easy.  The checkout command will copy
+any snapshot from the repository to the working directory.
+
+h3. Get the hashes for previous versions
+
+Execute:
+git hist
+=log
+
+p(((((note). *Note:* You did remember to define @hist@ in your
+@.gitconfig@ file, right?  If not, review the lab on aliases.
+
+Output:
+=log
+EOF
+
+p. Examine the log output and find the hash for the first commit.  It
+should be the last line of the @git hist@ output.  Use that hash code
+(the first 8 characters is enough) in the command below.  Then check
+the contents of the hello.rb file.
+
+Set: hash=hash_for("First Commit")
+Execute:
+git checkout <hash>
+=checkout
+cat hello.rb
+=cat
+
+p(((((note). *Note:* The commands given here are Unix commands and 
+work on both Mac and Linux boxes.  Unfortunately, Windows users will
+have to translate to their native commands.  
+
+p(((((note). *Note:* Many commands depend on the hash values in the
+repository.  Since your hash values will vary from mine, whenever you
+see something like &lt;hash&gt; or &lt;treehash&gt; in the command,
+substitute in the proper hash value for your repository.
+
+p. You should see ...
+
+Output:
+=checkout
+=cat
+EOF
+
+p. You can ignore the comments about not being on a local branch.
+That's ok for now.  Notice the contents of the hello.rb file are the
+original contents.
+
+h3. Return the latest version in the master branch
+
+Execute:
+git checkout master
+=checkout2
+cat hello.rb
+=cat2
+
+p. You should see ...
+
+Output:
+=checkout2
+=cat2
+EOF
+
+p. 'master' is the name of the default branch.  By checking out a branch
+by name, you go to the lastest version of that branch.
+
+----------------------------------------------------------------------
+h1. Tagging versions
+
+h2. Goals
+
+* Learn how to tag commits with names for future reference
+
+h2. Steps
+
+p. Let's call the current version of the hello program version 1 (v1).
+
+h3. Tagging version 1
+
+Execute:
+git tag v1
+=tag
+
+p. Now you can refer to the current version of the program as v1.  
+
+h3. Tagging Previous Versions
+
+p. Let's tag the version immediately prior to the current version
+v1-beta.  First we need to checkout the previous version.  Rather than
+lookup up the hash, we will use the ^ notation to indicate "the parent
+of v1".
+
+Execute:
+git checkout v1^
+=checkout 
+cat hello.rb
+=cat
+
+Output:
+=checkout
+=cat
+EOF
+
+p. See, this is the version with the default value _before_ we added
+the comment.  Let's make this v1-beta.
+
+Execute:
+git tag v1-beta
+
+h3. Checking Out by Tag Name
+
+p. Now try going back and forth between the two tagged versions.
+
+Execute:
+git checkout v1
+=cov1 
+git checkout v1-beta
+=cov1beta
+
+Output:
+=cov1
+=cov1beta
+EOF
+
+h3. Viewing Tags using the @tag@ command
+
+p. You can see what tags are available using the @git tag@ command.
+
+Execute:
+git tag
+=tag2
+
+Output:
+=tag2
+EOF
+
+h3. Viewing Tags in the Logs
+
+p. You can also check for tags in the log.
+
+Execute:
+git hist master --all
+=hist
+
+Output:
+=hist
+EOF
+
+p. You can see both tags (@v1@ and @v1-beta@) listed in the log
+output, along with the branch name (@master@).  Also @HEAD@ shows you
+the currently checked out commit (which is @v1-beta@ at the moment).
+
+----------------------------------------------------------------------
+h1. Reverting Local Changes (before staging)
+
+h2. Goals
+
+* Learn how to revert changes in the working directory
+
+h2. Steps
+
+h3. Checkout Master
+
+p. Make sure you are on the lastest commit in master before proceeding.
+
+Execute:
+git checkout master
+
+h3. Change hello.rb
+ 
+p. Sometimes you have modified a file in your local working directory
+and you wish to just revert to what has already been commited.  The
+checkout command will handle that.
+
+Change hello.rb to have a bad comment.
+
+File: hello.rb
+# This is a bad comment.  We want to revert it.
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+h3. Check the Status
+
+p. First, check the status of the working directory.
+
+Execute:
+!git status
+=status
+
+Output:
+=status
+EOF
+
+p. We see that the @hello.rb@ file has been modified, but hasn't been
+staged yet.
+
+h3. Revert the changes in the working directory
+
+p. Use the @checkout@ command to checkout the repository's version of
+the @hello.rb@ file.
+
+Execute:
+git checkout hello.rb
+=checkout
+!git status
+=status2
+cat hello.rb    
+=cat
+
+Output:
+=checkout
+=status2
+=cat
+EOF
+
+p. The status command shows us that there are no outstanding changes
+in the working directory.  And the "bad comment" is no longer part of
+the file contents.
+
+----------------------------------------------------------------------
+h1. Reverting Staged Changes (before committing)
+
+h2. Goals
+
+* Learn how to revert changes that have been staged
+
+h2. Steps
+
+h3. Change the file and stage the change
+
+p. Modify the @hello.rb@ file to have a bad comment
+
+File: hello.rb
+# This is an unwanted but staged comment
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+p. And then go ahead and stage it.
+
+Execute:
+git add hello.rb
+
+h3. Check the Status
+
+p. Check the status of your unwanted change.
+
+Execute:
+git status
+=status
+
+Output:
+=status
+EOF
+
+p. The status output shows that the change has been staged and is
+ready to be committed.
+
+h3. Reset the Staging Area
+
+p. Fortunately the status output tells us exactly what we need to do
+to unstage the change.
+
+Execute:
+git reset HEAD hello.rb
+=reset
+
+Output:
+=reset
+EOF
+
+p. The @reset@ command resets the staging area to be whatever is in
+HEAD.  This clears the staging area of the change we just staged.
+
+p. The @reset@ command (by default) doesn't change the working
+directory.  So the working directory still has the unwanted comment in
+it.  We can use  the @checkout@ command of the previous lab to remove
+the unwanted change from the working directory.
+
+h3. Checkout the Commited Version
+
+Execute:
+git checkout hello.rb
+git status
+=status2
+
+Output:
+=status2
+EOF
+
+p. And our working directory is clean once again.
+
+----------------------------------------------------------------------
+h1. Reverting Committed Changes 
+
+h2. Goals
+
+* Learn how to revert changes that have been committed to a local repository.
+
+h2. Steps
+
+h3. Undoing Commits
+
+p. Sometimes you realized that a change that you have already
+committed was not correct and you wish to undo that commit.  There are
+several ways of handling that issue, and the way we are going to use
+in this lab is always safe to use.
+
+p. Essentially we will undo the commit by creating a new commit that
+reverses the unwanted changes.
+
+h3. Change the file and commit it.
+
+p. Change the @hello.rb@ file to the following.
+
+File: hello.rb
+# This is an unwanted but committed change
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+Execute:
+git add hello.rb
+git commit -m "Oops, we didn't want this commit"
+
+h3. Create a Reverting Commit
+
+p. To undo a committed change, we need to generate a commit that
+removes the changes introduced by our unwanted commit.
+
+Execute:
+-git revert head
++git revert head --no-edit
+=revert
+
+p. This will pop you into the editor.  Edit the commit message and
+close the file.  You should see ...
+
+Output:
+=revert
+EOF
+
+p. Since we were undoing the very last commit we made We were able to
+use @head@ as the argument to revert.  We can revert any arbitrary
+commit earlier in history by simply specifying its hash value.
+
+h3. Check the log
+
+p. Checking the log shows both the unwanted and the reverting commits
+in our repository.
+
+Execute:
+git hist
+=hist
+
+Output:
+=hist
+EOF
+
+p. This technique will work with any commit (although you may have to
+resolve conflicts).  It is safe to use even on branches that are
+publicly shared on remote repositories.
+
+h3. Up Next
+
+p. Next, let's look at a technique that can be used to remove the most
+recent commits from the repository history.
+
+----------------------------------------------------------------------
+h1. Removing Commits from a Branch
+
+h2. Goals
+
+* Learn how to remove the most recent commits from a branch
+
+h2. Steps
+
+p. The @revert@ command of the previous section is a powerful command
+that lets us undo the effects of any commit in the repository.
+However, both the original commit and the "undoing" commit are visible
+in the branch history (using the @git log@ command).
+
+p. Often we make a commit and immediately realize that it was a
+mistake.  It would be nice to have a "take back" command that would
+allow us to pretend that the incorrect commit never happened.  The
+"take back" command would even prevent the bad commit from showing up
+the @git log@ history.  It would be as if the bad commit never
+happened.
+
+h3. The @reset@ command
+
+p. We've already seen the @reset@ command and have used it to set the
+staging area to be consistent with a given commit (we used the HEAD
+commit in our previous lab).
+
+p. When given a commit reference (i.e. a hash, branch or tag name),
+the @reset@ command will ...
+
+# Rewrite the current branch to point to the specified commit
+# Optionally reset the staging area to match the specified commit
+# Optionally reset the working directory to match the specified commit
+
+h3. Check Our History
+
+p. Let's do a quick check of our commit history.
+
+Execute:
+git hist
+=hist
+
+Output:
+=hist
+EOF
+
+p. We see that we have an "Oops" commit and a "Revert Oops" commit as
+the last two commits made in this branch.  Let's remove them using
+reset.
+
+h3. First, Mark this Branch
+
+p. But before we remove the commits, let's mark the latest commit with
+a tag so we can find it again.
+
+Execute:
+git tag oops
+
+h3. Reset to Before Oops
+
+p. Looking at the log history (above), we see that the commit tagged
+'v1' is the commit right before the bad commit.  Let's reset the
+branch to that point.  Since that branch is tagged, we can use the tag
+name in the reset command (if it wasn't tagged, we could just use the
+hash value).
+
+Execute:
+git reset --hard v1
+=reset
+git hist
+=hist2
+
+Output:
+=reset 
+=hist2
+EOF
+
+p. Our master branch now points to the v1 commit and the Oops commit
+and the Revert Oops commit are no longer in the branch.  The @--hard@
+parameter indicates that the working directory should be updated to be
+consistent with the new branch head.
+
+h3. Nothing is Ever Lost
+
+p. But what happened to the bad commits?  It turns out that the
+commits are still in the repository.  In fact, we can still reference
+them.  Remember that at the beginning of this lab we tagged the
+reverting commit with the tag "oops".  Lets look at _all_ the commits.
+
+Execute:
+git hist --all
+=hist3
+
+Output:
+=hist3
+EOF
+
+p. Here we see that the bad commits haven't disappeared.  They are
+still in the repository.  It's just that they are no longer listed in
+the master branch.  If we hadn't tagged them, they would still be in
+the repository, but there would be no way to reference them other than
+using their hash names.  Commits that are unreferenced remain in the
+repository until the system runs the garbage collection software.
+
+h3. Dangers of Reset
+
+p. Resets on local branches are generally safe.  Any "accidents" can
+usually be recovered from by just resetting again with the desired
+commit.
+
+p. However, if the branch is shared on remote repositories, reseting
+can confuse other users sharing the branch.
+
+----------------------------------------------------------------------
+h1. Remove the oops tag
+
+h2. Goals
+
+* Remove the oops tag (housekeeping)
+
+h2. Steps
+
+h3. Removing tag oops
+
+p. The oops tag has served its purpose.  Let's remove it an allow the
+commits it referenced to be garbage collected.
+
+Execute:
+git tag -d oops
+=tag
+git hist --all
+=hist
+
+Output:
+=tag
+=hist
+EOF
+
+p. The oops tag is no longer listed in the repository.
+
+----------------------------------------------------------------------
+h1. Amending Commits
+
+h2. Goals
+
+* Learn how to amend an existing commit
+
+h2. Steps
+
+h3. Change the program then commit
+
+p. Add an author commit to the program.
+
+File: hello.rb
+# This is an unwanted but committed change
+# Author: Jim Weirich
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+Execute:
+git add .
+git commit -m 'Add an author comment'
+
+h3. Oops, Should have an Email
+
+p. After you make the commit, you realize that any good author comment
+should have an email included.  Update the hello program to include an
+email.
+
+File: hello.rb
+# This is an unwanted but committed change
+# Author: Jim Weirich (jim@somewhere.com)
+name = ARGV.first || "World"
+
+puts "Hello, #{name}!"
+EOF
+
+h3. Ammend the Previous Commit
+
+p. We really don't want a separate commit for just the email.  Let's
+amend the previous commit to include the email change.
+
+Execute:
+git add .
+=add
+git commit --amend -m 'Add an author/email comment'
+=commit
+
+Output:
+=add
+=commit
+EOF
+
+
+h3. Review the History
+
+Execute:
+git hist
+=hist
+
+Output:
+=hist
+EOF
+
+p. We can see the original "author" commit is now gone, and it is
+replaced by the "author/email" commit.  You can achieve the same
+effect by reseting the branch back one commit and then recommitting
+the new changes.
+
 ----------------------------------------------------------------------
 h1. Moving Files
  
+h2. Goals
+
+* Learn how to move a file within a repository.
+
+h2. Steps
+
 h3. Move the hello.rb file into a lib directory.
+
+p. We are now going to build up the structure our little repository.
+Let's move the program into a lib directory.
 
 Execute:
 mkdir lib
+=mkdir
 git mv hello.rb lib
+=move
 !git status
+=status
+
+Output:
+=mkdir
+=move
+=status
+EOF
 
 p. By using git to do the move, we inform git of 2 things 
 
@@ -638,13 +1273,24 @@ git rm hello.rb
 
 h3. Commit the new directory
 
+p. Let's commit this move.
+
 Execute:
 git commit -m 'Moved hello.rb to lib'
 
 ----------------------------------------------------------------------
 h1. More Structure
 
+h2. Goals
+
+* Add another file to our repository
+
+h2. Steps
+
 h3. Now add a Rakefile
+
+p. Let's add a rakefile to our repository.  The following one will do
+nicely.
 
 File: Rakefile
 #!/usr/bin/ruby -wKU
@@ -666,27 +1312,59 @@ p. You should be able to use Rake to run your hello program now.
 
 Execute:
 rake
+=rake
+
+Output:
+=rake
+EOF
 
 ----------------------------------------------------------------------
 h1. Git Internals: The .git directory 
 
-h3. Object Store
+h2. Goals
+
+* Learn about the structure of the @.git@ directory
+
+h3. The @.git@ Directory
 
 p. Time to do some exploring.  First, from the root of your project
 directory...
 
 Execute:
-ls .git
+cls -C .git
+=lsgit
+
+Output:
+=lsgit
+EOF
 
 p. This is the magic directory where all the git "stuff" is stored.
 Let's peek in the objects directory.
+
+h3. The Object Store
  
 Execute:
-ls .git/objects
+ls -C .git/objects
+=lsobjs
+
+Output:
+=lsobjs
+EOF
 
 p. You should see a bunch of directories with 2 letter names.  The
 directory names are the first two letters of the sha1 hash of the
 object stored in git.
+
+h3. Deeper into the Object Store
+
+Set: dir=`ls .git/objects | head -1`.strip
+Execute:
+ls -C .git/objects/<dir>
+=lsobjs2
+
+Output:
+=lsobjs2
+EOF
 
 p. Look in one of the two-letter directories.  You should see some
 files with 38 character names.  These are the files that contain the
@@ -698,22 +1376,38 @@ h3. Config File
 
 Execute:
 cat .git/config
+=cat
+
+Output:
+=cat
+EOF
 
 p. This is project specific configuration file.  Config entries in
-here will override the config entries in the .gitconfig file in your
+here will override the config entries in the @.gitconfig@ file in your
 home directory, at least for this project.
 
 h3. Branches and Tags
 
 Execute:
 ls .git/refs
+=refs
 ls .git/refs/heads
+=refhead 
 ls .git/refs/tags
+=reftags
 cat .git/refs/tags/v1
+=refv1
+
+Output:
+=refs
+=refhead 
+=reftags
+=refv1
+EOF
 
 p. You should recogize the files in the tags subdirectory.  Each file
 corresponds to a tag you created with the @git tag@ command earlier.
-It's contents is just the hash of the commit tied to the tag.
+It's content is just the hash of the commit tied to the tag.
 
 p. The heads directory is similar, but is used for branches rather
 than tags.  We only have one branch at the moment, so all you will see
@@ -723,6 +1417,11 @@ h3. The HEAD File
 
 Execute:
 cat .git/HEAD
+=head
+
+Output:
+=head
+EOF
 
 p. The HEAD file contains a reference to the current branch.  Should
 be a reference to master at this point.
@@ -730,25 +1429,32 @@ be a reference to master at this point.
 ----------------------------------------------------------------------
 h1. Git Internals: Working directly with Git Objects
 
+h2. Goals
+
+* Explore the structure of the object store
+* Learn how to use the SHA1 hashes to find content in the repository
+
+h2. Steps
+
 p. Now let's use some tools to probe git objects directly.
 
 h3. Finding the Latest Commit
 
 Execute:
-git log --max-count=1 --pretty=oneline
+git hist --max-count=1
 =log
 
 p. This should show the latest commit made in the repository.  The
 SHA1 hash on your system is probably different that what is on mine,
 but you should see something like this.
 
-Sample:
+Output:
 =log
 EOF
 
 h3. Dumping the Latest Commit
 
-Using the SHA1 hash from the above ...
+Using the SHA1 hash from the commit listed above ...
 
 Set: hash=hash_for("Added a Rakefile")
 Execute:
@@ -759,7 +1465,7 @@ git cat-file -p <hash>
 
 Here's my output ...
 
-Sample:
+Output:
 =type
 =dump
 EOF
@@ -768,18 +1474,15 @@ p(((((note). *NOTE:* If you defined the 'type' and 'dump' aliases from
 the aliases lab, then you can type @git type@ and @git dump@ rather
 than the longer cat-file commands (which I never remember).
 
-p(((((note). *ANOTHER* *NOTE:* You only have to type the first few
-letters in a hash.  Git will figure out what you mean.
-
 p. This is the dump of the commit object that is at the head of the
 master branch.  It looks a lot like the commit object from the
 presentation earlier.
 
 h3. Finding the Tree
-
+ 
 p. We can dump the directory tree referenced in the commit.  This
 should be a description of the (top level) files in our project (for
-that commit).
+that commit).  Use the SHA1 hash from the "tree" line listed above.
 
 Set: treehash=hash_in(var['hash'], 'tree')
 Execute:
@@ -788,30 +1491,33 @@ git cat-file -p <treehash>
 
 p. Here's what my tree looks like...
 
-Sample:
+Output:
 =treedump
 EOF
 
-p. Yep, I see the Rakefile and the lib directory.  Let's dive down
-into the lib directory...
+p. Yep, I see the Rakefile and the lib directory.  
 
+h3. Dumping the lib directory
+ 
 Set: libhash=hash_in(var['treehash'], 'lib') 
 Execute:
 git cat-file -p <libhash>
 =libdump
 
-Sample:
+Output:
 =libdump
 EOF
 
-p. There's the @hello.rb@ file.  Let's dump that ...
+p. There's the @hello.rb@ file. 
+ 
+h3. Dumping the @hello.rb@ file
 
 Set: rbhash=hash_in(var['libhash'], 'hello')
 Execute:
 git cat-file -p <rbhash>
 =rbdump
 
-Sample:
+Output:
 =rbdump
 EOF
 
@@ -827,6 +1533,12 @@ following the SHA1 hash references starting in the latest commit.
 
 ----------------------------------------------------------------------
 h1. Creating a Branch
+
+h2. Goals
+
+* Learn how to create a local branch in a repository
+
+h2. Steps
 
 p. It's time to do a major rewrite of the hello world functionality.
 Since this might take awhile, you want to put these changes into a
@@ -858,7 +1570,7 @@ EOF
 
 Execute:
 git add .
-git commit -m 'added greeter class'
+git commit -m 'Added greeter class'
 
 h3. Changes for Greet: Modify the main program
 
@@ -876,7 +1588,7 @@ EOF
 
 Execute:
 git add .
-git commit -m 'hello uses Greeter'
+git commit -m 'Hello uses Greeter'
 
 h3. Changes for Greet: Update the Rakefile
 
@@ -896,35 +1608,64 @@ Execute:
 git add .
 git commit -m 'Updated Rakefile'
 
+h3. Up Next
+
+p. We now have a new branch called *greet* with 3 new commits on it.
+Next we will learn who to navigate and switch between branches.
+
 ----------------------------------------------------------------------
 h1. Navigating Branches
+
+h2. Goals
+
+* Learn how to navigate between the branches of a repository
+
+h2. Steps
 
 p. You now have two branches in your project:
 
 Execute:
-git log --pretty=oneline --decorate --abbrev-commit 
+git hist --all
 =log
 
-You should see something like:
-
-Sample:
+Output:
 =log
 EOF
 
-h3. Switching Branches
+h3. Switch to the Master Branch
 
 p. Just use the @git checkout@ command to switch between branches. 
 
 Execute:
 git checkout master
+=checkout
 cat lib/hello.rb
+=cat
 
-p. You are now on the master branch.  Switch back to the greet branch.
+Output:
+=checkout
+=cat
+EOF
+
+p. You are now on the master branch.  You can tell because the
+hello.rb file doesn't use the @Greeter@ class.
+
+h3. Switch Back to the Greet Branch.
 
 Execute:
 git checkout greet
+=checkout2
 cat lib/hello.rb
- 
+=cat2
+
+Output:
+=checkout2
+=cat2
+EOF
+
+p. The contents of the @lib/hello.rb@ confirms we are back on the
+*greet* branch.
+
 ----------------------------------------------------------------------
 h1. Changes in Master
 
@@ -965,19 +1706,18 @@ p. We now have two diverging branches in the repository.  Use the
 following log command to view the branches and how they diverge.
 
 Execute:
-git log --pretty=oneline --abbrev-commit --graph --decorate --all
+git hist --all
 =log
 
-p. I get something like this:
-
-Sample:
+Output:
 =log
 EOF
 
-p. Adding the --graph option to git log causes it to draw the commit
-tree using simple ASCII characters.  We can see both branches (greet
-and master), and that the master branch is the current HEAD.  The
-common ancestor to both branches is the "Added a Rakefile" branch.
+p. Here is our first chance to see the --graph option on @git hist@ in
+action. Adding the --graph option to git log causes it to draw the
+commit tree using simple ASCII characters.  We can see both branches
+(greet and master), and that the master branch is the current HEAD.
+The common ancestor to both branches is the "Added a Rakefile" branch.
 
 p. The @--all@ flag makes sure that we see all the branches.  The
 default is to show only the current branch.
@@ -998,8 +1738,17 @@ to the greet branch and merge master onto greet.
 
 Execute:
 git checkout greet
+=checkout
 git merge master
-git log --pretty=oneline --decorate --abbrev-commit --graph --all
+=merge
+git hist --all
+=hist
+
+Output:
+=checkout
+=merge
+=hist
+EOF
 
 p. By merging master into your greet branch periodically, you can pick
 up any changes to master and keep your changes in greet compatible
@@ -1040,17 +1789,15 @@ EOF
 
 Execute:
 git add .
-git commit -m 'made interactive'
+git commit -m 'Made interactive'
 
 h3. View the Branches
 
 Execute:
-git log --pretty=oneline --decorate --abbrev-commit --graph --all
+git hist --all
 =log
 
-p. I get the following:
-
-Sample:
+Output:
 =log
 EOF
 
@@ -1080,9 +1827,7 @@ Execute:
 git checkout greet
 !git merge master
 
-p. I get...
-
-Sample:
+Output:
 $ git checkout greet
 Switched to branch 'greet'
 $ git merge master
@@ -1136,7 +1881,14 @@ h3. Commit the Conflict Resolution
 
 Execute:
 git add lib/hello.rb
+=add
 git commit -m 'Merged master fixed conflict.'
+=commit
+
+Output:
+=add
+=commit
+EOF
 
 h3. Advanced Merging
 
@@ -1159,17 +1911,8 @@ order to do so, we need to rewind the repository back in time before
 the first merge, and then redo the same steps, but using rebasing
 rather than merging.
 
-h3. But First, An Aside on the Reset command
-
-p. The reset command can be used to force any branch reference to
-point to any commit.  We will use this ability to make master and
-greet point to an earlier commit in their history, essentially
-rewinding them back in time.
-
-p. Note that the reset command does not change the commit tree in the
-repository.  All we are doing is pointing the branch to a different
-commit.  The old commit objects are still in the repository, but
-unreferenced.  Eventually they will be garbaged collected.
+p. We will make use the of the @reset@ command to wind the branches
+back in time.
 
 ----------------------------------------------------------------------
 h1. Reseting the Greet Branch
@@ -1191,12 +1934,10 @@ p. In this case we want to back greet up to the point prior to the
 merge with master.  We need to find the last commit before the merge.
 
 Execute:
-git log --pretty=oneline --abbrev-commit --graph --decorate
+git hist
 =log
 
-I see something like this:
-
-Sample:
+Output:
 =log
 EOF
 
@@ -1207,16 +1948,11 @@ before merging.  Let's reset the greet branch to that commit.
 Set: hash=hash_for("Updated Rakefile")
 Execute:
 git reset --hard <hash>
+=reset
 
-p. Make sure you substitute the proper hash value for "&lt;hash&gt;".
-Yours will most certainly be different from the ones listed here.
-
-p(((((note). *NOTE:* Resetting local branches is generally not a
-problem.  Reseting publicly shared branches is a bad idea.  (Discuss
-why this is a bad idea).
-
-p. The @--hard@ parameter makes sure the working directory is up to
-date with the change in the branch.
+Output:
+=reset
+EOF
 
 h3. Check the branch.
 
@@ -1224,13 +1960,11 @@ p. Look at the log for the greet branch.  We no longer have the merge
 commits in its history.
 
 Execute:
-git log --pretty=oneline --abbrev-commit --graph --decorate --all
-=log
+git hist --all
+=log2
 
-p. I see something like...
-
-Sample:
-=log
+Output:
+=log2
 EOF
 
 ----------------------------------------------------------------------
@@ -1240,34 +1974,39 @@ h2. Goals
 
 * Reset the master branch to the point before the conflicting commit.
 
+h2. Steps
+
 h3. Reset the master branch
 
-Let's backup the master branch to the point before we added the
-conflicting commit.
+When we added the interactive mode to the master branch, we made a
+change that conflicted with changes in the greed branch. Let's rewind
+the master branch to a point before the conflicting change.  This
+allows us to demonstrate the rebase command without worrying about
+conflicts.
 
 Execute:
 git checkout master
-git log --pretty=oneline --abbrev-commit --graph --decorate
+git hist
 =log
 
-Sample:
+Output:
 =log
 EOF
 
-p. Let's backup to the 'Added README' commit.
+p. The 'Added README' commit is the one directly before the
+conflicting interactive mode.  We will reset the master branch to
+'Added README' branch.
 
 Set: hash=hash_for("Added README")
 Execute:
 git reset --hard <hash>
-git log --pretty=oneline --abbrev-commit --graph --decorate --all
+git hist --all
 =log2
 
 p. Review the log.  It should look like the repository has been wound
 back in time to the point before we merged anything.
 
-p. I see ...
-
-Sample:
+Output:
 =log2
 EOF
 
@@ -1286,12 +2025,10 @@ changes in master into our greet branch.
 Execute:
 git checkout greet
 git rebase master
-git log --pretty=oneline --abbrev-commit --graph --decorate
+git hist
 =log
 
-p. I got this:
-
-Sample:
+Output:
 $ go greet
 Switched to branch 'greet'
 $
@@ -1339,9 +2076,7 @@ git checkout master
 git merge greet
 =merge
 
-p. Here's what I saw:
-
-Sample:
+Output:
 $ git checkout master
 Switched to branch 'master'
 $
@@ -1358,10 +2093,10 @@ p. There will never be conflicts in a fast forward merge.
 h3. Review the logs
 
 Execute:
-git log --pretty=oneline --abbrev-commit --graph --decorate
+git hist
 =log
 
-Sample:
+Output:
 =log
 EOF
 
@@ -1391,9 +2126,7 @@ git clone hello cloned_hello
 ls
 # (you should now see the 'cloned_hello' repository as well) 
 
-p. Here's what I saw ...
- 
-Sample:
+Output:
 $ cd ..
 $ pwd
 /Users/jim/Documents/Presentations/GitTutorial/dist/work
@@ -1418,12 +2151,10 @@ p. Let's take a look at the cloned repository.
 
 Execute:
 cd cloned_hello
-git log --pretty=oneline --abbrev-commit --graph --decorate --all
+git hist --all
 =log
 
-p. Here's what I saw ...
- 
-Sample:
+Output:
 $ cd cloned_hello/
 =log
 EOF
@@ -1449,7 +2180,7 @@ Execute:
 git remote
 =remote
 
-Sample:
+Output:
 =remote
 EOF
 
@@ -1460,9 +2191,7 @@ Execute:
 git remote show origin 
 =show
 
-p. This should look like
-
-Sample:
+Output:
 =show
 EOF
 
@@ -1488,7 +2217,7 @@ git branch
 
 p. You should get ...
 
-Sample:
+Output:
 =branch
 EOF
 
@@ -1506,7 +2235,7 @@ git branch -a
 
 p. You should get ...
 
-Sample:
+Output:
 =branch_a
 EOF
 
@@ -1567,7 +2296,7 @@ git fetch
 
 p. You should see ...
 
-Sample:
+Output:
 =fetch
 EOF
 
@@ -1580,7 +2309,7 @@ h3. Check the README
 Execute:
 cat README
 
-Sample:
+Output:
 $ cat README
 This is the Hello World example from the git tutorial.
 EOF
@@ -1602,7 +2331,7 @@ Execute:
 git merge origin/master
 =merge
 
-Sample:
+Output:
 =merge
 EOF
 
@@ -1613,7 +2342,7 @@ p. We should see the changes now.
 Execute:
 cat README
 
-Sample:
+Output:
 $ cat README
 This is the Hello World example from the git tutorial.
 (changed in original)
@@ -1701,10 +2430,10 @@ git branch --track greet origin/greet
 =branch_track
 git branch -a
 =branch_a
-git log --pretty=oneline --abbrev-commit --graph --decorate -n1
+git hist --max-count=1
 =log
 
-Sample:
+Output:
 =branch_track
 =branch_a
 =log
@@ -1762,7 +2491,7 @@ git fetch origin
 cat README
 =cat
 
-Sample:
+Output:
 =fetch
 =cat
 EOF
@@ -1798,7 +2527,7 @@ git clone --bare hello hello.git
 ls hello.git
 =ls
 
-Sample:
+Output:
 =clone
 =ls
 EOF
@@ -1832,7 +2561,7 @@ EOF
 Execute:
 git checkout master
 git add README
-git commit -m 'added shared comment to readme'
+git commit -m 'Added shared comment to readme'
 
 p. Now push the change to the shared repo.
 
@@ -1840,7 +2569,7 @@ Execute:
 git push shared master
 =push
 
-Sample:
+Output:
 =push
 EOF
 

@@ -16,13 +16,12 @@ module RunLabs
       output = `#{command.strip} 2>&1`
       @command_output = "$ #{command}#{output}"
       print output
-      puts "DBG: @command_output=#{@command_output.inspect}"
     end
   end
 
   def hash_for(pattern)
-    hash = `git log --pretty=oneline`.split(/\n/).grep(/#{pattern}/).first[0,8] rescue ""
-    fail "Invalid hash (#{hash}) for '#{pattern}'" unless hash =~ /^[0-9a-zA-Z]{8}$/
+    hash = `git log --pretty=oneline`.split(/\n/).grep(/#{pattern}/).first[0,7] rescue ""
+    fail "Invalid hash (#{hash}) for '#{pattern}'" unless hash =~ /^[0-9a-zA-Z]{7}$/
     hash
   end
   
@@ -31,7 +30,7 @@ module RunLabs
     line = lines.grep(/#{pattern}/).first || ""
     md = /[0-9a-zA-Z]{40}/.match(line)
     fail "No hash found for /#{pattern}/ while dumping '#{hash}'" if md.nil?
-    md[0][0,8]
+    md[0][0,7]
   end
   
   def run_labs(source, last_lab)

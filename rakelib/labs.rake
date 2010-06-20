@@ -67,8 +67,8 @@ module Labs
           labs[lab_index] << "p(filename). File: #{file_name}\n\n"
           gathered_line = "<pre class=\"file\">"
           mode = :file
-        elsif line =~ /^Sample:\s*$/
-          labs[lab_index] << "p(command). Sample:\n\n"
+        elsif line =~ /^Output:\s*$/
+          labs[lab_index] << "p(command). Output:\n\n"
           gathered_line = "<pre class=\"sample\">"
           mode = :file
         elsif line =~ /^Set: +\w+=.*$/
