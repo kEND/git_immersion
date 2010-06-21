@@ -110,10 +110,15 @@ directory SAMPLES_DIR
 
 desc "Run the labs automatically"
 task :run, [:last_lab] => [SAMPLES_DIR] do |t, args|
-  rm_r "auto" rescue nil
-  mkdir_p "auto"
-  open("src/labs.txt") do |lab_source|
-    Dir.chdir "auto"
-    RunLabs.run_labs(lab_source, args.last_lab)
+  begin
+    old_dir = Dir.pwd
+    rm_r "auto" rescue nil
+    mkdir_p "auto"
+    open("src/labs.txt") do |lab_source|
+      Dir.chdir "auto"
+      RunLabs.run_labs(lab_source, args.last_lab)
+    end
+  ensure
+    Dir.chdir(old_dir)
   end
 end
