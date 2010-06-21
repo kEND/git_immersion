@@ -21,7 +21,7 @@ end
 
 task :publish => [:not_dirty, :labs] do
   sh 'git checkout master'
-  head = `git log --pretty="%h" -n1`.trim
+  head = `git log --pretty="%h" -n1`.strip
   sh 'git checkout gh-pages'
   cp FileList['git_tutorial/html/*.html'], '.'
   sh 'git add .'
