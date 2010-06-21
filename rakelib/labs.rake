@@ -199,6 +199,7 @@ desc "Create the Lab HTML"
 task :labs => [Labs::HTML_DIR, "src/labs.txt", "rakelib/labs.rake"] do |t|
   cp "src/labs.css", "#{Labs::HTML_DIR}/labs.css"
   cp "src/edgecase.gif", "#{Labs::HTML_DIR}/edgecase.gif"
+  puts "Generating HTML"
   File.open("src/labs.txt") { |f| Labs.generate_labs(f) }
 end
 
