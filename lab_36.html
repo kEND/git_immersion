@@ -24,28 +24,33 @@
 	<li>Learn how to make copies of repositories.</li>
 </ul>
 <h2>Steps</h2>
-<h3>Create a clone of the hello repository</h3>
+<h3>Go to the work directory</h3>
 <p>Go to the working directory and make a clone of your hello repository.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">cd ..
 pwd
-# (you should be in the 'work' directory now) 
-ls
-# (you should see the 'hello' repository)  
-git clone hello cloned_hello
-ls
-# (you should now see the 'cloned_hello' repository as well) </pre>
+ls</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ cd ..
 $ pwd
-/Users/jim/Documents/Presentations/GitTutorial/dist/work
+/Users/jim/Documents/Presentations/git_immersion/auto
 $ ls
 hello
-$ git clone hello cloned_hello
-Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/cloned_hello/.git/
-$ ls
-cloned_hello	hello
 </pre>
+<p>At this point you should be in your &#8220;work&#8221; directory.  There should be a single repository here named &#8220;hello&#8221;.</p>
+<h3>Create a clone of the hello repository</h3>
+<p>Let&#8217;s make a clone of the repository.</p>
+<p class="command">Execute:</p>
+<pre class="instructions">git clone hello cloned_hello
+ls</pre>
+<p class="command">Output:</p>
+<pre class="sample">$ git clone hello cloned_hello
+Initialized empty Git repository in /Users/jim/Documents/Presentations/git_immersion/auto/cloned_hello/.git/
+$ ls
+cloned_hello
+hello
+</pre>
+<p>There should now be two repositories in your work directory: the original &#8220;hello&#8221; repository and the newly cloned &#8220;cloned_hello&#8221; repository.</p>
 </div>
 </div>
 <div id="footer">

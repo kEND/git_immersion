@@ -25,25 +25,21 @@
 </ul>
 <h2>Steps</h2>
 <h3>Reset the master branch</h3>
-<p>When we added the interactive mode to the master branch, we made a<br />
-change that conflicted with changes in the greed branch. Let&#8217;s rewind<br />
-the master branch to a point before the conflicting change.  This<br />
-allows us to demonstrate the rebase command without worrying about<br />
-conflicts.</p>
+<p>When we added the interactive mode to the master branch, we made a change that conflicted with changes in the greed branch. Let&#8217;s rewind the master branch to a point before the conflicting change.  This allows us to demonstrate the rebase command without worrying about conflicts.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git checkout master
 git hist</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-* 5456cbc - 2010-06-20 Made interactive (HEAD, master) [Jim Weirich]
-* 10f5258 - 2010-06-20 Added README [Jim Weirich]
-* c912f5d - 2010-06-20 Added a Rakefile. [Jim Weirich]
-* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
-* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
-* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
-* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
-* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
-* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+* baf1b8d - 2010-06-21 Made interactive (HEAD, master) [Jim Weirich]
+* 34375d8 - 2010-06-21 Added README [Jim Weirich]
+* 50ae3f5 - 2010-06-21 Added a Rakefile. [Jim Weirich]
+* 25d86b7 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
+* 40014be - 2010-06-21 Add an author/email comment [Jim Weirich]
+* 28cec91 - 2010-06-21 Added a comment (v1) [Jim Weirich]
+* f91f4af - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
+* e6d69ca - 2010-06-21 Using ARGV [Jim Weirich]
+* 31b3e1b - 2010-06-21 First Commit [Jim Weirich]</pre>
 <p>The &#8216;Added <span class="caps">README</span>&#8217; commit is the one directly before the conflicting interactive mode.  We will reset the master branch to &#8216;Added <span class="caps">README</span>&#8217; branch.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git reset --hard &lt;hash&gt;
@@ -51,18 +47,18 @@ git hist --all</pre>
 <p>Review the log.  It should look like the repository has been wound back in time to the point before we merged anything.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --all
-* 2e80a49 - 2010-06-20 Updated Rakefile (greet) [Jim Weirich]
-* 33bb025 - 2010-06-20 Hello uses Greeter [Jim Weirich]
-* 9d4bc89 - 2010-06-20 Added greeter class [Jim Weirich]
-| * 10f5258 - 2010-06-20 Added README (HEAD, master) [Jim Weirich]
+* 34375d8 - 2010-06-21 Added README (HEAD, master) [Jim Weirich]
+| * 3b31d65 - 2010-06-21 Updated Rakefile (greet) [Jim Weirich]
+| * ec733ae - 2010-06-21 Hello uses Greeter [Jim Weirich]
+| * 47df3bd - 2010-06-21 Added greeter class [Jim Weirich]
 |/  
-* c912f5d - 2010-06-20 Added a Rakefile. [Jim Weirich]
-* 3af42b0 - 2010-06-20 Moved hello.rb to lib [Jim Weirich]
-* 74cf292 - 2010-06-20 Add an author/email comment [Jim Weirich]
-* 20f2972 - 2010-06-20 Added a comment (v1) [Jim Weirich]
-* c69b1e9 - 2010-06-20 Added a default value (v1-beta) [Jim Weirich]
-* 9e65ccd - 2010-06-20 Using ARGV [Jim Weirich]
-* 5fb8ac7 - 2010-06-20 First Commit [Jim Weirich]</pre>
+* 50ae3f5 - 2010-06-21 Added a Rakefile. [Jim Weirich]
+* 25d86b7 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
+* 40014be - 2010-06-21 Add an author/email comment [Jim Weirich]
+* 28cec91 - 2010-06-21 Added a comment (v1) [Jim Weirich]
+* f91f4af - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
+* e6d69ca - 2010-06-21 Using ARGV [Jim Weirich]
+* 31b3e1b - 2010-06-21 First Commit [Jim Weirich]</pre>
 </div>
 </div>
 <div id="footer">
