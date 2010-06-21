@@ -1116,7 +1116,7 @@ p. Resets on local branches are generally safe.  Any "accidents" can
 usually be recovered from by just resetting again with the desired
 commit.
 
-p. However, if the branch is shared on remote repositories, reseting
+p. However, if the branch is shared on remote repositories, resetting
 can confuse other users sharing the branch.
 
 ----------------------------------------------------------------------
@@ -1214,7 +1214,7 @@ EOF
 
 p. We can see the original "author" commit is now gone, and it is
 replaced by the "author/email" commit.  You can achieve the same
-effect by reseting the branch back one commit and then recommitting
+effect by resetting the branch back one commit and then recommitting
 the new changes.
 
 ----------------------------------------------------------------------
