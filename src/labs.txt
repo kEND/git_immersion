@@ -1915,7 +1915,7 @@ p. We will make use the of the @reset@ command to wind the branches
 back in time.
 
 ----------------------------------------------------------------------
-h1. Reseting the Greet Branch
+h1. Resetting the Greet Branch
 
 h2. Goals
 
@@ -1968,7 +1968,7 @@ Output:
 EOF
 
 ----------------------------------------------------------------------
-h1. Reseting the Master Branch
+h1. Resetting the Master Branch
 
 h2. Goals
 
@@ -2247,8 +2247,6 @@ Execute:
 git branch
 =branch
 
-p. You should get ...
-
 Output:
 =branch
 EOF
@@ -2264,8 +2262,6 @@ p. Try this to see all the branches:
 Execute:
 git branch -a
 =branch_a
-
-p. You should get ...
 
 Output:
 =branch_a
@@ -2325,8 +2321,6 @@ cd ../cloned_hello
 +pwd
 git fetch
 =fetch
-
-p. You should see ...
 
 Output:
 =fetch
