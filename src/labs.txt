@@ -1978,7 +1978,7 @@ h2. Steps
 
 h3. Reset the master branch
 
-When we added the interactive mode to the master branch, we made a
+p. When we added the interactive mode to the master branch, we made a
 change that conflicted with changes in the greed branch. Let's rewind
 the master branch to a point before the conflicting change.  This
 allows us to demonstrate the rebase command without worrying about
@@ -2111,32 +2111,46 @@ h2. Goals
 
 h2. Steps
 
-h3. Create a clone of the hello repository
+h3. Go to the work directory
 
 p. Go to the working directory and make a clone of your hello
 repository.
 
 Execute:
 cd ..
+=cd
 pwd
-# (you should be in the 'work' directory now) 
+=pwd
 ls
-# (you should see the 'hello' repository)  
-git clone hello cloned_hello
-ls
-# (you should now see the 'cloned_hello' repository as well) 
+=ls
 
 Output:
-$ cd ..
-$ pwd
-/Users/jim/Documents/Presentations/GitTutorial/dist/work
-$ ls
-hello
-$ git clone hello cloned_hello
-Initialized empty Git repository in /Users/jim/Documents/Presentations/GitTutorial/dist/work/cloned_hello/.git/
-$ ls
-cloned_hello	hello
+=cd
+=pwd
+=ls
 EOF
+
+p. At this point you should be in your "work" directory.  There should
+be a single repository here named "hello".
+
+h3. Create a clone of the hello repository
+
+p. Let's make a clone of the repository.
+
+Execute:
+git clone hello cloned_hello
+=clone
+ls
+=ls2
+
+Output:
+=clone
+=ls2
+EOF
+
+p. There should now be two repositories in your work directory: the
+original "hello" repository and the newly cloned "cloned_hello"
+repository.
 
 ----------------------------------------------------------------------
 h1. Review the Cloned Repository
@@ -2151,19 +2165,37 @@ p. Let's take a look at the cloned repository.
 
 Execute:
 cd cloned_hello
+=cd
+ls
+=ls
+
+Output:
+=cd
+EOF
+
+p. You should see a list of all the files in the top level of the
+original repository (@README@, @Rakefile@ and @lib).
+
+
+h3. Review the Repository History
+
+Execute:
 git hist --all
 =log
 
 Output:
-$ cd cloned_hello/
 =log
 EOF
 
+p. You should now see a list of the all the commits in the new
+repository, and it should (more or less) match the history of commits
+in the original repository.  The only difference should be in the
+names of the branches.
+
 h3. Remote branches
 
-p. This is almost the same as the original hello repository.  However,
-not the list of branches on the "Updated Rakefile" line.  You have a
-*master* branch, but you also have number of strangely named branches
+p. You should see a *master* branch (along with *HEAD*) in the history
+list.  But you will also have number of strangely named branches
 (*origin/master*, *origin/greet* and *origin/HEAD*).  We'll talk about
 them in a bit.
 
