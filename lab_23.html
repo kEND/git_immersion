@@ -32,7 +32,7 @@
 <p>This should show the latest commit made in the repository.  The SHA1 hash on your system is probably different that what is on mine, but you should see something like this.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --max-count=1
-* 50ae3f5 - 2010-06-21 Added a Rakefile. (HEAD, master) [Jim Weirich]</pre>
+* 3a61e12 - 2010-06-21 Added a Rakefile. (HEAD, master) [Jim Weirich]</pre>
 <h3>Dumping the Latest Commit</h3>
 <p>Using the SHA1 hash from the commit listed above &#8230;</p>
 <p class="command">Execute:</p>
@@ -40,13 +40,13 @@
 git cat-file -p &lt;hash&gt;</pre>
 <p>Here&#8217;s my output &#8230;</p>
 <p class="command">Output:</p>
-<pre class="sample">$ git cat-file -t 50ae3f5
+<pre class="sample">$ git cat-file -t 3a61e12
 commit
-$ git cat-file -p 50ae3f5
+$ git cat-file -p 3a61e12
 tree 79c3801107f0327a4596fa1699a5e8a763ceab1b
-parent 25d86b7d146a160e2bbced8cf898fc818953f4d6
-author Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277120564 -0400
-committer Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277120564 -0400
+parent 09d04947d29593629867e99f0fd165f6d3c56aa3
+author Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277125302 -0400
+committer Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277125302 -0400
 
 Added a Rakefile.
 </pre>

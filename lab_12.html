@@ -31,10 +31,10 @@
 <p style="padding-left:4em;" class="note"><strong>Note:</strong> You did remember to define <code>hist</code> in your <code>.gitconfig</code> file, right?  If not, review the lab on aliases.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-* 28cec91 - 2010-06-21 Added a comment (HEAD, master) [Jim Weirich]
-* f91f4af - 2010-06-21 Added a default value [Jim Weirich]
-* e6d69ca - 2010-06-21 Using ARGV [Jim Weirich]
-* 31b3e1b - 2010-06-21 First Commit [Jim Weirich]</pre>
+* 080b535 - 2010-06-21 Added a comment (HEAD, master) [Jim Weirich]
+* d672b57 - 2010-06-21 Added a default value [Jim Weirich]
+* 79d38e5 - 2010-06-21 Using ARGV [Jim Weirich]
+* 1190e0d - 2010-06-21 First Commit [Jim Weirich]</pre>
 <p>Examine the log output and find the hash for the first commit.  It should be the last line of the <code>git hist</code> output.  Use that hash code (the first 8 characters is enough) in the command below.  Then check the contents of the hello.rb file.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git checkout &lt;hash&gt;
@@ -43,12 +43,12 @@ cat hello.rb</pre>
 <p style="padding-left:4em;" class="note"><strong>Note:</strong> Many commands depend on the hash values in the repository.  Since your hash values will vary from mine, whenever you see something like &lt;hash&gt; or &lt;treehash&gt; in the command, substitute in the proper hash value for your repository.</p>
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
-<pre class="sample">$ git checkout 31b3e1b
-Note: moving to '31b3e1b' which isn't a local branch
+<pre class="sample">$ git checkout 1190e0d
+Note: moving to '1190e0d' which isn't a local branch
 If you want to create a new branch from this checkout, you may do so
 (now or later) by using -b with the checkout command again. Example:
   git checkout -b &lt;new_branch_name&gt;
-HEAD is now at 31b3e1b... First Commit
+HEAD is now at 1190e0d... First Commit
 $ cat hello.rb
 puts "Hello, World"
 </pre>
@@ -60,7 +60,7 @@ cat hello.rb</pre>
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git checkout master
-Previous HEAD position was 31b3e1b... First Commit
+Previous HEAD position was 1190e0d... First Commit
 Switched to branch 'master'
 $ cat hello.rb
 # Default is "World"

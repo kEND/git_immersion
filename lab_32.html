@@ -18,7 +18,7 @@
 </div>
 <div id="main">
 <div id="content">
-<h1>Lab 32:  Reseting the Greet Branch</h1>
+<h1>Lab 32:  Resetting the Greet Branch</h1>
 <h2>Goals</h2>
 <ul>
 	<li>Reset the greet branch to the point before the first merge.</li>
@@ -31,30 +31,30 @@
 <pre class="instructions">git hist</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-*   97bb212 - 2010-06-21 Merged master fixed conflict. (HEAD, greet) [Jim Weirich]
+*   8b7f23f - 2010-06-21 Merged master fixed conflict. (HEAD, greet) [Jim Weirich]
 |\  
-| * baf1b8d - 2010-06-21 Made interactive (master) [Jim Weirich]
-* |   a7de200 - 2010-06-21 Merge branch 'master' into greet [Jim Weirich]
+| * c397473 - 2010-06-21 Made interactive (master) [Jim Weirich]
+* |   65a1731 - 2010-06-21 Merge branch 'master' into greet [Jim Weirich]
 |\ \  
 | |/  
-| * 34375d8 - 2010-06-21 Added README [Jim Weirich]
-* | 3b31d65 - 2010-06-21 Updated Rakefile [Jim Weirich]
-* | ec733ae - 2010-06-21 Hello uses Greeter [Jim Weirich]
-* | 47df3bd - 2010-06-21 Added greeter class [Jim Weirich]
+| * d0a15c2 - 2010-06-21 Added README [Jim Weirich]
+* | 818a5fd - 2010-06-21 Updated Rakefile [Jim Weirich]
+* | c3d28ce - 2010-06-21 Hello uses Greeter [Jim Weirich]
+* | f402810 - 2010-06-21 Added greeter class [Jim Weirich]
 |/  
-* 50ae3f5 - 2010-06-21 Added a Rakefile. [Jim Weirich]
-* 25d86b7 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
-* 40014be - 2010-06-21 Add an author/email comment [Jim Weirich]
-* 28cec91 - 2010-06-21 Added a comment (v1) [Jim Weirich]
-* f91f4af - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
-* e6d69ca - 2010-06-21 Using ARGV [Jim Weirich]
-* 31b3e1b - 2010-06-21 First Commit [Jim Weirich]</pre>
+* 3a61e12 - 2010-06-21 Added a Rakefile. [Jim Weirich]
+* 09d0494 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
+* 6b49322 - 2010-06-21 Add an author/email comment [Jim Weirich]
+* 080b535 - 2010-06-21 Added a comment (v1) [Jim Weirich]
+* d672b57 - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
+* 79d38e5 - 2010-06-21 Using ARGV [Jim Weirich]
+* 1190e0d - 2010-06-21 First Commit [Jim Weirich]</pre>
 <p>That&#8217;s a bit hard to read, but looking at the data we see that the &#8220;Updated Rakefile&#8221; commit was the last commit on the greet branch before merging.  Let&#8217;s reset the greet branch to that commit.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git reset --hard &lt;hash&gt;</pre>
 <p class="command">Output:</p>
-<pre class="sample">$ git reset --hard 3b31d65
-HEAD is now at 3b31d65 Updated Rakefile
+<pre class="sample">$ git reset --hard 818a5fd
+HEAD is now at 818a5fd Updated Rakefile
 </pre>
 <h3>Check the branch.</h3>
 <p>Look at the log for the greet branch.  We no longer have the merge commits in its history.</p>
@@ -62,19 +62,19 @@ HEAD is now at 3b31d65 Updated Rakefile
 <pre class="instructions">git hist --all</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --all
-* baf1b8d - 2010-06-21 Made interactive (master) [Jim Weirich]
-* 34375d8 - 2010-06-21 Added README [Jim Weirich]
-| * 3b31d65 - 2010-06-21 Updated Rakefile (HEAD, greet) [Jim Weirich]
-| * ec733ae - 2010-06-21 Hello uses Greeter [Jim Weirich]
-| * 47df3bd - 2010-06-21 Added greeter class [Jim Weirich]
+* 818a5fd - 2010-06-21 Updated Rakefile (HEAD, greet) [Jim Weirich]
+* c3d28ce - 2010-06-21 Hello uses Greeter [Jim Weirich]
+* f402810 - 2010-06-21 Added greeter class [Jim Weirich]
+| * c397473 - 2010-06-21 Made interactive (master) [Jim Weirich]
+| * d0a15c2 - 2010-06-21 Added README [Jim Weirich]
 |/  
-* 50ae3f5 - 2010-06-21 Added a Rakefile. [Jim Weirich]
-* 25d86b7 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
-* 40014be - 2010-06-21 Add an author/email comment [Jim Weirich]
-* 28cec91 - 2010-06-21 Added a comment (v1) [Jim Weirich]
-* f91f4af - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
-* e6d69ca - 2010-06-21 Using ARGV [Jim Weirich]
-* 31b3e1b - 2010-06-21 First Commit [Jim Weirich]</pre>
+* 3a61e12 - 2010-06-21 Added a Rakefile. [Jim Weirich]
+* 09d0494 - 2010-06-21 Moved hello.rb to lib [Jim Weirich]
+* 6b49322 - 2010-06-21 Add an author/email comment [Jim Weirich]
+* 080b535 - 2010-06-21 Added a comment (v1) [Jim Weirich]
+* d672b57 - 2010-06-21 Added a default value (v1-beta) [Jim Weirich]
+* 79d38e5 - 2010-06-21 Using ARGV [Jim Weirich]
+* 1190e0d - 2010-06-21 First Commit [Jim Weirich]</pre>
 </div>
 </div>
 <div id="footer">
