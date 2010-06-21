@@ -30,18 +30,18 @@
 <pre class="instructions">git hist --all</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --all
-* 6fe71ad 2010-06-21 | Updated Rakefile (greet) [Jim Weirich]
-* 086d24e 2010-06-21 | Hello uses Greeter [Jim Weirich]
-* ef49107 2010-06-21 | Added greeter class [Jim Weirich]
-| * f5019e3 2010-06-21 | Added README (HEAD, master) [Jim Weirich]
+* f396c14 2010-06-21 | Added README (HEAD, master) [Jim Weirich]
+| * 1b2b22d 2010-06-21 | Updated Rakefile (greet) [Jim Weirich]
+| * 8cc8712 2010-06-21 | Hello uses Greeter [Jim Weirich]
+| * 5563881 2010-06-21 | Added greeter class [Jim Weirich]
 |/  
-* a11330b 2010-06-21 | Added a Rakefile. [Jim Weirich]
-* a9bf23c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
-* a9cd2bf 2010-06-21 | Add an author/email comment [Jim Weirich]
-* 4fbdc1a 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 5e3a072 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 09616c1 2010-06-21 | Using ARGV [Jim Weirich]
-* 755c045 2010-06-21 | First Commit [Jim Weirich]</pre>
+* 8547b5f 2010-06-21 | Added a Rakefile. [Jim Weirich]
+* c2ad33c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
+* 2ae006e 2010-06-21 | Add an author/email comment [Jim Weirich]
+* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
+* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
+* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
+* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
 <p>Here is our first chance to see the &#8212;graph option on <code>git hist</code> in action. Adding the &#8212;graph option to git log causes it to draw the commit tree using simple <span class="caps">ASCII</span> characters.  We can see both branches (greet and master), and that the master branch is the current <span class="caps">HEAD</span>. The common ancestor to both branches is the &#8220;Added a Rakefile&#8221; branch.</p>
 <p>The <code>--all</code> flag makes sure that we see all the branches.  The default is to show only the current branch.</p>
 </div>
