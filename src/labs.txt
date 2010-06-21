@@ -518,7 +518,7 @@ p. Over time, I've decided that I like the following log format for
 most of my work.
 
 Execute:
-git log --pretty=format:"%h - %ad %s%d [%an]" --graph --date=short
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
 =ultimate
 
 It looks like this:
@@ -568,7 +568,7 @@ file: .gitconfig
   ci = commit
   st = status
   br = branch
- hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
 EOF
