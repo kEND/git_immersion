@@ -37,16 +37,18 @@ sh: cls: command not found
 <pre class="instructions">ls -C .git/objects</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ ls -C .git/objects
-08	0c	24	3a	49	57	69	78	8e	9c	af	dc	info
-09	11	27	43	4a	59	6b	79	97	a2	d6	ec	pack
+09	27	57	6b	97	a9	ea
+11	43	59	75	9c	af	ec
+12	49	5e	78	a1	dc	info
+24	4f	69	79	a2	df	pack
 </pre>
 <p>You should see a bunch of directories with 2 letter names.  The directory names are the first two letters of the sha1 hash of the object stored in git.</p>
 <h3>Deeper into the Object Store</h3>
 <p class="command">Execute:</p>
 <pre class="instructions">ls -C .git/objects/&lt;dir&gt;</pre>
 <p class="command">Output:</p>
-<pre class="sample">$ ls -C .git/objects/08
-0b5356da38de8f20c6fc6dad0d766d950174dd
+<pre class="sample">$ ls -C .git/objects/09
+616c1021658bb4810212b8e1a9f9f3c88b0f66
 </pre>
 <p>Look in one of the two-letter directories.  You should see some files with 38 character names.  These are the files that contain the objects stored in git.  These files are compressed and encoded, so looking at their contents directly won&#8217;t be very helpful, but we will take a closer look in a bit.</p>
 <h3>Config File</h3>
@@ -78,7 +80,7 @@ $ ls .git/refs/tags
 v1
 v1-beta
 $ cat .git/refs/tags/v1
-080b5356da38de8f20c6fc6dad0d766d950174dd
+4fbdc1a57a645e4da9619590b2802310c80420a4
 </pre>
 <p>You should recogize the files in the tags subdirectory.  Each file corresponds to a tag you created with the <code>git tag</code> command earlier. It&#8217;s content is just the hash of the commit tied to the tag.</p>
 <p>The heads directory is similar, but is used for branches rather than tags.  We only have one branch at the moment, so all you will see is master in this directory.</p>

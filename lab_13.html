@@ -40,7 +40,7 @@ Note: moving to 'v1^' which isn't a local branch
 If you want to create a new branch from this checkout, you may do so
 (now or later) by using -b with the checkout command again. Example:
   git checkout -b &lt;new_branch_name&gt;
-HEAD is now at d672b57... Added a default value
+HEAD is now at 5e3a072... Added a default value
 $ cat hello.rb
 name = ARGV.first || "World"
 
@@ -56,11 +56,11 @@ puts "Hello, #{name}!"
 git checkout v1-beta</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git checkout v1
-Previous HEAD position was d672b57... Added a default value
-HEAD is now at 080b535... Added a comment
+Previous HEAD position was 5e3a072... Added a default value
+HEAD is now at 4fbdc1a... Added a comment
 $ git checkout v1-beta
-Previous HEAD position was 080b535... Added a comment
-HEAD is now at d672b57... Added a default value
+Previous HEAD position was 4fbdc1a... Added a comment
+HEAD is now at 5e3a072... Added a default value
 </pre>
 <h3>Viewing Tags using the <code>tag</code> command</h3>
 <p>You can see what tags are available using the <code>git tag</code> command.</p>
@@ -77,10 +77,10 @@ v1-beta
 <pre class="instructions">git hist master --all</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist master --all
-* 080b535 - 2010-06-21 Added a comment (v1, master) [Jim Weirich]
-* d672b57 - 2010-06-21 Added a default value (HEAD, v1-beta) [Jim Weirich]
-* 79d38e5 - 2010-06-21 Using ARGV [Jim Weirich]
-* 1190e0d - 2010-06-21 First Commit [Jim Weirich]</pre>
+* 4fbdc1a 2010-06-21 | Added a comment (v1, master) [Jim Weirich]
+* 5e3a072 2010-06-21 | Added a default value (HEAD, v1-beta) [Jim Weirich]
+* 09616c1 2010-06-21 | Using ARGV [Jim Weirich]
+* 755c045 2010-06-21 | First Commit [Jim Weirich]</pre>
 <p>You can see both tags (<code>v1</code> and <code>v1-beta</code>) listed in the log output, along with the branch name (<code>master</code>).  Also <code>HEAD</code> shows you the currently checked out commit (which is <code>v1-beta</code> at the moment).</p>
 </div>
 </div>
