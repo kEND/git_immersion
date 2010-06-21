@@ -19,7 +19,7 @@ task :not_dirty do
   fail "Directory not clean" if /nothing to commit/ !~ `git status`
 end
 
-task :publish => [:not_dirty, :labs] do
+task :publish => [:not_dirty, :run, :labs] do
   sh 'git checkout master'
   head = `git log --pretty="%h" -n1`.strip
   sh 'git checkout gh-pages'
