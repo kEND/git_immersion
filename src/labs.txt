@@ -1331,7 +1331,7 @@ p. Time to do some exploring.  First, from the root of your project
 directory...
 
 Execute:
-cls -C .git
+ls -C .git
 =lsgit
 
 Output:
