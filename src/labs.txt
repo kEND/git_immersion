@@ -1979,7 +1979,7 @@ h2. Steps
 h3. Reset the master branch
 
 p. When we added the interactive mode to the master branch, we made a
-change that conflicted with changes in the greed branch. Let's rewind
+change that conflicted with changes in the greet branch. Let's rewind
 the master branch to a point before the conflicting change.  This
 allows us to demonstrate the rebase command without worrying about
 conflicts.
