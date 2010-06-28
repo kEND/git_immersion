@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_34.html">Next Lab</a></li>
 <li><a href="lab_32.html">Previous Lab</a></li>
+<li><a href="lab_34.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -31,15 +31,15 @@
 git hist</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-* 936c45f 2010-06-21 | Made interactive (HEAD, master) [Jim Weirich]
-* f396c14 2010-06-21 | Added README [Jim Weirich]
-* 8547b5f 2010-06-21 | Added a Rakefile. [Jim Weirich]
-* c2ad33c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
-* 2ae006e 2010-06-21 | Add an author/email comment [Jim Weirich]
-* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* 3b83d00 2010-06-27 | Made interactive (HEAD, master) [Ken Barker]
+* 8116f9d 2010-06-27 | Added README [Ken Barker]
+* b1719f1 2010-06-27 | Added a Rakefile. [Ken Barker]
+* 353a83b 2010-06-27 | Moved hello.rb to lib [Ken Barker]
+* 15a2f1e 2010-06-27 | Add an author/email comment [Ken Barker]
+* 883c33e 2010-06-27 | Added a comment (v1) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value (v1-beta) [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 <p>The &#8216;Added <span class="caps">README</span>&#8217; commit is the one directly before the conflicting interactive mode.  We will reset the master branch to &#8216;Added <span class="caps">README</span>&#8217; branch.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git reset --hard &lt;hash&gt;
@@ -47,25 +47,25 @@ git hist --all</pre>
 <p>Review the log.  It should look like the repository has been wound back in time to the point before we merged anything.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --all
-* f396c14 2010-06-21 | Added README (HEAD, master) [Jim Weirich]
-| * 1b2b22d 2010-06-21 | Updated Rakefile (greet) [Jim Weirich]
-| * 8cc8712 2010-06-21 | Hello uses Greeter [Jim Weirich]
-| * 5563881 2010-06-21 | Added greeter class [Jim Weirich]
+* 8116f9d 2010-06-27 | Added README (HEAD, master) [Ken Barker]
+| * f804b09 2010-06-27 | Updated Rakefile (greet) [Ken Barker]
+| * e85c572 2010-06-27 | Hello uses Greeter [Ken Barker]
+| * 4258a32 2010-06-27 | Added greeter class [Ken Barker]
 |/  
-* 8547b5f 2010-06-21 | Added a Rakefile. [Jim Weirich]
-* c2ad33c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
-* 2ae006e 2010-06-21 | Add an author/email comment [Jim Weirich]
-* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* b1719f1 2010-06-27 | Added a Rakefile. [Ken Barker]
+* 353a83b 2010-06-27 | Moved hello.rb to lib [Ken Barker]
+* 15a2f1e 2010-06-27 | Add an author/email comment [Ken Barker]
+* 883c33e 2010-06-27 | Added a comment (v1) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value (v1-beta) [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 </div>
 </div>
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_34.html">Next Lab</a></li>
 <li><a href="lab_32.html">Previous Lab</a></li>
+<li><a href="lab_34.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>

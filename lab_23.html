@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_24.html">Next Lab</a></li>
 <li><a href="lab_22.html">Previous Lab</a></li>
+<li><a href="lab_24.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -32,7 +32,7 @@
 <p>This should show the latest commit made in the repository.  The SHA1 hash on your system is probably different that what is on mine, but you should see something like this.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --max-count=1
-* 8547b5f 2010-06-21 | Added a Rakefile. (HEAD, master) [Jim Weirich]</pre>
+* b1719f1 2010-06-27 | Added a Rakefile. (HEAD, master) [Ken Barker]</pre>
 <h3>Dumping the Latest Commit</h3>
 <p>Using the SHA1 hash from the commit listed above &#8230;</p>
 <p class="command">Execute:</p>
@@ -40,13 +40,13 @@
 git cat-file -p &lt;hash&gt;</pre>
 <p>Here&#8217;s my output &#8230;</p>
 <p class="command">Output:</p>
-<pre class="sample">$ git cat-file -t 8547b5f
+<pre class="sample">$ git cat-file -t b1719f1
 commit
-$ git cat-file -p 8547b5f
+$ git cat-file -p b1719f1
 tree 79c3801107f0327a4596fa1699a5e8a763ceab1b
-parent c2ad33cc779ce13ebefbe3adb74dd8fc89a1b90a
-author Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277130576 -0400
-committer Jim Weirich &lt;jim.weirich@gmail.com&gt; 1277130576 -0400
+parent 353a83bbc284beb6be31a3fcc9535a8a93b4526d
+author Ken Barker &lt;ken@theedgecase.com&gt; 1277694374 -0400
+committer Ken Barker &lt;ken@theedgecase.com&gt; 1277694374 -0400
 
 Added a Rakefile.
 </pre>
@@ -90,8 +90,8 @@ puts "Hello, #{name}!"
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_24.html">Next Lab</a></li>
 <li><a href="lab_22.html">Previous Lab</a></li>
+<li><a href="lab_24.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>

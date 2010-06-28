@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_33.html">Next Lab</a></li>
 <li><a href="lab_31.html">Previous Lab</a></li>
+<li><a href="lab_33.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -31,30 +31,30 @@
 <pre class="instructions">git hist</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-*   cf2b29c 2010-06-21 | Merged master fixed conflict. (HEAD, greet) [Jim Weirich]
+*   c15a40a 2010-06-27 | Merged master fixed conflict. (HEAD, greet) [Ken Barker]
 |\  
-| * 936c45f 2010-06-21 | Made interactive (master) [Jim Weirich]
-* |   247fc6f 2010-06-21 | Merge branch 'master' into greet [Jim Weirich]
+| * 3b83d00 2010-06-27 | Made interactive (master) [Ken Barker]
+* |   5d03e99 2010-06-27 | Merge branch 'master' into greet [Ken Barker]
 |\ \  
 | |/  
-| * f396c14 2010-06-21 | Added README [Jim Weirich]
-* | 1b2b22d 2010-06-21 | Updated Rakefile [Jim Weirich]
-* | 8cc8712 2010-06-21 | Hello uses Greeter [Jim Weirich]
-* | 5563881 2010-06-21 | Added greeter class [Jim Weirich]
+| * 8116f9d 2010-06-27 | Added README [Ken Barker]
+* | f804b09 2010-06-27 | Updated Rakefile [Ken Barker]
+* | e85c572 2010-06-27 | Hello uses Greeter [Ken Barker]
+* | 4258a32 2010-06-27 | Added greeter class [Ken Barker]
 |/  
-* 8547b5f 2010-06-21 | Added a Rakefile. [Jim Weirich]
-* c2ad33c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
-* 2ae006e 2010-06-21 | Add an author/email comment [Jim Weirich]
-* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* b1719f1 2010-06-27 | Added a Rakefile. [Ken Barker]
+* 353a83b 2010-06-27 | Moved hello.rb to lib [Ken Barker]
+* 15a2f1e 2010-06-27 | Add an author/email comment [Ken Barker]
+* 883c33e 2010-06-27 | Added a comment (v1) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value (v1-beta) [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 <p>That&#8217;s a bit hard to read, but looking at the data we see that the &#8220;Updated Rakefile&#8221; commit was the last commit on the greet branch before merging.  Let&#8217;s reset the greet branch to that commit.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git reset --hard &lt;hash&gt;</pre>
 <p class="command">Output:</p>
-<pre class="sample">$ git reset --hard 1b2b22d
-HEAD is now at 1b2b22d Updated Rakefile
+<pre class="sample">$ git reset --hard f804b09
+HEAD is now at f804b09 Updated Rakefile
 </pre>
 <h3>Check the branch.</h3>
 <p>Look at the log for the greet branch.  We no longer have the merge commits in its history.</p>
@@ -62,26 +62,26 @@ HEAD is now at 1b2b22d Updated Rakefile
 <pre class="instructions">git hist --all</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist --all
-* 936c45f 2010-06-21 | Made interactive (master) [Jim Weirich]
-* f396c14 2010-06-21 | Added README [Jim Weirich]
-| * 1b2b22d 2010-06-21 | Updated Rakefile (HEAD, greet) [Jim Weirich]
-| * 8cc8712 2010-06-21 | Hello uses Greeter [Jim Weirich]
-| * 5563881 2010-06-21 | Added greeter class [Jim Weirich]
+* 3b83d00 2010-06-27 | Made interactive (master) [Ken Barker]
+* 8116f9d 2010-06-27 | Added README [Ken Barker]
+| * f804b09 2010-06-27 | Updated Rakefile (HEAD, greet) [Ken Barker]
+| * e85c572 2010-06-27 | Hello uses Greeter [Ken Barker]
+| * 4258a32 2010-06-27 | Added greeter class [Ken Barker]
 |/  
-* 8547b5f 2010-06-21 | Added a Rakefile. [Jim Weirich]
-* c2ad33c 2010-06-21 | Moved hello.rb to lib [Jim Weirich]
-* 2ae006e 2010-06-21 | Add an author/email comment [Jim Weirich]
-* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* b1719f1 2010-06-27 | Added a Rakefile. [Ken Barker]
+* 353a83b 2010-06-27 | Moved hello.rb to lib [Ken Barker]
+* 15a2f1e 2010-06-27 | Add an author/email comment [Ken Barker]
+* 883c33e 2010-06-27 | Added a comment (v1) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value (v1-beta) [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 </div>
 </div>
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_33.html">Next Lab</a></li>
 <li><a href="lab_31.html">Previous Lab</a></li>
+<li><a href="lab_33.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>

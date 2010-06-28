@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_11.html">Next Lab</a></li>
 <li><a href="lab_09.html">Previous Lab</a></li>
+<li><a href="lab_11.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -30,27 +30,27 @@
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git log
-commit 7c5f85f22fbfc1702df37864004f378d7c2f9925
-Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
-Date:   Mon Jun 21 10:29:33 2010 -0400
+commit 883c33e7c96b6b6364d2c6bdc17f5f3f15d52c3a
+Author: Ken Barker &lt;ken@theedgecase.com&gt;
+Date:   Sun Jun 27 23:06:13 2010 -0400
 
     Added a comment
 
-commit 7d21264ef12a32bf38d71750a540331317917cd5
-Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
-Date:   Mon Jun 21 10:29:33 2010 -0400
+commit 6bc30eaa2c264d1031739c9848ea6267bdd31997
+Author: Ken Barker &lt;ken@theedgecase.com&gt;
+Date:   Sun Jun 27 23:06:13 2010 -0400
 
     Added a default value
 
-commit 46d1c1719b8f18c34ea6db374b76214081a57599
-Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
-Date:   Mon Jun 21 10:29:33 2010 -0400
+commit e0572c6385ed0054d18d1030899e7440f5dc28e4
+Author: Ken Barker &lt;ken@theedgecase.com&gt;
+Date:   Sun Jun 27 23:06:13 2010 -0400
 
     Using ARGV
 
-commit c97dcf37e2945e4b413776dea2c660594b1ac9e8
-Author: Jim Weirich &lt;jim.weirich@gmail.com&gt;
-Date:   Mon Jun 21 10:29:32 2010 -0400
+commit 631b6f1dad0dcec55e4824dd640fe9f647094672
+Author: Ken Barker &lt;ken@theedgecase.com&gt;
+Date:   Sun Jun 27 23:06:13 2010 -0400
 
     First Commit
 </pre>
@@ -62,10 +62,10 @@ Date:   Mon Jun 21 10:29:32 2010 -0400
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git log --pretty=oneline
-7c5f85f22fbfc1702df37864004f378d7c2f9925 Added a comment
-7d21264ef12a32bf38d71750a540331317917cd5 Added a default value
-46d1c1719b8f18c34ea6db374b76214081a57599 Using ARGV
-c97dcf37e2945e4b413776dea2c660594b1ac9e8 First Commit
+883c33e7c96b6b6364d2c6bdc17f5f3f15d52c3a Added a comment
+6bc30eaa2c264d1031739c9848ea6267bdd31997 Added a default value
+e0572c6385ed0054d18d1030899e7440f5dc28e4 Using ARGV
+631b6f1dad0dcec55e4824dd640fe9f647094672 First Commit
 </pre>
 <h3>Controlling Which Entries are Displayed</h3>
 <p>There are a lot of options for selecting which entries are displayed in the log.  Play around with the following options:</p>
@@ -85,10 +85,10 @@ git log --pretty=oneline --all</pre>
 <p>It looks like this:</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-* 7c5f85f 2010-06-21 | Added a comment (HEAD, master) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* 883c33e 2010-06-27 | Added a comment (HEAD, master) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 <p>Let&#8217;s look at it in detail:</p>
 <ul>
 	<li><code>--pretty="..."</code> defines the format of the output.</li>
@@ -108,8 +108,8 @@ git log --pretty=oneline --all</pre>
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_11.html">Next Lab</a></li>
 <li><a href="lab_09.html">Previous Lab</a></li>
+<li><a href="lab_11.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>

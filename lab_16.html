@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_17.html">Next Lab</a></li>
 <li><a href="lab_15.html">Previous Lab</a></li>
+<li><a href="lab_17.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -46,7 +46,7 @@ git commit -m "Oops, we didn't want this commit"</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git revert head --no-edit
 Finished one revert.
-[master 9958a9f] Revert "Oops, we didn't want this commit"
+[master 7486c5a] Revert "Oops, we didn't want this commit"
  1 files changed, 1 insertions(+), 1 deletions(-)
 </pre>
 <p>Since we were undoing the very last commit we made We were able to use <code>head</code> as the argument to revert.  We can revert any arbitrary commit earlier in history by simply specifying its hash value.</p>
@@ -56,12 +56,12 @@ Finished one revert.
 <pre class="instructions">git hist</pre>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-* 9958a9f 2010-06-21 | Revert "Oops, we didn't want this commit" (HEAD, master) [Jim Weirich]
-* 9c80344 2010-06-21 | Oops, we didn't want this commit [Jim Weirich]
-* 7c5f85f 2010-06-21 | Added a comment (v1) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value (v1-beta) [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* 7486c5a 2010-06-27 | Revert "Oops, we didn't want this commit" (HEAD, master) [Ken Barker]
+* 0ba424c 2010-06-27 | Oops, we didn't want this commit [Ken Barker]
+* 883c33e 2010-06-27 | Added a comment (v1) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value (v1-beta) [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 <p>This technique will work with any commit (although you may have to resolve conflicts).  It is safe to use even on branches that are publicly shared on remote repositories.</p>
 <h3>Up Next</h3>
 <p>Next, let&#8217;s look at a technique that can be used to remove the most recent commits from the repository history.</p>
@@ -70,8 +70,8 @@ Finished one revert.
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_17.html">Next Lab</a></li>
 <li><a href="lab_15.html">Previous Lab</a></li>
+<li><a href="lab_17.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>

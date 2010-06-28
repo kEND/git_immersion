@@ -10,8 +10,8 @@
 <div class="title">Git Immersion Labs</div>
 <div class="nav">
 <ul>
-<li><a href="lab_13.html">Next Lab</a></li>
 <li><a href="lab_11.html">Previous Lab</a></li>
+<li><a href="lab_13.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
@@ -31,10 +31,10 @@
 <p style="padding-left:4em;" class="note"><strong>Note:</strong> You did remember to define <code>hist</code> in your <code>.gitconfig</code> file, right?  If not, review the lab on aliases.</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git hist
-* 7c5f85f 2010-06-21 | Added a comment (HEAD, master) [Jim Weirich]
-* 7d21264 2010-06-21 | Added a default value [Jim Weirich]
-* 46d1c17 2010-06-21 | Using ARGV [Jim Weirich]
-* c97dcf3 2010-06-21 | First Commit [Jim Weirich]</pre>
+* 883c33e 2010-06-27 | Added a comment (HEAD, master) [Ken Barker]
+* 6bc30ea 2010-06-27 | Added a default value [Ken Barker]
+* e0572c6 2010-06-27 | Using ARGV [Ken Barker]
+* 631b6f1 2010-06-27 | First Commit [Ken Barker]</pre>
 <p>Examine the log output and find the hash for the first commit.  It should be the last line of the <code>git hist</code> output.  Use that hash code (the first 8 characters is enough) in the command below.  Then check the contents of the hello.rb file.</p>
 <p class="command">Execute:</p>
 <pre class="instructions">git checkout &lt;hash&gt;
@@ -43,12 +43,19 @@ cat hello.rb</pre>
 <p style="padding-left:4em;" class="note"><strong>Note:</strong> Many commands depend on the hash values in the repository.  Since your hash values will vary from mine, whenever you see something like &lt;hash&gt; or &lt;treehash&gt; in the command, substitute in the proper hash value for your repository.</p>
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
-<pre class="sample">$ git checkout c97dcf3
-Note: moving to 'c97dcf3' which isn't a local branch
-If you want to create a new branch from this checkout, you may do so
-(now or later) by using -b with the checkout command again. Example:
-  git checkout -b &lt;new_branch_name&gt;
-HEAD is now at c97dcf3... First Commit
+<pre class="sample">$ git checkout 631b6f1
+Note: checking out '631b6f1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at 631b6f1... First Commit
 $ cat hello.rb
 puts "Hello, World"
 </pre>
@@ -60,7 +67,7 @@ cat hello.rb</pre>
 <p>You should see &#8230;</p>
 <p class="command">Output:</p>
 <pre class="sample">$ git checkout master
-Previous HEAD position was c97dcf3... First Commit
+Previous HEAD position was 631b6f1... First Commit
 Switched to branch 'master'
 $ cat hello.rb
 # Default is "World"
@@ -74,8 +81,8 @@ puts "Hello, #{name}!"
 <div id="footer">
 <div class="nav">
 <ul>
-<li><a href="lab_13.html">Next Lab</a></li>
 <li><a href="lab_11.html">Previous Lab</a></li>
+<li><a href="lab_13.html">Next Lab</a></li>
 <li><a href="index.html">Index</a></li>
 </ul>
 </div>
