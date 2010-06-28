@@ -1611,7 +1611,7 @@ git commit -m 'Updated Rakefile'
 h3. Up Next
 
 p. We now have a new branch called *greet* with 3 new commits on it.
-Next we will learn who to navigate and switch between branches.
+Next we will learn how to navigate and switch between branches.
 
 ----------------------------------------------------------------------
 h1. Navigating Branches
